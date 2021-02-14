@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="center-align">Register</h3>
+    
+    <div class="row">
+        <form class="col s8 m6 offset-m3" method="POST" action="{{ url_for('sign_in') }}">
+            <div class="card-panel">
+                <!-- username -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="username" name="username" type="text" class="validate" required>
+                        <label for="username">Username</label>
+                    </div>
+                </div>
+                <!-- password -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">lock</i>
+                        <input id="password" name="password" type="password" class="validate" required>
+                        <label for="password">Password</label>
+                    </div>
+                </div>
+                <!-- confirm password -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">lock</i>
+                        <input id="password2" name="password2" type="password" class="validate" required>
+                        <label for="password2">Confirm Password</label>
+                    </div>
+                </div>
+                <!-- email -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">email</i>
+                        <input id="email" name="email" type="email" class="validate" required>
+                        <label for="email">Email</label>
+                    </div>
+                </div>
+                <!-- country -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">flag</i>
+                        <select>
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="" disabled selected>Choose your option</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                            <option value="1">Option 1</option>
+                            <option value="2">Option 2</option>
+                            <option value="3">Option 3</option>
+                        </select>
+                        <label>Materialize Select</label>
+                    </div>
+                </div>
+                <!-- sign in -->
+                <div class="row">
+                    <button type="submit" class="col s12 btn-large light-blue darken-4 text-shadow" required>
+                        Register <i class="fas fa-sign-in-alt"></i>
+                    </button>
+                </div>
+                <div class="row">
+                    <div class="center-align">
+                        <span>Already have an account? <a href="{{ url_for('sign_in') }}">Sign In</a></span>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}
