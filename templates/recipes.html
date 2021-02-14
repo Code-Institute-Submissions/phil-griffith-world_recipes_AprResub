@@ -2,7 +2,7 @@
 {% block content %}
 
     {% for recipe in recipes  %}
-        <img src="{{ recipe.image_url }}" alt=""> <br>
+        <img src="{{ recipe.image_url }}" alt="" width="200"> <br>
         {{ recipe.recipe_name }} <br>
         Time required {{ recipe.preparation_time }} minutes <br>
         Vegetarian {{ recipe.vegetarian }} <br>

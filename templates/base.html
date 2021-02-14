@@ -23,8 +23,8 @@
                 <ul class="right hide-on-med-and-down">
                     <li><a href="sass.html">Home</a></li>
                     <li><a href="badges.html">About</a></li>
-                    <li><a href="collapsible.html">Recipes</a></li>
-                    <li><a href="mobile.html">Sign in / Register</a></li>
+                    <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
+                    <li><a href="{{ url_for('sign_in') }}">Sign in / Register</a></li>
                 </ul>
             </div>
         </nav>
@@ -33,8 +33,8 @@
         <ul class="sidenav" id="mobile-demo">
             <li><a href="sass.html">Home</a></li>
             <li><a href="badges.html">About</a></li>
-            <li><a href="collapsible.html">Recipes</a></li>
-            <li><a href="mobile.html">Sign in / Register</a></li>
+            <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
+            <li><a href="{{ url_for('sign_in') }}">Sign in / Register</a></li>
         </ul>
     </header>
 
