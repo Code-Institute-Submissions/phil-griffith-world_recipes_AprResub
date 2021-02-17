@@ -1,4 +1,5 @@
 import os
+import json
 from flask import (
     Flask, flash, render_template,
     redirect, request, session, url_for)
@@ -32,7 +33,10 @@ def sign_in():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
-    return render_template("register.html")
+    countries = []
+    with open("data/countries.json", "r") as json_data:
+        countries = json.load(json_data)
+    return render_template("register.html", countries=countries)
 
 
 if __name__ == "__main__":
