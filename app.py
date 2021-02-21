@@ -89,7 +89,19 @@ def account(username):
     # get session users username form db
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    return render_template("my_account.html", username=username)
+    
+    if session["user"]:
+        return render_template("my_account.html", username=username)
+
+    return redirect(url_for("login"))
+
+
+@app.route("/sign_out")
+def sign_out():
+    # remove user session cookie
+    flash("You are no longer Signed in")
+    session.pop("user")
+    return(redirect(url_for("sign_in")))
 
 
 if __name__ == "__main__":
