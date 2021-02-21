@@ -4,13 +4,13 @@
     <h3 class="center-align">Register</h3>
     
     <div class="row">
-        <form class="col s8 m6 offset-m3" method="POST" action="{{ url_for('sign_in') }}">
+        <form class="col s8 m6 offset-m3" method="POST" action="{{ url_for('register') }}">
             <div class="card-panel">
                 <!-- username -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
-                        <input id="username" name="username" type="text" class="validate" required>
+                        <input id="username" name="username" type="text" class="validate" pattern="^[a-zA-Z0-9]{5,15}$" required>
                         <label for="username">Username</label>
                     </div>
                 </div>
@@ -18,7 +18,9 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
-                        <input id="password" name="password" type="password" class="validate" required>
+                        <!-- enforce pattern match - at least 1 captial letter, 1 lower case letter and 1 number
+                        https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a -->
+                        <input id="password" name="password" type="password" class="validate" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$" required>
                         <label for="password">Password</label>
                     </div>
                 </div>
@@ -26,8 +28,8 @@
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
-                        <input id="password2" name="password2" type="password" class="validate" required>
-                        <label for="password2">Confirm Password</label>
+                        <input id="confirm_password" name="confirm_password" type="password" class="validate" required>
+                        <label for="confirm_password">Confirm Password</label>
                     </div>
                 </div>
                 <!-- email -->
@@ -45,13 +47,13 @@
                         <select id="country" name="country">
                             <option value="" disabled selected>Select Country</option>
                             {% for country in countries %}
-                                <option value="">{{ country.name }}</option>
+                                <option value="{{ country.name }}">{{ country.name }}</option>
                             {% endfor %}
                         </select>
                         <label>Country of Residence</label>
                     </div>
                 </div>
-                <!-- sign in -->
+                <!-- register -->
                 <div class="row">
                     <button type="submit" class="col s12 btn-large light-blue darken-4 text-shadow" required>
                         Register <i class="fas fa-sign-in-alt"></i>
@@ -59,7 +61,7 @@
                 </div>
                 <div class="row">
                     <div class="center-align">
-                        <span>Already have an account? <a href="{{ url_for('sign_in') }}">Sign In</a></span>
+                        <span id="signin">Already have an account? <a href="{{ url_for('sign_in') }}">Sign In</a></span>
                     </div>
                 </div>
             </div>

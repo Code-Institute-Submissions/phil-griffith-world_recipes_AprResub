@@ -33,9 +33,38 @@ def sign_in():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    # create countries object for country select
     countries = []
     with open("data/countries.json", "r") as json_data:
         countries = json.load(json_data)
+    # form submission functionality
+        if request.method == "POST":
+            # check if username already exists in db
+            existing_user = mongo.db.users.find_one(
+                {"username": request.form.get("username").lower()})
+
+            if existing_user:
+                flash("Username already exists")
+                return redirect(url_for("register"))
+
+            # # check for password match
+            # password = request.form.get("password")
+            # confirm_password = request.form.get("password2")
+
+            # if confirm_password != password:
+            #     flash("Password do not match"
+
+            register = {
+                "username": request.form.get("username").lower(),
+                "password": generate_password_hash(request.form.get("password")),
+                "email": request.form.get("email").lower(),
+                "country": request.form.get("country")
+            }
+            mongo.db.users.insert_one(register)
+
+            # put new user into session cookie
+            session["user"] = request.form.get("username").lower()
+            flash("Registration Successful!")
     return render_template("register.html", countries=countries)
 
 
