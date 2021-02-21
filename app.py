@@ -28,17 +28,18 @@ def get_recipes():
 
 @app.route("/sign_in", methods=["GET", "POST"])
 def sign_in():
-    if request.method =="POST":
+    if request.method == "POST":
         # check if user has account
         existing_user = mongo.db.users.find_one(
             {"username": request.form.get("username").lower()})
 
         if existing_user:
             # check for password match
-            if check_password_hash(
-                existing_user["password"], request.form.get("password")):
+            if check_password_hash(existing_user["password"], request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
                     flash("Welcome, {}".format(request.form.get("username")))
+                    return redirect(
+                        url_for("account", username=session["user"]))
             else:
                 # invalid password
                 flash("Incorrect Username and/or Password")
@@ -67,16 +68,10 @@ def register():
                 flash("Username already exists")
                 return redirect(url_for("register"))
 
-            # # check for password match
-            # password = request.form.get("password")
-            # confirm_password = request.form.get("password2")
-
-            # if confirm_password != password:
-            #     flash("Password do not match"
-
             register = {
                 "username": request.form.get("username").lower(),
-                "password": generate_password_hash(request.form.get("password")),
+                "password": generate_password_hash(
+                    request.form.get("password")),
                 "email": request.form.get("email").lower(),
                 "country": request.form.get("country")
             }
@@ -85,7 +80,16 @@ def register():
             # put new user into session cookie
             session["user"] = request.form.get("username").lower()
             flash("Registration Successful!")
+            return redirect(url_for("account", username=session["user"]))
     return render_template("register.html", countries=countries)
+
+
+@app.route("/account/<username>", methods=["GET", "POST"])
+def account(username):
+    # get session users username form db
+    username = mongo.db.users.find_one(
+        {"username": session["user"]})["username"]
+    return render_template("my_account.html", username=username)
 
 
 if __name__ == "__main__":
