@@ -1,29 +1,38 @@
 {% extends "base.html" %}
 {% block content %}
 
-    {% for recipe in recipes  %}
-        <img src="{{ recipe.image_url }}" alt="" width="200"> <br>
-        {{ recipe.recipe_name }} <br>
-        Time required {{ recipe.preparation_time }} minutes <br>
-        Vegetarian {{ recipe.vegetarian }} <br>
-        Vegetarian
-        {% if recipe.vegetarian %}
-            Yes
-        {% else %}
-            No
-        {% endif %} <br>
-        Country of origin: {{ recipe.country }} <br>
-        Category: {{ recipe.category_name }} <br>
-        Desciption: {{ recipe.description }} <br>        
-        {% for ingredient in recipe.ingredients %}
-            {{ ingredient[0] }} 
-            <span style="padding: 5%">{{ ingredient[1] }}</span> <br>
-        {% endfor %}
-        {% for method in recipe.method %}
-           Step {{ method[0] }}
-            {{ method[1] }} <br>
-        {% endfor %}
-        Recipe background: {{ recipe.background }}
-    {% endfor %}
+
+    <h2 class="center-align">Recipes</h2>
+    <div class="row">
+        {% for recipe in recipes %}
+            {% set recipe_number = loop.index %}
+        <div class="col s12 m4 l3">
+            <div class="card recipe{{ recipe_number }}">
+                <div class="card-image">
+                    <img src="{{ recipe.image_url }}">
+                    <span class="card-title">Card Title</span>
+                    <a class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">add</i></a>
+                </div>
+                <div class="card-content">
+                    <h5>{{ recipe.recipe_name }}</h5>
+                    <span>Ingredient 1</span>
+                    <span>Ingredient 2</span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                <div class="card-action">
+                    <form method="POST" action="/recipe_details/<recipe_details>">
+                        <span>{{ recipe._id }}</span>
+                        <input type="hidden" id="recipe" name="recipe" value="{{ recipe._id }}">
+                        <button type="submit">
+                            See Recipe
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {%  endfor %}
+    </div>
 
 {% endblock %}

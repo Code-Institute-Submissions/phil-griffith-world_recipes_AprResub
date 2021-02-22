@@ -20,10 +20,20 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
-@app.route("/get_recipes")
+@app.route("/get_recipes", methods=["GET", "POST"])
 def get_recipes():
     recipes = mongo.db.recipes.find()
     return render_template("recipes.html", recipes=recipes)
+
+
+@app.route("/recipe_details/<recipe>", methods=["GET", "POST"])
+def recipe_details(recipe):
+    # get recipe id from recipe card
+    recipe = request.form.get("recipe")
+    # get full recipe details from db
+    selected_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe)})
+    return render_template(
+        "recipe_details.html", selected_recipe=selected_recipe)
 
 
 @app.route("/sign_in", methods=["GET", "POST"])
@@ -35,11 +45,12 @@ def sign_in():
 
         if existing_user:
             # check for password match
-            if check_password_hash(existing_user["password"], request.form.get("password")):
-                    session["user"] = request.form.get("username").lower()
-                    flash("Welcome, {}".format(request.form.get("username")))
-                    return redirect(
-                        url_for("account", username=session["user"]))
+            if check_password_hash(
+                    existing_user["password"], request.form.get("password")):
+                session["user"] = request.form.get("username").lower()
+                flash("Welcome, {}".format(request.form.get("username")))
+                return redirect(
+                    url_for("account", username=session["user"]))
             else:
                 # invalid password
                 flash("Incorrect Username and/or Password")
@@ -86,14 +97,16 @@ def register():
 
 @app.route("/account/<username>", methods=["GET", "POST"])
 def account(username):
-    # get session users username form db
+    # get session users username from db
+    print("Username = " + username)
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    
+    print("Username2 = " + username)
+
     if session["user"]:
         return render_template("my_account.html", username=username)
 
-    return redirect(url_for("login"))
+    return redirect(url_for("sign_in"))
 
 
 @app.route("/sign_out")
