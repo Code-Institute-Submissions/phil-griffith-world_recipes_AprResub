@@ -25,7 +25,7 @@
                     <li><a href="badges.html">About</a></li>
                     <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
                     {% if session.user and session.user != "admin" %}
-                        <li><a href="">Add Recipe</a></li>
+                        <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
                         <li><a href="{{ url_for('account', username=session['user']) }}">My Account</a></li>
                         <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
                     {% elif session.user == "admin" %}                    
@@ -45,7 +45,7 @@
             <li><a href="badges.html">About</a></li>
             <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
             {% if session.user and session.user != "admin" %}
-                <li><a href="">Add Recipe</a></li>
+                <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
                 <li><a href="{{ url_for('account', username=session['user']) }}">My Account</a></li>
                 <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
             {% elif session.user == "admin" %}
