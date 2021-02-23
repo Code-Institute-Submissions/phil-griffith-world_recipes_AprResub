@@ -3,11 +3,14 @@
     let $passwordBox = $("#password");
     let $confirmBox = $("#confirm_password");
     let $errorMsg =  $('<span id="error_msg">Passwords do not match.</span>');
+    let ingredient = 2;
     
     $(".sidenav").sidenav();
     $(".dropdown-trigger").dropdown();
     $('select').formSelect();
-    
+   
+
+    // ************************* Register ****************************
 
     // confirm password code taken from the following site 
     // https://stackoverflow.com/questions/21727317/how-to-check-confirm-password-field-in-form-without-reloading-page
@@ -56,6 +59,40 @@
             }
             return;
         });
+
+        // ************************* Add Recipe ****************************
+
+        $('#textarea1').val('New Text');
+        M.textareaAutoResize($('#textarea1'));
+
+        // button to add 1 ingredient at a time
+        $('#add_ingredient').click(function() {
+            console.log("HELLO");
+            $('#ingredients').append(`<div class="row" id="ingredient_${ingredient}"><div class="input-field col s8">\
+            <i class="material-icons prefix">account_circle</i>\
+            <input id="ingredient${ingredient}" name="ingredient${ingredient}" type="text" class="validate" required>\
+            <label for="ingredient${ingredient}">Ingredient ${ingredient}</label>\
+            </div><div class="input-field col s4">\
+            <input id="quantity${ingredient}" name="quantity${ingredient}" type="text" class="validate" required>\
+            <label for="quantity${ingredient}">Quantity</label></div></div)`);
+            if (ingredient == 2){
+                console.log("ERROR");
+                $('#ingredient_buttons').append(`<button type="button" id="remove_ingredient">Remove Ingredient</button>`);
+            }
+            ingredient++;
+            ingredientAdded = true;
+        })
+
+        $('#ingredient_buttons').on('click', '#remove_ingredient', function() {
+            console.log("Removing");
+            $(`#ingredient_${ingredient-1}`).remove();
+            ingredient--;
+            if (ingredient == 2) {
+                $('#remove_ingredient').remove();
+            }            
+        })
+
+        // button to add 1 method step at a time
     
  });
 
