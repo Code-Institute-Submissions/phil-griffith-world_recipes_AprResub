@@ -117,8 +117,41 @@ def sign_out():
     return(redirect(url_for("sign_in")))
 
 
-@app.route("/add_recipe")
+@app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
+    if request.method == "POST":
+        is_vegetarian = "true" if request.form.get("is_vegetarian") else "off"
+        x = 1
+        ingredients = []
+        # https://stackoverflow.com/questions/32741216/2d-array-python-list-index-out-of-range
+        while request.form.get("ingredient"+str(x)):
+            row = []
+            print(request.form.get("ingredient"+str(x)))
+            row.append(request.form.get("ingredient"+str(x)))
+            row.append(request.form.get("quantity"+str(x)))
+            ingredients.append(row)
+            x += 1
+        method = []
+        y = 1
+        while request.form.get("step"+str(y)):
+            print(request.form.get("step"+str(y)))
+            method.append(request.form.get("step"+str(y)))
+            y += 1
+        recipe = {
+            "recipe_name": request.form.get("recipe_name"),
+            "recipe_image": request.form.get("recipe_image"),
+            "category_name": request.form.get("category_name"),
+            "is_vegetarian": is_vegetarian,
+            "recipe_description": request.form.get("recipe_description"),
+            "country": request.form.get("country"),
+            "ingredients": ingredients,
+            "method": method,
+            "recipe_story": request.form.get("recipe_story")
+        }
+        mongo.db.recipes.insert_one(recipe)
+        flash("Recipe Successfully Added")
+        return redirect(url_for("get_recipes"))
+
     # create countries object for country select
     countries = []
     with open("data/countries.json", "r") as json_data:
