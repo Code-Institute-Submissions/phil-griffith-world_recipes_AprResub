@@ -20,9 +20,22 @@
                     <input id="recipe_image" type="tel" required>
                     <label for="recipe_image">Recipe image URL</label>
                 </div>
-            </div>
-            <!-- recipe description -->
-            <div class="row">            
+                </div>
+                <!-- recipe category -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">phone</i>
+                        <select id="category_name" name="category_name" class="validate" required>
+                            <option value="" disabled selected>Recipe category</option>
+                            {% for category in categories %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="category_name">Recipe category</label>
+                    </div>
+                </div>
+                <!-- recipe description -->
+                <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">phone</i>
                     <textarea id="recipe_description" name="recipe_description" class="materialize-textarea validate" minlength="5" maxlength="200"
@@ -86,6 +99,18 @@
             </div>            
             <div class="row" id="method_buttons">
                 <button type="button" id="add_step">Add Step</button>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <textarea id="recipe_story" name="step1" class="materialize-textarea validate" maxlength="500"></textarea>
+                    <label for="step1">Recipe background story (optional)</label>
+                </div>
+            </div>
+            <div class="center-align">
+                <button class="btn waves-effect waves-light" type="submit" name="action">Submit
+                    <i class="material-icons right">send</i>
+                </button>
             </div>
         </form>
     </div>

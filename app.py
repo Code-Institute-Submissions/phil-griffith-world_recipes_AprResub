@@ -123,7 +123,9 @@ def add_recipe():
     countries = []
     with open("data/countries.json", "r") as json_data:
         countries = json.load(json_data)
-    return render_template("add_recipe.html", countries=countries)
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template(
+        "add_recipe.html", countries=countries, categories=categories)
 
 
 if __name__ == "__main__":

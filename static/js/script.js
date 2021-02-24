@@ -4,6 +4,7 @@
     let $confirmBox = $("#confirm_password");
     let $errorMsg =  $('<span id="error_msg">Passwords do not match.</span>');
     let ingredient = 2;
+    let step = 2;
     
     $(".sidenav").sidenav();
     $(".dropdown-trigger").dropdown();
@@ -80,7 +81,6 @@
                 $('#ingredient_buttons').append(`<button type="button" id="remove_ingredient">Remove Ingredient</button>`);
             }
             ingredient++;
-            ingredientAdded = true;
         })
 
         $('#ingredient_buttons').on('click', '#remove_ingredient', function() {
@@ -93,6 +93,27 @@
         })
 
         // button to add 1 method step at a time
-    
+        $('#add_step').click(function() {
+            console.log("HELLO");
+            $('#method').append(`<div class="row" id="step_${step}"><div class="input-field col s12">\
+            <i class="material-icons prefix">account_circle</i>\
+            <input id="step${step}" name="step${step}" type="text" class="validate" required>\
+            <label for="step${step}">Step ${step}</label>\
+            </div></div)`);
+            if (step == 2){
+                console.log("ERROR");
+                $('#method_buttons').append(`<button type="button" id="remove_step">Remove Step</button>`);
+            }
+            step++;
+        })
+
+        $('#method_buttons').on('click', '#remove_step', function() {
+            console.log("Removing");
+            $(`#step_${step-1}`).remove();
+            step--;
+            if (step == 2) {
+                $('#remove_step').remove();
+            }            
+        })
  });
 
