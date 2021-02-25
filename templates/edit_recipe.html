@@ -1,0 +1,120 @@
+{% extends "base.html" %}
+{% block content %}
+
+    <h3 class="center-align">Edit Recipe</h3>
+    
+    <div class="row card-panel grey lighten-5">
+        <form class="col s12" method="POST" action="{{ url_for('edit_recipe', recipe_id=recipe._id) }}">
+            <!-- recipe name -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <input id="recipe_name" name="recipe_name" type="text" required>
+                    <label for="recipe_name">Recipe Name</label>
+                </div>
+            </div> 
+            <!-- recipe image URL -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">phone</i>
+                    <input id="image_url" name="image_url" type="tel" required>
+                    <label for="image_url">Recipe image URL</label>
+                </div>
+                </div>
+                <!-- recipe category -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">phone</i>
+                        <select id="category_name" name="category_name" class="validate" required>
+                            <option value="" disabled selected>Recipe category</option>
+                            {% for category in categories %}
+                                <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                            {% endfor %}
+                        </select>
+                        <label for="category_name">Recipe category</label>
+                    </div>
+                </div>
+                <!-- recipe description -->
+                <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">phone</i>
+                    <textarea id="recipe_description" name="recipe_description" class="materialize-textarea validate" minlength="5" maxlength="200"
+                        required></textarea>
+                    <label for="recipe_description">Recipe Description</label>
+                </div>            
+            </div>
+            <!-- is recipe vegetarian -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <div class="switch">
+                        <i class="material-icons prefix">phone</i>
+                        <label for="is_vegetarian">
+                            <input type="checkbox" id="is_vegetarian" name="is_vegetarian">
+                            <span class="lever"></span>
+                            Vegetarian
+                        </label>
+                    </div>
+                </div>
+            </div>
+            <!-- recipe country of origin  -->
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">flag</i>
+                    <select id="country" name="country">
+                        <option value="" disabled selected>Select Country</option>
+                        {% for country in countries %}
+                        <option value="{{ country.name }}">{{ country.name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label>Country of origin</label>
+                </div>
+            </div>
+            <!-- ingredients -->
+            <div id="ingredients">
+                <div class="row" id="ingredient_1">
+                    <div class="input-field col s8">
+                        <i class="material-icons prefix">account_circle</i>
+                        <input id="ingredient1" name="ingredient1" type="text" class="validate" required>
+                        <label for="ingredient1">Ingredient 1</label>
+                    </div>
+                    <div class="input-field col s4">
+                        <input id="quantity1" name="quantity1" type="text" class="validate" required>
+                        <label for="quantity1">Quantity</label>
+                    </div>
+                </div>
+            </div>            
+            <div class="row" id="ingredient_buttons">
+                <button type="button" id="add_ingredient">Add Ingredient</button>
+            </div>
+            <!-- method -->
+            <div id="method">
+                <div class="row" id="step_1">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">account_circle</i>
+                        <textarea id="step1" name="step1" class="materialize-textarea validate" minlength="5" maxlength="200"
+                        required></textarea>
+                        <label for="step1">Step 1</label>
+                    </div>
+                </div>
+            </div>            
+            <div class="row" id="method_buttons">
+                <button type="button" id="add_step">Add Step</button>
+            </div>
+            <div class="row">
+                <div class="input-field col s12">
+                    <i class="material-icons prefix">account_circle</i>
+                    <textarea id="recipe_story" name="recipe_story" class="materialize-textarea validate" maxlength="500"></textarea>
+                    <label for="step1">Recipe background story (optional)</label>
+                </div>
+            </div>
+            <!-- submit button -->
+            <div class="center-align">
+                <button class="btn waves-effect waves-light" type="submit">Confirm Changes
+                    <i class="material-icons right">send</i>
+                </button>
+                <a href="{{ url_for('my_recipes') }}" class="btn-small red">Cancel</a>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

@@ -28,6 +28,10 @@
                     </form>
                 </div>
             </div>
+            <div class="edit_buttons center-align">
+                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}" class="btn-small">Edit</a>
+                <a href="" class="btn-small">Deletet</a>
+            </div>
         </div>
         {%  endfor %}
     </div>

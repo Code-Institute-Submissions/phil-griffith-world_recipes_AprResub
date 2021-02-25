@@ -168,6 +168,18 @@ def my_recipes():
     return render_template("my_recipes.html", my_recipes=my_recipes)
 
 
+@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
+def edit_recipe(recipe_id):
+    recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
+    countries = []
+    with open("data/countries.json", "r") as json_data:
+        countries = json.load(json_data)
+    categories = mongo.db.categories.find().sort("category_name", 1)
+    return render_template(
+        "edit_recipe.html", countries=countries,
+        recipe=recipe, categories=categories)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
