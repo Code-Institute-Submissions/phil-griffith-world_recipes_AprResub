@@ -15,11 +15,8 @@
                 </div>
                 <div class="card-content">
                     <h5>{{ recipe.recipe_name }}</h5>
-                    <span>Ingredient 1</span>
-                    <span>Ingredient 2</span>
-                    <span></span>
-                    <span></span>
-                    <span></span>
+                    <p>{{ recipe.recipe_description }}</p>
+                    <span>Added by: {{ recipe.added_by }}</span>
                 </div>
                 <div class="card-action">
                     <form method="POST" action="/recipe_details/<recipe_details>">

@@ -98,10 +98,8 @@ def register():
 @app.route("/account/<username>", methods=["GET", "POST"])
 def account(username):
     # get session users username from db
-    print("Username = " + username)
     username = mongo.db.users.find_one(
         {"username": session["user"]})["username"]
-    print("Username2 = " + username)
 
     if session["user"]:
         return render_template("my_account.html", username=username)
@@ -123,6 +121,7 @@ def add_recipe():
         is_vegetarian = "true" if request.form.get("is_vegetarian") else "off"
         x = 1
         ingredients = []
+        # loop over each added ingedient
         # https://stackoverflow.com/questions/32741216/2d-array-python-list-index-out-of-range
         while request.form.get("ingredient"+str(x)):
             row = []
@@ -133,20 +132,22 @@ def add_recipe():
             x += 1
         method = []
         y = 1
+        # loop over each added method step
         while request.form.get("step"+str(y)):
             print(request.form.get("step"+str(y)))
             method.append(request.form.get("step"+str(y)))
             y += 1
         recipe = {
             "recipe_name": request.form.get("recipe_name"),
-            "recipe_image": request.form.get("recipe_image"),
+            "image_url": request.form.get("image_url"),
             "category_name": request.form.get("category_name"),
             "is_vegetarian": is_vegetarian,
             "recipe_description": request.form.get("recipe_description"),
             "country": request.form.get("country"),
             "ingredients": ingredients,
             "method": method,
-            "recipe_story": request.form.get("recipe_story")
+            "recipe_story": request.form.get("recipe_story"),
+            "added_by": session["user"]
         }
         mongo.db.recipes.insert_one(recipe)
         flash("Recipe Successfully Added")
