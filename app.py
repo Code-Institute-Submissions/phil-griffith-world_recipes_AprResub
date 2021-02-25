@@ -118,7 +118,7 @@ def sign_out():
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
     if request.method == "POST":
-        is_vegetarian = "true" if request.form.get("is_vegetarian") else "off"
+        is_vegetarian = True if request.form.get("is_vegetarian") else False
         x = 1
         ingredients = []
         # loop over each added ingedient
@@ -170,6 +170,41 @@ def my_recipes():
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
+    if request.method == "POST":
+        is_vegetarian = "true" if request.form.get("is_vegetarian") else "off"
+        x = 1
+        ingredients = []
+        # loop over each added ingedient
+        # https://stackoverflow.com/questions/32741216/2d-array-python-list-index-out-of-range
+        while request.form.get("ingredient"+str(x)):
+            row = []
+            print(request.form.get("ingredient"+str(x)))
+            row.append(request.form.get("ingredient"+str(x)))
+            row.append(request.form.get("quantity"+str(x)))
+            ingredients.append(row)
+            x += 1
+        method = []
+        y = 1
+        # loop over each added method step
+        while request.form.get("step"+str(y)):
+            print(request.form.get("step"+str(y)))
+            method.append(request.form.get("step"+str(y)))
+            y += 1
+        updated_recipe = {
+            "recipe_name": request.form.get("recipe_name"),
+            "image_url": request.form.get("image_url"),
+            "category_name": request.form.get("category_name"),
+            "is_vegetarian": is_vegetarian,
+            "recipe_description": request.form.get("recipe_description"),
+            "country": request.form.get("country"),
+            "ingredients": ingredients,
+            "method": method,
+            "recipe_story": request.form.get("recipe_story"),
+            "added_by": session["user"]
+        }
+        mongo.db.tasks.update({"_id": ObjectId(recipe_id)}, updated_recipe)
+        flash("Recipe Successfully Updated")
+
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     countries = []
     with open("data/countries.json", "r") as json_data:
