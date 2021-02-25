@@ -162,6 +162,12 @@ def add_recipe():
         "add_recipe.html", countries=countries, categories=categories)
 
 
+@app.route("/my_recipes")
+def my_recipes():
+    my_recipes = mongo.db.recipes.find({ "added_by": "green" })
+    return render_template("my_recipes.html", my_recipes=my_recipes)
+
+
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
