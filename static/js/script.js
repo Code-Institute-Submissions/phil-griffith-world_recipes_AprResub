@@ -68,7 +68,13 @@
 
         // button to add 1 ingredient at a time
         $('#add_ingredient').click(function() {
-            console.log("HELLO");
+            console.log("ingredient Here1 = " + ingredient)
+            if ($(this).parent()[0].id[7]) {
+                ingredient = $(this).parent()[0].id[7];
+                console.log(ingredient);
+                // https://stackoverflow.com/questions/347798/changing-an-elements-id-with-jquery
+                $(this).parent().prop('id','buttons');
+            }
             $('#ingredients').append(`<div class="row" id="ingredient_${ingredient}"><div class="input-field col s8">\
             <i class="material-icons prefix">account_circle</i>\
             <input id="ingredient${ingredient}" name="ingredient${ingredient}" type="text" class="validate" required>\
@@ -77,16 +83,22 @@
             <input id="quantity${ingredient}" name="quantity${ingredient}" type="text" class="validate" required>\
             <label for="quantity${ingredient}">Quantity</label></div></div)`);
             if (ingredient == 2){
-                console.log("ERROR");
-                $('#ingredient_buttons').append(`<button type="button" id="remove_ingredient">Remove Ingredient</button>`);
+                $('.ingredient-buttons').append(`<button type="button" id="remove_ingredient">Remove Ingredient</button>`);
             }
             ingredient++;
         })
-
-        $('#ingredient_buttons').on('click', '#remove_ingredient', function() {
+        // button to remove last ingredient added
+        // https://stackoverflow.com/questions/14207883/jquery-cant-access-append-element
+        $('.ingredient-buttons').on('click', '#remove_ingredient', function() {
+            if ($(this).parent()[0].id[7]) {
+                ingredient = $(this).parent()[0].id[7];
+                console.log(ingredient);
+                $(this).parent().prop('id','buttons');
+            }
             console.log("Removing");
             $(`#ingredient_${ingredient-1}`).remove();
             ingredient--;
+            console.log(ingredient);
             if (ingredient == 2) {
                 $('#remove_ingredient').remove();
             }            

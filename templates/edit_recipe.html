@@ -84,41 +84,48 @@
             <!-- ingredients -->
             <div id="ingredients">
                 {% for ingredient in recipe.ingredients %}
-                    <div class="row" id="ingredient_1">
+                    <div class="row" id="ingredient_{{ loop.index }}">
                         <div class="input-field col s8">
                             <i class="material-icons prefix">account_circle</i>                        
-                            <input id="ingredient{{ recipe.ingredients.index(ingredient)+1 }}" name="ingredient{{ recipe.ingredients.index(ingredient)+1 }}"
+                            <input id="ingredient{{ loop.index }}" name="ingredient{{ loop.index }}"
                             type="text" class="validate" value="{{ ingredient[0] }}" required>
-                            <label for="ingredient{{ recipe.ingredients.index(ingredient)+1 }}">Ingredient 1</label>
+                            <label for="ingredient{{ loop.index }}">Ingredient {{ loop.index }}</label>
                         </div>
                         <div class="input-field col s4">
-                            <input id="quantity1" name="quantity1" type="text" class="validate" value="{{ ingredient[1] }}" required>
-                            <label for="quantity1">Quantity</label>                        
+                            <input id="quantity{{ loop.index }}" name="quantity{{ loop.index }}" type="text" class="validate" value="{{ ingredient[1] }}" required>
+                            <label for="quantity{{ loop.index }}">Quantity</label>                        
                         </div>
-                    </div>        
-                <div class="row" id="ingredient_buttons">
-                    <button type="button" id="add_ingredient">Add Ingredient</button>
-                </div>
+                    </div>
                 {% endfor %}
-            </div>            
+            </div> 
+            {% set num = recipe.ingredients|length %}                       
+            <div class="row ingredient-buttons" id="buttons{{ num + 1 }}">
+                <button type="button" id="add_ingredient">Add Ingredient</button> 
+                {% if num > 1 %}                   
+                    <button type="button" id="remove_ingredient">Remove Ingredient</button>
+                {% endif %}
+            </div>                
+                       
             <!-- method -->
             <div id="method">
-                <div class="row" id="step_1">
-                    <div class="input-field col s12">
-                        <i class="material-icons prefix">account_circle</i>
-                        <textarea id="step1" name="step1" class="materialize-textarea validate" minlength="5" maxlength="200"
-                        required></textarea>
-                        <label for="step1">Step 1</label>
+                {% for step in recipe.method %}
+                    <div class="row" id="step_{{ loop.index }}">
+                        <div class="input-field col s12">
+                            <i class="material-icons prefix">account_circle</i>
+                            <textarea id="step{{ loop.index }}" name="step{{ loop.index }}" class="materialize-textarea validate" minlength="5" maxlength="200"
+                            required>{{ step }}</textarea>
+                            <label for="step{{ loop.index }}">Step 1</label>
+                        </div>
                     </div>
-                </div>
-            </div>            
-            <div class="row" id="method_buttons">
-                <button type="button" id="add_step">Add Step</button>
+                {% endfor %}                        
+                <div class="row" id="method_buttons">
+                    <button type="button" id="add_step">Add Step</button>
+                </div>                
             </div>
             <div class="row">
                 <div class="input-field col s12">
                     <i class="material-icons prefix">account_circle</i>
-                    <textarea id="recipe_story" name="recipe_story" class="materialize-textarea validate" maxlength="500"></textarea>
+                    <textarea id="recipe_story" name="recipe_story" class="materialize-textarea validate" maxlength="500">{{ recipe.recipe_story }}</textarea>
                     <label for="step1">Recipe background story (optional)</label>
                 </div>
             </div>
