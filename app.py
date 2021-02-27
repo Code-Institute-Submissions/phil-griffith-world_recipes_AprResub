@@ -164,14 +164,14 @@ def add_recipe():
 
 @app.route("/my_recipes")
 def my_recipes():
-    my_recipes = mongo.db.recipes.find({ "added_by": "green" })
+    my_recipes = mongo.db.recipes.find({"added_by": "green"})
     return render_template("my_recipes.html", my_recipes=my_recipes)
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
 def edit_recipe(recipe_id):
     if request.method == "POST":
-        is_vegetarian = "true" if request.form.get("is_vegetarian") else "off"
+        is_vegetarian = True if request.form.get("is_vegetarian") else False
         x = 1
         ingredients = []
         # loop over each added ingedient
@@ -202,7 +202,8 @@ def edit_recipe(recipe_id):
             "recipe_story": request.form.get("recipe_story"),
             "added_by": session["user"]
         }
-        mongo.db.tasks.update({"_id": ObjectId(recipe_id)}, updated_recipe)
+        mongo.db.tasks.update_one({"_id": ObjectId(
+            recipe_id)}, {"$set": updated_recipe}, upsert=True)
         flash("Recipe Successfully Updated")
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})

@@ -71,7 +71,7 @@
                     <select id="country" name="country">
                         <option value="" disabled>Select Country</option>
                         {% for country in countries %}
-                            {% if country.country == recipe.country %}
+                            {% if country.name == recipe.country %}
                             <option value="{{ country.name }}" selected>{{ country.name }}</option>
                             {% else %}
                             <option value="{{ country.name }}">{{ country.name }}</option>
