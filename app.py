@@ -202,7 +202,8 @@ def edit_recipe(recipe_id):
             "recipe_story": request.form.get("recipe_story"),
             "added_by": session["user"]
         }
-        mongo.db.tasks.update_one({"_id": ObjectId(
+        # https://stackoverflow.com/questions/30605638/why-does-upsert-a-record-using-update-one-raise-valueerror
+        mongo.db.recipes.update_one({"_id": ObjectId(
             recipe_id)}, {"$set": updated_recipe}, upsert=True)
         flash("Recipe Successfully Updated")
 
