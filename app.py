@@ -206,6 +206,7 @@ def edit_recipe(recipe_id):
         mongo.db.recipes.update_one({"_id": ObjectId(
             recipe_id)}, {"$set": updated_recipe}, upsert=True)
         flash("Recipe Successfully Updated")
+        return redirect(url_for("my_recipes"))
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     countries = []
@@ -215,6 +216,13 @@ def edit_recipe(recipe_id):
     return render_template(
         "edit_recipe.html", countries=countries,
         recipe=recipe, categories=categories)
+
+
+@app.route("/delete_recipe/<recipe_id>")
+def delete_recipe(recipe_id):
+    mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
+    flash("Task Successfully Deleted")
+    return redirect(url_for("my_recipes"))
 
 
 if __name__ == "__main__":
