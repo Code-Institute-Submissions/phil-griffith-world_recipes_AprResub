@@ -37,7 +37,6 @@
     $("#confirm_password, #password").keydown(function(e){
         /* only check when the tab or enter keys are pressed
         * to prevent the method from being called needlessly  */
-        console.log("Hello_confirm");
         if(e.keyCode == 13 || e.keyCode == 9) {
             checkMatchingPasswords();
         }
@@ -68,11 +67,10 @@
 
         // button to add 1 ingredient at a time
         $('#add_ingredient').click(function() {
-            console.log("ingredient Here1 = " + ingredient)
+            // check if id has new ingredient number appended and assign to ingredient
             if ($(this).parent()[0].id[7]) {
                 ingredient = $(this).parent()[0].id[7];
-                console.log(ingredient);
-                // https://stackoverflow.com/questions/347798/changing-an-elements-id-with-jquery
+                // remove appended ingredient number from id
                 $(this).parent().prop('id','buttons');
             }
             $('#ingredients').append(`<div class="row" id="ingredient_${ingredient}"><div class="input-field col s8">\
@@ -90,15 +88,14 @@
         // button to remove last ingredient added
         // https://stackoverflow.com/questions/14207883/jquery-cant-access-append-element
         $('.ingredient-buttons').on('click', '#remove_ingredient', function() {
+            // check if id has new ingredient number appended and assign to ingredient
             if ($(this).parent()[0].id[7]) {
                 ingredient = $(this).parent()[0].id[7];
-                console.log(ingredient);
+                // remove appended ingredient number from id
                 $(this).parent().prop('id','buttons');
             }
-            console.log("Removing");
             $(`#ingredient_${ingredient-1}`).remove();
             ingredient--;
-            console.log(ingredient);
             if (ingredient == 2) {
                 $('#remove_ingredient').remove();
             }            
@@ -106,21 +103,31 @@
 
         // button to add 1 method step at a time
         $('#add_step').click(function() {
-            console.log("HELLO");
+            // check if id has new step number appended and assign to step
+            if ($(this).parent()[0].id[9]) {
+                step = $(this).parent()[0].id[9];
+                // remove appended step number from id
+                $(this).parent().prop('id','m_buttons');
+            }
             $('#method').append(`<div class="row" id="step_${step}"><div class="input-field col s12">\
             <i class="material-icons prefix">account_circle</i>\
             <input id="step${step}" name="step${step}" type="text" class="validate" required>\
             <label for="step${step}">Step ${step}</label>\
             </div></div)`);
             if (step == 2){
-                console.log("ERROR");
-                $('#method_buttons').append(`<button type="button" id="remove_step">Remove Step</button>`);
+                $('.method-buttons').append(`<button type="button" id="remove_step">Remove Step</button>`);
             }
             step++;
         })
 
-        $('#method_buttons').on('click', '#remove_step', function() {
-            console.log("Removing");
+        // button to remove last step added
+        $('.method-buttons').on('click', '#remove_step', function() {
+            // check if id has new step number appended and assign to step
+            if ($(this).parent()[0].id[9]) {
+                step = $(this).parent()[0].id[9];
+                // remove appended step number from id
+                $(this).parent().prop('id','m_buttons');
+            }
             $(`#step_${step-1}`).remove();
             step--;
             if (step == 2) {

@@ -117,10 +117,13 @@
                             <label for="step{{ loop.index }}">Step 1</label>
                         </div>
                     </div>
-                {% endfor %}                        
-                <div class="row" id="method_buttons">
-                    <button type="button" id="add_step">Add Step</button>
-                </div>                
+                {% endfor %}
+            </div>
+            <div class="row method-buttons" id="m_buttons{{ num+1 }}">
+                <button type="button" id="add_step">Add Step</button>
+                {% if num > 1 %}                   
+                    <button type="button" id="remove_step">Remove Step</button>
+                {% endif %}                
             </div>
             <div class="row">
                 <div class="input-field col s12">
