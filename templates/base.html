@@ -30,7 +30,7 @@
                         <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
                     {% elif session.user == "admin" %}                    
                         <li><a href="">Manage Recipes</a></li>
-                        <li><a href="">Manage Search Categories</a></li>
+                        <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
                         <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
                     {% else %}
                         <li><a href="{{ url_for('sign_in') }}">Sign in / Register</a></li>
@@ -50,7 +50,7 @@
                 <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
             {% elif session.user == "admin" %}
                 <li><a href="">Manage Recipes</a></li>
-                <li><a href="">Manage Search Categories</a></li>
+                <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
                 <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>            
             {% else %}
                 <li><a href="{{ url_for('sign_in') }}">Sign in / Register</a></li>
