@@ -22,15 +22,28 @@ mongo = PyMongo(app)
 @app.route("/")
 @app.route("/get_recipes", methods=["GET", "POST"])
 def get_recipes():
+    # create countries object for country select
+    countries = []
+    with open("data/countries.json", "r") as json_data:
+        countries = json.load(json_data)
     recipes = mongo.db.recipes.find()
-    return render_template("recipes.html", recipes=recipes)
+    return render_template(
+        "recipes.html", recipes=recipes, countries=countries)
 
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
     query = request.form.get("query")
-    recipes = list(mongo.db.recipes.find({"$text": {"$search": query}}))
-    return render_template("recipes.html", recipes=recipes)
+    country = request.form.get("country")
+    if country is None:
+        country = "all countries"
+        recipes = list(mongo.db.recipes.find(
+            {"$text": {"$search": query}}))
+    else:
+        recipes = list(mongo.db.recipes.find(
+            {"country": country, "$text": {"$search": query}}))
+    return render_template("search_results.html", recipes=recipes,
+                           country=country, query=query)
 
 
 @app.route("/recipe_details/<recipe>", methods=["GET", "POST"])
@@ -269,6 +282,7 @@ def delete_category(category_id):
     mongo.db.categories.remove({"_id": ObjectId(category_id)})
     flash("Category Successfully Deleted")
     return redirect(url_for("get_categories"))
+
 
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
