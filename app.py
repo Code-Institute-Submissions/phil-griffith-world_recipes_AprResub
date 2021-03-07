@@ -46,10 +46,10 @@ def search():
                            country=country, query=query)
 
 
-@app.route("/recipe_details/<recipe>", methods=["GET", "POST"])
-def recipe_details(recipe):
+@app.route("/recipe_details/<see_recipe>", methods=["GET", "POST"])
+def recipe_details(see_recipe):
     # get recipe id from recipe card
-    recipe = request.form.get("recipe")
+    recipe = request.form.get("see_recipe")
     # get full recipe details from db
     selected_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe)})
     return render_template(
@@ -282,6 +282,22 @@ def delete_category(category_id):
     mongo.db.categories.remove({"_id": ObjectId(category_id)})
     flash("Category Successfully Deleted")
     return redirect(url_for("get_categories"))
+
+
+@app.route("/add_to_favourites", methods=["GET", "POST"])
+def add_to_favourites():
+    if request.method == "POST":
+        # get recipe id from recipe page
+        fav_recipe = request.form.get("fav_recipe")
+        if mongo.db.users.find_one({"favourites": {"$exists": True}}):
+            flash("Recipe added to favourites")
+            mongo.db.users.update_one({"username": session['user']},
+                                      {"$push": {"favourites": fav_recipe}})
+        else:
+            flash("This user has no favourites")
+            mongo.db.users.update({"username": session["user"]},
+                                  {"$set": {"favourites": [fav_recipe]}})
+    return redirect(url_for("get_recipes"))
 
 
 if __name__ == "__main__":
