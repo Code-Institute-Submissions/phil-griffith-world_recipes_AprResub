@@ -1,12 +1,17 @@
 {% extends "base.html" %}
 {% block content %}
 
+    <a href="{{ url_for('get_recipes') }}" class="waves-effect waves-light btn-small red">
+    Back</a>
 
     <h2 class="center-align">Search Results</h2>
+
     
     <div class="row">
        <h3>Recipes containg {{ query }} from {{country}}</h3>
     </div>
+
+
 
     <div class="row">
         {% for recipe in recipes %}
