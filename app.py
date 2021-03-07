@@ -308,9 +308,30 @@ def add_to_favourites():
                                       {"$push": {"favourites": fav_recipe}})
         else:
             flash("This user has no favourites")
-            mongo.db.users.update({"username": session["user"]},
-                                  {"$set": {"favourites": [fav_recipe]}})
+            mongo.db.users.update_one({"username": session["user"]},
+                                      {"$set": {"favourites": [fav_recipe]}})
     return redirect(url_for("get_recipes"))
+
+
+@app.route("/change_password", methods=["GET", "POST"])
+def change_password():
+    if request.method == "POST":
+        print("hello")
+        existing_user = mongo.db.users.find_one(
+            {"username": session['user']})
+        if check_password_hash(
+            existing_user["password"],
+                request.form.get("old_password")):
+            mongo.db.users.update_one(
+                {"username": session["user"]},
+                {"$set": {"password": generate_password_hash(
+                    request.form.get("new_password"))}})
+            flash("Password Successfully Changed")
+        else:
+            flash("Wrong old password")
+
+        username = session['user']
+    return render_template("my_account.html", username=username)
 
 
 if __name__ == "__main__":

@@ -13,11 +13,59 @@
     </div>
     <div class="row  center-align">
         <div class="col s6">
-            <a href="" class="btn-small green accent-4">Change Password</a>
+            <a href="#modal1" class="btn-small green accent-4 btn modal-trigger">Change Password</a>
         </div>
         <div class="col s6">
             <a href="" class="btn-small green accent-4">Sign out</a>
         </div>
+    </div>
+    
+    
+    <!-- Modal Structure -->
+    <div id="modal1" class="modal">
+        <form class="col s8 m6 offset-m3" method="POST" action="{{ url_for('change_password') }}">
+            <div class="modal-content">
+                <h4>Change password</h4>
+            
+                <!-- old password -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">lock</i>
+                        <!-- enforce pattern match - at least 1 captial letter, 1 lower case letter and 1 number
+                        https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a -->
+                        <input id="old_password" name="old_password" type="password" class="validate" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$" required>
+                        <label for="password">Old Password</label>
+                    </div>
+                </div>
+                <!-- password -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">lock</i>
+                        <!-- enforce pattern match - at least 1 captial letter, 1 lower case letter and 1 number
+                        https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a -->
+                        <input id="new_password" name="new_password" type="password" class="validate" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$" required>
+                        <label for="new_password">New Password</label>
+                    </div>
+                </div>
+                <!-- confirm password -->
+                <div class="row">
+                    <div class="input-field col s12">
+                        <i class="material-icons prefix">lock</i>
+                        <input id="confirm_new_password" name="confirm_new_password" type="password" class="validate" required>
+                        <label for="confirm_new_password">Confirm New Password</label>
+                    </div>
+                </div>
+            </div>
+        
+            <div class="modal-footer">
+                <button type="button" class="col s12 btn-small red darken-2 waves-effect waves-light modal-close" required>
+                    Cancel <i class="fas fa-sign-in-alt"></i>
+                </button>
+                <button type="submit" class="col s12 btn-small waves-effect waves-light modal-close" required>
+                    Change Password <i class="fas fa-sign-in-alt"></i>
+                </button>
+            </div>
+        </form>
     </div>
 
 {% endblock %}
