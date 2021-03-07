@@ -184,8 +184,21 @@ def add_recipe():
 
 @app.route("/my_recipes")
 def my_recipes():
-    my_recipes = mongo.db.recipes.find({"added_by": "green"})
+    my_recipes = mongo.db.recipes.find({"added_by": session['user']})
     return render_template("my_recipes.html", my_recipes=my_recipes)
+
+
+@app.route("/favourite_recipes")
+def favourite_recipes():
+    favourite_recipes_ids = mongo.db.users.find_one(
+        {"username": session['user']})['favourites']
+    favourite_recipes = []
+    for recipe_id in favourite_recipes_ids:
+        favourite_recipes.append(mongo.db.recipes.find(
+            {"_id": ObjectId(recipe_id)}))
+    return render_template("favourite_recipes.html",
+                           favourite_recipes=favourite_recipes,
+                           username=session['user'])
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
