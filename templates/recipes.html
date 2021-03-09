@@ -23,6 +23,21 @@
             </div>
             <div class="row">
                 <div class="input-field col s3">
+                    <select id="category" name="category">
+                        <option value="all_categories" disabled selected>All Categories</option>
+                        {% for category in categories %}
+                        <option value="{{ category.category_name }}">{{ category.category_name }}</option>
+                        {% endfor %}
+                    </select>
+                    <label>Category</label>
+                </div>
+                <label>
+                    <input type="checkbox" name="vegetarian" class="filled-in" />
+                    <span>Vegetarian</span>
+                </label>
+            </div>
+            <div class="row">
+                <div class="input-field col s3">
                     <a href="{{ url_for('get_recipes') }}" class="red btn-small text-shadow">Reset</a>
                     <button type="submit" class="light-blue darken-1 btn-small text-shadow">
                         <i class="fas fa-search left"></i>Search

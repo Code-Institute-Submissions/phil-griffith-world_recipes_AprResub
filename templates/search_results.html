@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
+
     <h2 class="center-align">Recipes</h2>
     <!-- search bar -->
     <div class="row">
@@ -8,9 +9,13 @@
             <div class="row valign-wrapper center-align">
                 <div class="input-field col s3">                    
                     <select id="country" name="country">
-                        <option value="{{ country }}" selected>{{ country }}</option>
-                        {% for country in countries %}
-                            <option value="{{ country.name }}">{{ country.name }}</option>
+                        <option value="all_countries" disabled selected>All countries</option>
+                        {% for country_name in countries %}
+                            {% if country == country_name.name %}
+                                <option value="{{ country }}" selected>{{ country }}</option>
+                            {% else %}
+                                <option value="{{ country_name.name }}">{{ country_name.name }}</option>
+                            {% endif %}
                         {% endfor %}
                     </select>
                     <label>Country of origin</label>    
@@ -19,6 +24,25 @@
                     <input type="text" name="query" id="query">
                     <label for="query">Search Recipes</label>
                 </div>
+            </div>
+            <div class="row">
+                <div class="input-field col s3">
+                    <select id="category" name="category">
+                        <option value="all_categories" disabled selected>All Categories</option>
+                        {% for category_name in categories %}
+                            {% if category == category_name.category_name %}
+                                <option value="{{ category }}" selected>{{ category }}</option>
+                            {% else %}
+                                <option value="{{ category_name.category_name }}">{{ category_name.category_name }}</option>
+                            {% endif %}                        
+                        {% endfor %}
+                    </select>
+                    <label>Category</label>
+                </div>
+                <label>
+                    <input type="checkbox" name="vegetarian" class="filled-in" />
+                    <span>Vegetarian</span>
+                </label>
             </div>
             <div class="row">
                 <div class="input-field col s3">
@@ -71,7 +95,11 @@
     <!-- if no results are found, display message -->
     {% else %}
         {% if query %}
-        <h3>Nobody has added any Recipes containing {{ query }} from {{country}} yet</h3>
+            {% if not country %}
+                <h3>Nobody has added any Recipes containing {{ query }} yet</h3>
+            {% else %}
+                <h3>Nobody has added any Recipes containing {{ query }} from {{country}} yet</h3>
+            {% endif %}
         {% else %}
         <h3>Nobody has added any Recipes from {{country}} yet</h3>
         {% endif %}

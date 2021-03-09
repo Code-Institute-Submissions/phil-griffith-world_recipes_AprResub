@@ -27,27 +27,96 @@ def get_recipes():
     with open("data/countries.json", "r") as json_data:
         countries = json.load(json_data)
     recipes = mongo.db.recipes.find()
+    categories = mongo.db.categories.find()
     return render_template(
-        "recipes.html", recipes=recipes, countries=countries)
+        "recipes.html", recipes=recipes,
+        countries=countries, categories=categories)
 
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
     query = request.form.get("query")
     country = request.form.get("country")
+    category = request.form.get("category")
+    vegetarian = request.form.get("vegetarian")
+    is_vegetarian = True if vegetarian else False
+
     # create countries object for country select
     countries = []
     with open("data/countries.json", "r") as json_data:
         countries = json.load(json_data)
-    if country is None:
-        country = "all countries"
-        recipes = list(mongo.db.recipes.find(
-            {"$text": {"$search": query}}))
+
+    categories = mongo.db.categories.find()
+    if query:
+        if category:
+            if country:
+                print("ALL filled in")
+                print(is_vegetarian)
+                recipes = list(mongo.db.recipes.find(
+                        {"country": country,
+                         "category_name": category,
+                         "is_vegetarian": is_vegetarian,
+                         "$text": {"$search": query}}))
+            else:
+                print("No country, veg unknown")
+                print(is_vegetarian)
+                recipes = list(mongo.db.recipes.find(
+                        {"category_name": category,
+                         "is_vegetarian": is_vegetarian,
+                         "$text": {"$search": query}}))
+        else:
+            if country:
+                print("No category, country, veg unknown")
+                print(is_vegetarian)
+                print(country)
+                recipes = list(mongo.db.recipes.find(
+                        {"country": country,
+                         "is_vegetarian": is_vegetarian,
+                         "$text": {"$search": query}}))
+            else:
+                print("No country, veg unknown")
+                print(is_vegetarian)
+                print(country)
+                recipes = list(mongo.db.recipes.find(
+                        {"is_vegetarian": is_vegetarian,
+                         "$text": {"$search": query}}))
+    # if no text query is entered
+    elif not query:
+        if category:
+            if country:
+                print("ALL filled in")
+                print(is_vegetarian)
+                recipes = list(mongo.db.recipes.find(
+                        {"country": country,
+                         "category_name": category,
+                         "is_vegetarian": is_vegetarian}))
+            else:
+                print("No query, No country, veg unknown")
+                print(country)
+                print(is_vegetarian)
+                recipes = list(mongo.db.recipes.find(
+                        {"category_name": category,
+                         "is_vegetarian": is_vegetarian}))
+        else:
+            if country:
+                print("No category, country, veg unknown")
+                print(is_vegetarian)
+                print(country)
+                recipes = list(mongo.db.recipes.find(
+                        {"country": country,
+                         "is_vegetarian": is_vegetarian}))
+            else:
+                print("No query, No category, No country, veg unknown")
+                print(is_vegetarian)
+                recipes = list(mongo.db.recipes.find(
+                        {"is_vegetarian": is_vegetarian}))
+    # if no search parameters are entered
     else:
-        recipes = list(mongo.db.recipes.find(
-            {"country": country, "$text": {"$search": query}}))
+        return redirect(url_for("get_recipes"))
     return render_template("search_results.html", recipes=recipes,
-                           country=country, query=query, countries=countries)
+                           country=country, query=query,
+                           countries=countries, category=category,
+                           categories=categories)
 
 
 @app.route("/recipe_details/<see_recipe>", methods=["GET", "POST"])
