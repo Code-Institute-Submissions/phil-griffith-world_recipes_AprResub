@@ -35,6 +35,10 @@ def get_recipes():
 def search():
     query = request.form.get("query")
     country = request.form.get("country")
+    # create countries object for country select
+    countries = []
+    with open("data/countries.json", "r") as json_data:
+        countries = json.load(json_data)
     if country is None:
         country = "all countries"
         recipes = list(mongo.db.recipes.find(
@@ -43,7 +47,7 @@ def search():
         recipes = list(mongo.db.recipes.find(
             {"country": country, "$text": {"$search": query}}))
     return render_template("search_results.html", recipes=recipes,
-                           country=country, query=query)
+                           country=country, query=query, countries=countries)
 
 
 @app.route("/recipe_details/<see_recipe>", methods=["GET", "POST"])
