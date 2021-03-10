@@ -9,3 +9,18 @@
 h4.card-content {
     color: black;
 }
+
+.card-image {
+    height: 200px;
+    overflow: hidden;
+}
+
+.recipe-card .card-content {
+    height: 300px;
+}
+
+.recipe-details img {
+    width: 100%;
+    overflow: hidden;
+}
+

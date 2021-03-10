@@ -1,14 +1,70 @@
 {% extends "base.html" %}
 {% block content %}
 
+    <a href="{{ url_for('search') }}" class="waves-effect waves-light btn-small red">
+    Back</a>
 
     <h2 class="center-align">{{ recipe_name }}</h2>
 
-    <div class="row">
-        <div class="col s12 m4 l3">
-            <img src="{{ selected_recipe.image_url }}">
-            <h5>{{ recipe_name }}</h5>
-            <span>Recipe Name: {{ selected_recipe.recipe_name }}</span>
+    <div class="row">        
+        <div class="col card-panel s12">
+            <div class="row">
+                <div class="col s6 recipe-details">                    
+                    <img src="{{ selected_recipe.image_url }}">
+                </div>
+                <div class="col s6">
+                    <h5 class="center-align">{{ selected_recipe.recipe_name }}</h5>
+                    <div class="">
+                        <span>Likes</span>
+                    </div>
+                    <div class="">
+                        <span>Favourites</span>
+                    </div>
+                    <span>Category: {{ selected_recipe.category_name }}</span>
+                    <p class="center-align">{{ selected_recipe.recipe_description }}</p>                    
+                </div>
+            </div>
+            <div class="row">
+                <!-- recipe ingredients -->
+                <div class="col s12 m6">
+                    <h5 class="center-align">Ingredients</h5>
+                    <div class="col s8">
+                        <h6>Ingredient</h6>
+                        {% for ingredient in selected_recipe.ingredients %}
+                            <div>
+                                <span class="ingredients">{{ ingredient[0] }}</span>
+                            </div>                    
+                        {% endfor %}
+                    </div>
+                    <div class="col s4 right-align">
+                        <h6>Quantity</h6>
+                        {% for ingredient in selected_recipe.ingredients %}
+                            <div>
+                                <span class="quantities">{{ ingredient[1] }}</span>
+                            </div>                    
+                        {% endfor %}
+                    </div>
+                </div>
+                <!-- recipe method -->
+                <div class="col s12 m6">
+                    <h5 class="center-align">Method</h5>
+                    <div class="col s12">
+                        {% for method in selected_recipe.method %}
+                            <div>
+                                <span class="ingredients">Step {{ loop.index }}: {{ method }}</span>
+                            </div>                    
+                        {% endfor %}
+                    </div>                    
+                </div>
+            </div>
+            <div class="row">
+                <div class="col s12">
+                    {% if selected_recipe.recipe_story %}
+                        <h5>Recipe Story</h5>
+                        <p>{{ selected_recipe.recipe_story }}</p>
+                    {% endif %}
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -106,13 +106,14 @@ def search():
                         {"country": country,
                          "is_vegetarian": is_vegetarian}))
             else:
-                print("No query, No category, No country, veg unknown")
-                print(is_vegetarian)
-                recipes = list(mongo.db.recipes.find(
-                        {"is_vegetarian": is_vegetarian}))
-    # if no search parameters are entered
-    else:
-        return redirect(url_for("get_recipes"))
+                if is_vegetarian:
+                    print("No query, No category, No country, veg unknown")
+                    print(is_vegetarian)
+                    recipes = list(mongo.db.recipes.find(
+                            {"is_vegetarian": is_vegetarian}))
+                # if no search parameters are entered
+                else:
+                    return redirect(url_for("get_recipes"))
     return render_template("search_results.html", recipes=recipes,
                            country=country, query=query,
                            countries=countries, category=category,
