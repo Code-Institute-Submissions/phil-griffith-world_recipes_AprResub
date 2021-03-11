@@ -21,7 +21,11 @@
                     <label>Country of origin</label>    
                 </div>
                 <div class="input-field col s9 m9">
-                    <input type="text" name="query" id="query">
+                    {% if query %}
+                        <input type="text" name="query" id="query" value="{{ query }}">
+                    {% else %}
+                        <input type="text" name="query" id="query">
+                    {% endif %}
                     <label for="query">Search Recipes</label>
                 </div>
             </div>
@@ -40,7 +44,11 @@
                     <label>Category</label>
                 </div>
                 <label>
+                    {% if is_vegetarian %}
+                    <input type="checkbox" name="vegetarian" class="filled-in" checked="true"/>
+                    {% else %}                    
                     <input type="checkbox" name="vegetarian" class="filled-in" />
+                    {% endif %}
                     <span>Vegetarian</span>
                 </label>
             </div>

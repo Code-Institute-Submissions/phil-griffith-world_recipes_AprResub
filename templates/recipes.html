@@ -51,8 +51,8 @@
     <div class="row">
         {% for recipe in recipes %}
             {% set recipe_number = loop.index %}
-        <div class="col s12 m3 l4">
-            <div class="card recipe{{ recipe_number }} recipe-card">
+        <div class="col s12 m6 l4">
+            <div class="card recipe{{ recipe_number }} recipe-card hoverable">
                 <div class="card-image">
                     <img src="{{ recipe.image_url }}">
                     <span class="card-title">Card Title</span>
@@ -60,18 +60,30 @@
                 <div class="card-content">
                     <h5>{{ recipe.recipe_name }}</h5>
                     <p>{{ recipe.recipe_description }}</p>
-                    <span>Added by: {{ recipe.added_by }}</span> 
-                </div>
-                <div class="card-action">
-                    <form method="POST" action="{{ url_for('add_to_favourites') }}">
-                        <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ recipe._id }}">
-                        <button type="submit" class="btn-floating  waves-effect waves-light green">
-                            <i class="material-icons">add</i>
-                        </button>
-                    </form>
+                    <span>Added by: {{ recipe.added_by }}</span>
+                    </div>
+                    <div class="row center-align">
+                        <div class="col s6">
+                            <form method="POST" action="{{ url_for('like_recipe') }}">
+                                <input type="hidden" id="like_recipe" name="like_recipe" value="{{ recipe._id }}">
+                                <button type="submit" class="btn waves-effect waves-light blue">
+                                    <i class="material-icons">like</i>
+                                </button>
+                            </form>
+                        </div>
+                        <div class="col s6">
+                            <form method="POST" action="{{ url_for('add_to_favourites') }}">
+                                <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ recipe._id }}">
+                                <button type="submit" class="btn waves-effect waves-light yellow">
+                                    <i class="material-icons">add</i>
+                                </button>
+                            </form>
+                        </div>
+                    </div>
+                    <div class="card-action center-align">
                     <form method="POST" action="/recipe_details/<see_receipe>">
                         <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe._id }}">
-                        <button type="submit">
+                        <button type="submit" class="btn waves-effect waves-light green ">
                             See Recipe
                         </button>
                     </form>

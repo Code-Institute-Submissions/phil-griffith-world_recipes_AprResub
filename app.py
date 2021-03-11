@@ -52,7 +52,7 @@ def search():
         if session.get("country"):
             country = session["country"]
             print(country)
-            session.pop("country")            
+            session.pop("country")
         else:
             country = ""
         if session.get("category"):
@@ -154,6 +154,7 @@ def search():
     return render_template("search_results.html", recipes=recipes,
                            country=country, query=query,
                            countries=countries, category=category,
+                           is_vegetarian=is_vegetarian,
                            categories=categories)
 
 
@@ -413,7 +414,8 @@ def add_to_favourites():
     if request.method == "POST":
         # get recipe id from recipe page
         fav_recipe = request.form.get("fav_recipe")
-        if mongo.db.users.find_one({"favourites": {"$exists": True}}):
+        if mongo.db.users.find_one({"username": session["user"],
+                                    "favourites": {"$exists": True}}):
             flash("Recipe added to favourites")
             mongo.db.users.update_one({"username": session['user']},
                                       {"$push": {"favourites": fav_recipe}})
@@ -422,6 +424,56 @@ def add_to_favourites():
             mongo.db.users.update_one({"username": session["user"]},
                                       {"$set": {"favourites": [fav_recipe]}})
     return redirect(url_for("get_recipes"))
+
+
+@app.route("/like_recipe", methods=["GET", "POST"])
+def like_recipe():
+    if request.method == "POST":
+        # get recipe id from recipe page
+        like_recipe = request.form.get("like_recipe")
+        print(like_recipe)
+        # check if user has liked any recipes
+        if mongo.db.users.find_one({"username": session["user"],
+                                    "liked_recipes": {"$exists": True}}):
+            # check if user has already liked the recipe
+            if mongo.db.users.find_one({"username": session["user"],
+                                        "liked_recipes": [like_recipe]}):
+                print("You already liked")
+                like_allowed = False
+            else:
+                print("You haven't liked yet")
+                like_allowed = True
+        # create a liked_recipe array in the user's account
+        else:
+            mongo.db.users.update_one({"username": session["user"]},
+                                      {"$set":
+                                      {"liked_recipes": []}})
+            like_allowed = True
+
+        if like_allowed:
+            # check if recipe has any likes
+            if mongo.db.recipes.find_one({"_id": ObjectId(like_recipe),
+                                          "likes": {"$exists": True}}):
+                # get current likes
+                current_likes = mongo.db.recipes.find_one(
+                    {"_id": ObjectId(like_recipe)})["likes"]
+                likes = current_likes + 1
+                mongo.db.recipes.update_one({"_id": ObjectId(like_recipe)},
+                                            {"$set": {"likes": likes}})
+
+                mongo.db.users.update_one({"username": session["user"]},
+                                          {"$push":
+                                          {"liked_recipes": like_recipe}})
+
+            else:
+                mongo.db.recipes.update_one({"_id": ObjectId(like_recipe)},
+                                            {"$set": {"likes": 1}})
+                mongo.db.users.update_one({"username": session["user"]},
+                                          {"$push":
+                                          {"liked_recipes": like_recipe}})
+                print("Like added")
+        # https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response
+        return ('', 204)
 
 
 @app.route("/change_password", methods=["GET", "POST"])
