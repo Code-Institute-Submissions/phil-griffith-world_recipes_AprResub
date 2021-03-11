@@ -56,19 +56,13 @@
     </div>
     
     <!-- check for results -->
-    {% if recipes|length > 0 %}
-        {% if query %}
-        <h3>Recipes containing {{ query }} from {{country}}</h3>
-        {% else %}
-        <h3>Recipes from {{country}}</h3>
-        {% endif %}  
+    {% if recipes|length > 0 %} 
 
-        <!-- results -->
-            <!-- recipes -->
+    <!-- results -->
     <div class="row">
         {% for recipe in recipes %}
             {% set recipe_number = loop.index %}
-        <div class="col s12 m4 l3">
+        <div class="col s12 m3 l4">
             <div class="card recipe{{ recipe_number }} recipe-card">
                 <div class="card-image">
                     <img src="{{ recipe.image_url }}">
@@ -99,15 +93,6 @@
     </div>
     <!-- if no results are found, display message -->
     {% else %}
-        {% if query %}
-            {% if not country %}
-                <h3>Nobody has added any Recipes containing {{ query }} yet</h3>
-            {% else %}
-                <h3>Nobody has added any Recipes containing {{ query }} from {{country}} yet</h3>
-            {% endif %}
-        {% else %}
-        <h3>Nobody has added any Recipes from {{country}} yet</h3>
-        {% endif %}
-    {% endif %}  
-
+        <h3 class="red-text center-align">No results found</h3>
+    {% endif %}
 {% endblock %}

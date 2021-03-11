@@ -9,16 +9,11 @@
     <div class="row">
         {% for recipe in favourite_recipes %}
             {% set recipe_number = loop.index %}
-        <div class="col s12 m4 l3">
-            <div class="card recipe[0]{{ recipe_number }}">
+        <div class="col s12 m3 l4">
+            <div class="card recipe[0]{{ recipe_number }} recipe-card">
                 <div class="card-image">
                     <img src="{{ recipe[0].image_url }}">
                     <span class="card-title">Card Title</span>
-                    <form method="POST" action="">
-                        <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ recipe._id }}">
-                        <button type="submit" class="btn-floating halfway-fab waves-effect waves-light red">
-                            <i class="material-icons">add</i></button>
-                    </form>
                 </div>
                 <div class="card-content">
                     <h5>{{ recipe[0].recipe_name }}</h5>
@@ -27,7 +22,6 @@
                 </div>
                 <div class="card-action">
                     <form method="POST" action="/recipe_details/<see_receipe>">
-                        <span>{{ recipe[0]._id }}</span>
                         <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe[0]._id }}">
                         <button type="submit">
                             See Recipe
