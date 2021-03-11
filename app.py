@@ -35,11 +35,32 @@ def get_recipes():
 
 @app.route("/search", methods=["GET", "POST"])
 def search():
-    query = request.form.get("query")
-    country = request.form.get("country")
-    category = request.form.get("category")
-    vegetarian = request.form.get("vegetarian")
-    is_vegetarian = True if vegetarian else False
+    if request.method == "POST":
+        print("Method is Post")
+        query = request.form.get("query")
+        country = request.form.get("country")
+        category = request.form.get("category")
+        vegetarian = request.form.get("vegetarian")
+        is_vegetarian = True if vegetarian else False
+    else:
+        print("Method is NOT Post")
+        if session.get("query") is not None:
+            query = session["query"]
+            session.pop("query")
+        else:
+            query = ""
+        if session.get("country"):
+            country = session["country"]
+            print(country)
+            session.pop("country")            
+        else:
+            country = ""
+        if session.get("category"):
+            category = session["category"]
+            session.pop("category")
+        else:
+            category = ""
+        is_vegetarian = session["is_vegetarian"]
 
     # create countries object for country select
     countries = []
@@ -53,33 +74,33 @@ def search():
                 print("ALL filled in")
                 print(is_vegetarian)
                 recipes = list(mongo.db.recipes.find(
-                        {"country": country,
-                         "category_name": category,
-                         "is_vegetarian": is_vegetarian,
-                         "$text": {"$search": query}}))
+                    {"country": country,
+                     "category_name": category,
+                     "is_vegetarian": is_vegetarian,
+                     "$text": {"$search": query}}))
             else:
                 print("No country, veg unknown")
                 print(is_vegetarian)
                 recipes = list(mongo.db.recipes.find(
-                        {"category_name": category,
-                         "is_vegetarian": is_vegetarian,
-                         "$text": {"$search": query}}))
+                    {"category_name": category,
+                     "is_vegetarian": is_vegetarian,
+                     "$text": {"$search": query}}))
         else:
             if country:
                 print("No category, country, veg unknown")
                 print(is_vegetarian)
                 print(country)
                 recipes = list(mongo.db.recipes.find(
-                        {"country": country,
-                         "is_vegetarian": is_vegetarian,
-                         "$text": {"$search": query}}))
+                    {"country": country,
+                     "is_vegetarian": is_vegetarian,
+                     "$text": {"$search": query}}))
             else:
                 print("No country, veg unknown")
                 print(is_vegetarian)
                 print(country)
                 recipes = list(mongo.db.recipes.find(
-                        {"is_vegetarian": is_vegetarian,
-                         "$text": {"$search": query}}))
+                    {"is_vegetarian": is_vegetarian,
+                     "$text": {"$search": query}}))
     # if no text query is entered
     elif not query:
         if category:
@@ -87,33 +108,49 @@ def search():
                 print("ALL filled in")
                 print(is_vegetarian)
                 recipes = list(mongo.db.recipes.find(
-                        {"country": country,
-                         "category_name": category,
-                         "is_vegetarian": is_vegetarian}))
+                    {"country": country,
+                     "category_name": category,
+                     "is_vegetarian": is_vegetarian}))
             else:
                 print("No query, No country, veg unknown")
                 print(country)
                 print(is_vegetarian)
                 recipes = list(mongo.db.recipes.find(
-                        {"category_name": category,
-                         "is_vegetarian": is_vegetarian}))
+                    {"category_name": category,
+                     "is_vegetarian": is_vegetarian}))
         else:
             if country:
                 print("No category, country, veg unknown")
                 print(is_vegetarian)
                 print(country)
                 recipes = list(mongo.db.recipes.find(
-                        {"country": country,
-                         "is_vegetarian": is_vegetarian}))
+                    {"country": country,
+                     "is_vegetarian": is_vegetarian}))
             else:
                 if is_vegetarian:
                     print("No query, No category, No country, veg unknown")
                     print(is_vegetarian)
                     recipes = list(mongo.db.recipes.find(
-                            {"is_vegetarian": is_vegetarian}))
+                        {"is_vegetarian": is_vegetarian}))
                 # if no search parameters are entered
                 else:
                     return redirect(url_for("get_recipes"))
+        if country:
+            session["country"] = country
+            print("sessionCountry = " + session["country"])
+        elif session.get("country"):
+            session.pop("country")
+        if query:
+            session["query"] = query
+            print("query = " + session["query"])
+        elif session.get("query"):
+            session.pop("query")
+        if category:
+            session["category"] = category
+            print("category = " + session["category"])
+        elif session.get("category"):
+            session.pop("category")
+        session["is_vegetarian"] = is_vegetarian
     return render_template("search_results.html", recipes=recipes,
                            country=country, query=query,
                            countries=countries, category=category,
