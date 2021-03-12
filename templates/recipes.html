@@ -66,9 +66,13 @@
                         <div class="col s6">
                             <form method="POST" action="{{ url_for('like_recipe') }}">
                                 <input type="hidden" id="like_recipe" name="like_recipe" value="{{ recipe._id }}">
-                                <button type="submit" class="btn waves-effect waves-light blue">
-                                    <i class="material-icons">like</i>
-                                </button>
+                                {% if session['user'] %}
+                                    <button type="submit" id="no_user" class="btn waves-effect waves-light blue">Like
+                                        <i class="material-icons">like</i>
+                                    </button>
+                                {% else %}
+                                    <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Like</a>
+                                {% endif %}
                             </form>
                         </div>
                         <div class="col s6">
@@ -92,5 +96,15 @@
         </div>
         {%  endfor %}
     </div>
+
+      <!-- Modal Trigger -->
+  <a class="waves-effect waves-light btn modal-trigger" href="#modal1">Modal</a>
+
+  <!-- Modal Structure -->
+  <div id="modal1" class="modal">
+    <div class="modal-content">
+      <p>Please register to like this recipe</p>
+    </div>
+  </div>
 
 {% endblock %}

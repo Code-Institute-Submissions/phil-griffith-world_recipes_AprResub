@@ -164,5 +164,9 @@
             }
         });
     }
+
+    $('button#no_user').on("click", function() {
+        console.log("No user")
+    })
  });
 
