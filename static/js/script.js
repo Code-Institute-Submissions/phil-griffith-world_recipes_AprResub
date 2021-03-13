@@ -10,6 +10,7 @@
     $(".dropdown-trigger").dropdown();
     $('select').formSelect();
     $('.modal').modal();
+    $('.parallax').parallax();
    
 
     // ************************* Register ****************************

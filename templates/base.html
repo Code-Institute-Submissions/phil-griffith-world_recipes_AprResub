@@ -21,7 +21,7 @@
                 <a href="#!" class="brand-logo">World Recipes</a>
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
-                    <li><a href="sass.html">Home</a></li>
+                    <li><a href="{{ url_for('home') }}">Home</a></li>
                     <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
                     {% if session.user and session.user != "admin" %}
                         <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
@@ -40,7 +40,7 @@
     
         <!-- mobile side navbar -->
         <ul class="sidenav" id="mobile-demo">
-            <li><a href="sass.html">Home</a></li>
+            <li><a href="{{ url_for('home') }}">Home</a></li>
             <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
             {% if session.user and session.user != "admin" %}
                 <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
@@ -69,15 +69,19 @@
         {% endwith %}
     </section>
 
-    <main class="container">
-        {% block recipes_search %}
+    <main>
+        {% block home %}
         {% endblock %}
-        {% block search_results_search %}
-        {% endblock %}
-        {% block content %}
-        {% endblock %}
-        {% block no_results %}
-        {% endblock %}
+        <div class="container">
+            {% block recipes_search %}
+            {% endblock %}
+            {% block search_results_search %}
+            {% endblock %}
+            {% block content %}
+            {% endblock %}
+            {% block no_results %}
+            {% endblock %}
+        </div>
     </main>
     
     <footer class="page-footer text-shadow teal cyan lighten-1">

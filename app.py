@@ -20,6 +20,19 @@ mongo = PyMongo(app)
 
 
 @app.route("/")
+@app.route("/home", methods=["GET", "POST"])
+def home():
+    # create countries object for country select
+    countries = []
+    with open("data/countries.json", "r") as json_data:
+        countries = json.load(json_data)
+    categories = mongo.db.categories.find()
+    top_recipes = mongo.db.recipes.find().sort("likes", -1).limit(3)
+    return render_template(
+        "home.html", countries=countries,
+        categories=categories, top_recipes=top_recipes)
+
+
 @app.route("/get_recipes", methods=["GET", "POST"])
 def get_recipes():
     # create countries object for country select
