@@ -182,7 +182,7 @@ def sign_in():
                 session["user"] = request.form.get("username").lower()
                 flash("Welcome, {}".format(request.form.get("username")))
                 return redirect(
-                    url_for("account", username=session["user"]))
+                    url_for("home", username=session["user"]))
             else:
                 # invalid password
                 flash("Incorrect Username and/or Password")
@@ -223,7 +223,7 @@ def register():
             # put new user into session cookie
             session["user"] = request.form.get("username").lower()
             flash("Registration Successful!")
-            return redirect(url_for("account", username=session["user"]))
+            return redirect(url_for("home", username=session["user"]))
     return render_template("register.html", countries=countries)
 
 
