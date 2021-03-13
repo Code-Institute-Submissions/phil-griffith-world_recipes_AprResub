@@ -29,13 +29,13 @@
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
                     <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
-                    {% if session.user and session.user != "admin" %}
-                        <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
-                        <li><a class="dropdown-trigger" href="#!" data-target="account">My Account<i class="material-icons right">arrow_drop_down</i></a></li>                        
-                        <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
-                    {% elif session.user == "admin" %}                    
-                        <li><a href="">Manage Recipes</a></li>
-                        <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
+                    {% if session.user %}
+                        {% if session.user and session.user != "admin" %}
+                            <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>                     
+                        {% elif session.user == "admin" %}                    
+                            <li><a href="">Manage Recipes</a></li>
+                            <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
+                        {% endif %}                        
                         <li><a class="dropdown-trigger" href="#!" data-target="account">My Account<i class="material-icons right">arrow_drop_down</i></a></li>
                         <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
                     {% else %}
@@ -57,19 +57,18 @@
             <a href="{{ url_for('home') }}">Home</a>
         </li>
         <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
-        {% if session.user and session.user != "admin" %}
-        <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
-        <li><a class="dropdown-trigger" href="#!" data-target="account-mobile">My Account<i
-                    class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
-        {% elif session.user == "admin" %}
-        <li><a href="">Manage Recipes</a></li>
-        <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
-        <li><a class="dropdown-trigger" href="#!" data-target="account">My Account
-            <i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
+        {% if session.user %}
+           {% if session.user and session.user != "admin" %}
+                <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>            
+            {% elif session.user == "admin" %}
+                <li><a href="">Manage Recipes</a></li>
+                <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
+            {% endif %}
+                <li><a class="dropdown-trigger" href="#!" data-target="account-mobile">My Account
+                    <i class="material-icons right">arrow_drop_down</i></a></li>
+                <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
         {% else %}
-        <li><a href="{{ url_for('sign_in') }}">Sign in / Register</a></li>
+            <li><a href="{{ url_for('sign_in') }}">Sign in / Register</a></li>
         {% endif %}
     </ul>    
     
