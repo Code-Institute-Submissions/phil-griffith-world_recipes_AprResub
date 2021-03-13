@@ -35,6 +35,19 @@ def home():
 
 @app.route("/get_recipes", methods=["GET", "POST"])
 def get_recipes():
+    # clear any stored search parameters
+    if session.get("country"):
+        print("There's a country")
+        session.pop("country")
+    if session.get("query") is not None:
+        print("There's a query")
+        session.pop("query")
+    if session.get("category"):
+        print("There's a category")
+        session.pop("category")
+    if session.get("is_vegetarian"):
+        print("There's a vegetarian")
+        session.pop("is_vegetarian")
     # create countries object for country select
     countries = []
     with open("data/countries.json", "r") as json_data:
@@ -55,27 +68,22 @@ def search():
         category = request.form.get("category")
         vegetarian = request.form.get("vegetarian")
         is_vegetarian = True if vegetarian else False
+    # when clicking back out of recipe details
     else:
-        print("Method is NOT Post")
         if session.get("query") is not None:
             query = session["query"]
-            session.pop("query")
         else:
             query = ""
         if session.get("country"):
             country = session["country"]
-            print(country)
-            session.pop("country")
         else:
             country = ""
         if session.get("category"):
             category = session["category"]
-            session.pop("category")
         else:
             category = ""
         if session.get("is_vegetarian"):
             is_vegetarian = True
-            session.pop("is_vegetarian")
         else:
             is_vegetarian = False
 
@@ -85,36 +93,27 @@ def search():
         countries = json.load(json_data)
 
     categories = mongo.db.categories.find()
+
     if query:
         if category:
             if country:
-                print("ALL filled in")
-                print(is_vegetarian)
                 recipes = list(mongo.db.recipes.find(
                     {"country": country,
                      "category_name": category,
                      "is_vegetarian": is_vegetarian,
                      "$text": {"$search": query}}))
             else:
-                print("No country, veg unknown")
-                print(is_vegetarian)
                 recipes = list(mongo.db.recipes.find(
                     {"category_name": category,
                      "is_vegetarian": is_vegetarian,
                      "$text": {"$search": query}}))
         else:
             if country:
-                print("No category, country, veg unknown")
-                print(is_vegetarian)
-                print(country)
                 recipes = list(mongo.db.recipes.find(
                     {"country": country,
                      "is_vegetarian": is_vegetarian,
                      "$text": {"$search": query}}))
             else:
-                print("No country, veg unknown")
-                print(is_vegetarian)
-                print(country)
                 recipes = list(mongo.db.recipes.find(
                     {"is_vegetarian": is_vegetarian,
                      "$text": {"$search": query}}))
@@ -127,8 +126,6 @@ def search():
                      "category_name": category,
                      "is_vegetarian": is_vegetarian}))
             else:
-                print("No query, No country, veg unknown")
-
                 recipes = list(mongo.db.recipes.find(
                     {"category_name": category,
                      "is_vegetarian": is_vegetarian}))
@@ -144,22 +141,14 @@ def search():
                 # if no search parameters are entered
                 else:
                     return redirect(url_for("get_recipes"))
-        if country:
-            session["country"] = country
-        elif session.get("country"):
-            session.pop("country")
-        if query:
-            session["query"] = query
-        elif session.get("query"):
-            session.pop("query")
-        if category:
-            session["category"] = category
-        elif session.get("category"):
-            session.pop("category")
-        if is_vegetarian:
-            session["is_vegetarian"] = is_vegetarian
-        elif session.get("is_vegetarian"):
-            session.pop("is_vegetarian")
+    if country:
+        session["country"] = country
+    if query:
+        session["query"] = query
+    if category:
+        session["category"] = category
+    if is_vegetarian:
+        session["is_vegetarian"] = is_vegetarian
     return render_template("search_results.html", recipes=recipes,
                            country=country, query=query,
                            countries=countries, category=category,
