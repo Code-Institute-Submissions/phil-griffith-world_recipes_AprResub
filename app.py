@@ -171,10 +171,12 @@ def search():
 def recipe_details(see_recipe):
     # get recipe id from recipe card
     recipe = request.form.get("see_recipe")
+    top_recipe = request.form.get("top_recipe")
     # get full recipe details from db
     selected_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe)})
     return render_template(
-        "recipe_details.html", selected_recipe=selected_recipe)
+        "recipe_details.html", selected_recipe=selected_recipe,
+        top_recipe=top_recipe)
 
 
 @app.route("/sign_in", methods=["GET", "POST"])

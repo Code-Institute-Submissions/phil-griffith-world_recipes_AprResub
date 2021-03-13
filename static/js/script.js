@@ -11,6 +11,7 @@
     $('select').formSelect();
     $('.modal').modal();
     $('.parallax').parallax();
+    $('.carousel').carousel();
    
 
     // ************************* Register ****************************

@@ -55,3 +55,8 @@ h4.card-content {
     height: "100%";
     margin-bottom: -50px;
 }
+
+.carousel .carousel-item {
+    height: 350px;
+    width: 400px;
+}
