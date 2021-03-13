@@ -70,7 +70,13 @@
     </section>
 
     <main class="container">
+        {% block recipes_search %}
+        {% endblock %}
+        {% block search_results_search %}
+        {% endblock %}
         {% block content %}
+        {% endblock %}
+        {% block no_results %}
         {% endblock %}
     </main>
     

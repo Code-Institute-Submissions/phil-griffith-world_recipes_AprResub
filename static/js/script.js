@@ -168,5 +168,8 @@
     $('button#no_user').on("click", function() {
         console.log("No user")
     })
+    $('a#favourite').on("click", function() {
+        $('#modal1 p').text("Please sign in or Register to save this Recipe to your favourites")
+    })
  });
 
