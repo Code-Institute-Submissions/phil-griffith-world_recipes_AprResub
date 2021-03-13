@@ -1,9 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
 
-    <a href="{{ url_for('account', username=session['user']) }}" class="waves-effect waves-light btn-small red">
-    Back</a>
-
     <h2 class="center-align">{{ username }}Recipes</h2>
 
     <div class="row">

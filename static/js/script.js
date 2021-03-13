@@ -12,6 +12,7 @@
     $('.modal').modal();
     $('.parallax').parallax();
     $('.carousel').carousel();
+    $(".dropdown-trigger").dropdown();
    
 
     // ************************* Register ****************************
