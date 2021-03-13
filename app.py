@@ -27,7 +27,7 @@ def home():
     with open("data/countries.json", "r") as json_data:
         countries = json.load(json_data)
     categories = mongo.db.categories.find()
-    top_recipes = mongo.db.recipes.find().sort("likes", -1).limit(3)
+    top_recipes = mongo.db.recipes.find().sort("likes", -1).limit(4)
     return render_template(
         "home.html", countries=countries,
         categories=categories, top_recipes=top_recipes)
@@ -302,15 +302,20 @@ def my_recipes():
 
 @app.route("/favourite_recipes")
 def favourite_recipes():
-    favourite_recipes_ids = mongo.db.users.find_one(
-        {"username": session['user']})['favourites']
-    favourite_recipes = []
-    for recipe_id in favourite_recipes_ids:
-        favourite_recipes.append(mongo.db.recipes.find(
-            {"_id": ObjectId(recipe_id)}))
-    return render_template("favourite_recipes.html",
-                           favourite_recipes=favourite_recipes,
-                           username=session['user'])
+    if mongo.db.users.find_one({"username": session["user"],
+                                "favourites": {"$exists": True}}):
+        favourite_recipes_ids = mongo.db.users.find_one(
+            {"username": session['user']})['favourites']
+        favourite_recipes = []
+        for recipe_id in favourite_recipes_ids:
+            favourite_recipes.append(mongo.db.recipes.find(
+                {"_id": ObjectId(recipe_id)}))
+        return render_template("favourite_recipes.html",
+                               favourite_recipes=favourite_recipes,
+                               username=session['user'])
+    else:
+        return render_template(
+            "favourite_recipes.html", username=session['user'])
 
 
 @app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
@@ -418,13 +423,19 @@ def add_to_favourites():
             fav_recipe = request.form.get("fav_recipe")
             if mongo.db.users.find_one({"username": session["user"],
                                         "favourites": {"$exists": True}}):
-                flash("Recipe added to favourites")
-                mongo.db.users.update_one({"username": session['user']},
-                                        {"$push": {"favourites": fav_recipe}})
+                if mongo.db.users.find_one({"username": session["user"],
+                                            "favourites": fav_recipe}):
+                    flash("Recipe has already been added to favourites")
+                else:
+                    flash("Recipe added to favourites")
+                    mongo.db.users.update_one({"username": session['user']},
+                                              {"$push":
+                                              {"favourites": fav_recipe}})
             else:
-                flash("This user has no favourites")
+                flash("Recipe added to favourites")
                 mongo.db.users.update_one({"username": session["user"]},
-                                        {"$set": {"favourites": [fav_recipe]}})
+                                          {"$set":
+                                          {"favourites": [fav_recipe]}})
     return redirect(url_for("get_recipes"))
 
 

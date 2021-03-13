@@ -168,9 +168,9 @@
         });
     }
 
-    $('button#no_user').on("click", function() {
-        console.log("No user")
-    })
+    // ************************* Recipe page ****************************
+
+    // display modal if user is not logged in when clicking add recipe to favourite
     $('a#favourite').on("click", function() {
         $('#modal1 p').text("Please sign in or Register to save this Recipe to your favourites")
     })

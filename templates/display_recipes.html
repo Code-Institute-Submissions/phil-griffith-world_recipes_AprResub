@@ -27,7 +27,7 @@
                             <form method="POST" action="{{ url_for('like_recipe') }}">
                                 <input type="hidden" id="like_recipe" name="like_recipe" value="{{ recipe._id }}">
                                 {% if session['user'] %}
-                                    <button type="submit" id="no_user" class="">
+                                    <button type="submit" id="like_button" class="btn-floating">
                                         <i class="far fa-thumbs-up"></i>
                                     </button>
                                 {% else %}
@@ -41,8 +41,8 @@
                             <form method="POST" action="{{ url_for('add_to_favourites') }}">
                                 <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ recipe._id }}">
                                 {% if session['user'] %}
-                                    <button type="submit" class="btn waves-effect waves-light yellow">
-                                        Favourite
+                                    <button type="submit" class="btn-floating">
+                                        <i class="far fa-heart"></i>
                                     </button>
                                 {% else %}
                                     <a id="favourite" class="modal-trigger" href="#modal1">

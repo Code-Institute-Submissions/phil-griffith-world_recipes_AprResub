@@ -4,30 +4,34 @@
     <h2 class="center-align">{{ username }}Recipes</h2>
 
     <div class="row">
-        {% for recipe in favourite_recipes %}
-            {% set recipe_number = loop.index %}
-        <div class="col s12 m3 l4">
-            <div class="card recipe[0]{{ recipe_number }} recipe-card">
-                <div class="card-image">
-                    <img src="{{ recipe[0].image_url }}">
-                    <span class="card-title">Card Title</span>
-                </div>
-                <div class="card-content">
-                    <h5>{{ recipe[0].recipe_name }}</h5>
-                    <p>{{ recipe[0].recipe_description }}</p>
-                    <span>Added by: {{ recipe[0].added_by }}</span>
-                </div>
-                <div class="card-action">
-                    <form method="POST" action="/recipe_details/<see_receipe>">
-                        <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe[0]._id }}">
-                        <button type="submit">
-                            See Recipe
-                        </button>
-                    </form>
+        {% if favourite_recipes %}
+            {% for recipe in favourite_recipes %}
+                {% set recipe_number = loop.index %}
+            <div class="col s12 m3 l4">
+                <div class="card recipe[0]{{ recipe_number }} recipe-card">
+                    <div class="card-image">
+                        <img src="{{ recipe[0].image_url }}">
+                        <span class="card-title">Card Title</span>
+                    </div>
+                    <div class="card-content">
+                        <h5>{{ recipe[0].recipe_name }}</h5>
+                        <p>{{ recipe[0].recipe_description }}</p>
+                        <span>Added by: {{ recipe[0].added_by }}</span>
+                    </div>
+                    <div class="card-action">
+                        <form method="POST" action="/recipe_details/<see_receipe>">
+                            <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe[0]._id }}">
+                            <button type="submit">
+                                See Recipe
+                            </button>
+                        </form>
+                    </div>
                 </div>
             </div>
-        </div>
-        {%  endfor %}
+            {%  endfor %}
+        {% else %}
+            <h3 class="red-text center-align">You have not added any favourtire recipes yet</h3>
+        {% endif %}
     </div>
 
 {% endblock %}
