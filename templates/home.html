@@ -15,6 +15,7 @@
                         <span class="card-title ">{{ recipe.recipe_name }}</span>
                         <form method="POST" action="/recipe_details/<see_recipe>">
                             <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe._id }}">
+                            <!-- set top_recipe to true for back button redirect on Recipe details -->
                             <input type="hidden" id="top_recipe" name="top_recipe" value="{{ True }}">
                             <button type="submit" class="btn waves-effect waves-light green top-recipes">
                                 See Recipe

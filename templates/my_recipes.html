@@ -17,11 +17,12 @@
                     <p>{{ recipe.recipe_description }}</p>
                     <span>Added by: {{ recipe.added_by }}</span>
                 </div>
-                <div class="card-action">
-                    <form method="POST" action="/recipe_details/<recipe_details>">
-                        <span>{{ recipe._id }}</span>
-                        <input type="hidden" id="recipe" name="recipe" value="{{ recipe._id }}">
-                        <button type="submit">
+                <div class="card-action center-align">
+                    <form method="POST" action="/recipe_details/<see_recipe>">
+                        <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe._id }}">
+                        <!-- set my_recipes to true for back button redirect on Recipe details -->
+                        <input type="hidden" id="my_recipes" name="my_recipes" value="{{ True }}">
+                        <button type="submit" class="btn waves-effect waves-light green ">
                             See Recipe
                         </button>
                     </form>

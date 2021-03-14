@@ -161,11 +161,13 @@ def recipe_details(see_recipe):
     # get recipe id from recipe card
     recipe = request.form.get("see_recipe")
     top_recipe = request.form.get("top_recipe")
+    fav_recipe = request.form.get("fav_recipe")
+    my_recipes = request.form.get("my_recipes")
     # get full recipe details from db
     selected_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe)})
     return render_template(
         "recipe_details.html", selected_recipe=selected_recipe,
-        top_recipe=top_recipe)
+        top_recipe=top_recipe, fav_recipe=fav_recipe, my_recipes=my_recipes)
 
 
 @app.route("/sign_in", methods=["GET", "POST"])
@@ -227,16 +229,16 @@ def register():
     return render_template("register.html", countries=countries)
 
 
-@app.route("/account/<username>", methods=["GET", "POST"])
-def account(username):
-    # get session users username from db
-    username = mongo.db.users.find_one(
-        {"username": session["user"]})["username"]
+# @app.route("/account/<username>", methods=["GET", "POST"])
+# def account(username):
+#     # get session users username from db
+#     username = mongo.db.users.find_one(
+#         {"username": session["user"]})["username"]
 
-    if session["user"]:
-        return render_template("my_account.html", username=username)
+#     if session["user"]:
+#         return render_template("my_account.html", username=username)
 
-    return redirect(url_for("sign_in"))
+#     return redirect(url_for("sign_in"))
 
 
 @app.route("/sign_out")

@@ -3,12 +3,22 @@
 
     <!-- redirect back to home if user is viewing top recipe from home page -->
     {% if top_recipe %}
-        <a href="{{ url_for('home') }}" class="waves-effect waves-light btn-small red">
+        <a href="{{ url_for('home') }}" id="rd_back" class="waves-effect waves-light btn-small red">
             Back
         </a>
-    <!-- redirect back recipe search results or all recipes -->
+    <!-- redirect back to favourites -->
+    {% elif fav_recipe %}
+        <a href="{{ url_for('favourite_recipes') }}" id="rd_back" class="waves-effect waves-light btn-small red">
+            Back
+        </a>
+        <!-- redirect back to my recipes -->
+    {% elif my_recipes %}
+        <a href="{{ url_for('my_recipes') }}" id="rd_back" class="waves-effect waves-light btn-small red">
+            Back
+        </a>
+    <!-- redirect back to recipe search results or all recipes -->
     {% else %}
-        <a href="{{ url_for('search') }}" class="waves-effect waves-light btn-small red">
+        <a href="{{ url_for('search') }}" id="rd_back" class="waves-effect waves-light btn-small red">
             Back
         </a>
     {% endif %}
