@@ -314,10 +314,12 @@ def favourite_recipes():
                                 "favourites": {"$exists": True}}):
         favourite_recipes_ids = mongo.db.users.find_one(
             {"username": session['user']})['favourites']
+        print("Favourite Recipe ID's" + str(favourite_recipes_ids))
         favourite_recipes = []
         for recipe_id in favourite_recipes_ids:
             favourite_recipes.append(mongo.db.recipes.find(
                 {"_id": ObjectId(recipe_id)}))
+            print(favourite_recipes)
         return render_template("favourite_recipes.html",
                                favourite_recipes=favourite_recipes,
                                username=session['user'])
