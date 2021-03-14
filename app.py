@@ -468,7 +468,7 @@ def like_recipe():
                                         "liked_recipes": {"$exists": True}}):
                 # check if user has already liked the recipe
                 if mongo.db.users.find_one({"username": session["user"],
-                                            "liked_recipes": [like_recipe]}):
+                                            "liked_recipes": like_recipe}):
                     print("You already liked")
                     like_allowed = False
                 else:
