@@ -175,7 +175,7 @@
         $('#modal1 p').text("Please sign in or Register to save this Recipe to your favourites")
     })
     $('button#like_button').on("click", function() {
-        $('#modal1 p').text("Please sign in or Register to like this Recipe")
+        $('#modal1 p').text("Please sign in or Register to like this Recipe");
     })
  });
 

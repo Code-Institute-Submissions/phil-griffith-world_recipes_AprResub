@@ -1,4 +1,7 @@
 
+/* ********************************** General / utilities ************************************* */
+
+
 html {
    height: 100%;
 }
@@ -16,6 +19,21 @@ body {
     line-height: 2;
 }
 
+h2, h3 {
+    font-family: 'Courgette', cursive;
+}
+
+button, .btn, .btn-small {
+    font-family: 'Comfortaa', cursive;
+    font-style: italic;
+}
+
+
+
+
+
+/* ********************************** Home Page ************************************* */
+
 /* negate body padding */
 .parallax-container {
     height: "100%";
@@ -31,7 +49,6 @@ body {
     max-height: 200px;
 }
 
-
 /* ********************************** NavBar & Footer ************************************* */
 
 
@@ -43,8 +60,7 @@ header {
 }
 
 .nav-wrapper {
-    background-color: rgb(17, 157, 164); 
-    
+    background-color: rgb(17, 157, 164);    
 }
 
 .nav-wrapper a.brand-logo {

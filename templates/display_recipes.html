@@ -14,11 +14,12 @@
                 </div>
                 <div class="card-content center-align">
                     <h5>{{ recipe.recipe_name }}</h5>
+                    {{ is_recipe_page }}
                     <p>{{ recipe.recipe_description }}</p>                    
                     </div>
                         <div class="center-align" id="like_counter">
                             <form method="POST" action="{{ url_for('like_recipe') }}">
-                                <input type="hidden" id="like_recipe" name="like_recipe" value="{{ recipe._id }}">
+                                <input type="hidden" id="like_recipe" name="like_recipe" value="{{ recipe._id }}">                                
                                 {% if session['user'] %}
                                     <button type="submit" id="like_button" class="btn-floating">
                                         <i class="far fa-thumbs-up"></i>

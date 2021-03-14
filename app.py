@@ -231,18 +231,6 @@ def register():
     return render_template("register.html", countries=countries)
 
 
-# @app.route("/account/<username>", methods=["GET", "POST"])
-# def account(username):
-#     # get session users username from db
-#     username = mongo.db.users.find_one(
-#         {"username": session["user"]})["username"]
-
-#     if session["user"]:
-#         return render_template("my_account.html", username=username)
-
-#     return redirect(url_for("sign_in"))
-
-
 @app.route("/sign_out")
 def sign_out():
     # remove user session cookie
@@ -464,7 +452,6 @@ def like_recipe():
         if request.method == "POST":
             # get recipe id from recipe page
             like_recipe = request.form.get("like_recipe")
-            print(like_recipe)
             # check if user has liked any recipes
             if mongo.db.users.find_one({"username": session["user"],
                                         "liked_recipes": {"$exists": True}}):
@@ -479,14 +466,14 @@ def like_recipe():
             # create a liked_recipe array in the user's account
             else:
                 mongo.db.users.update_one({"username": session["user"]},
-                                        {"$set":
-                                        {"liked_recipes": []}})
+                                          {"$set":
+                                          {"liked_recipes": []}})
                 like_allowed = True
 
             if like_allowed:
                 # check if recipe has any likes
                 if mongo.db.recipes.find_one({"_id": ObjectId(like_recipe),
-                                            "likes": {"$exists": True}}):
+                                              "likes": {"$exists": True}}):
                     # get current likes
                     current_likes = mongo.db.recipes.find_one(
                         {"_id": ObjectId(like_recipe)})["likes"]
@@ -495,16 +482,20 @@ def like_recipe():
                                                 {"$set": {"likes": likes}})
 
                     mongo.db.users.update_one({"username": session["user"]},
-                                            {"$push":
-                                            {"liked_recipes": like_recipe}})
+                                              {"$push":
+                                              {"liked_recipes": like_recipe}})
 
                 else:
                     mongo.db.recipes.update_one({"_id": ObjectId(like_recipe)},
                                                 {"$set": {"likes": 1}})
                     mongo.db.users.update_one({"username": session["user"]},
-                                            {"$push":
-                                            {"liked_recipes": like_recipe}})
-                    print("Like added")
+                                              {"$push":
+                                              {"liked_recipes": like_recipe}})
+                # reload page to update likes counter
+                if like_recipe == "True":
+                    return redirect(url_for('get_recipes'))
+                else:
+                    return redirect(url_for('search'))
 
     # https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response
     return ('', 204)
