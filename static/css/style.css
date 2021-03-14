@@ -21,11 +21,16 @@ body {
 
 h2, h3 {
     font-family: 'Courgette', cursive;
+    padding: 30px;
 }
 
 button, .btn, .btn-small {
     font-family: 'Comfortaa', cursive;
     font-style: italic;
+}
+
+#search_button {
+    background-color: rgb(48, 102, 190);
 }
 
 
@@ -86,6 +91,22 @@ header {
 
 
 /* ********************************** Recipe Page ************************************* */
+
+#category_field, #country_field, #query_field {
+    margin-top: 20px;
+    font-family: 'Comfortaa', cursive;
+    font-style: italic;
+}
+
+#vegetarian_field {
+    font-family: 'Comfortaa', cursive;
+    font-style: italic;
+}
+
+.select-dropdown {
+    font-family: 'Comfortaa', cursive;
+    font-style: italic;
+}
 
 h4.card-content {
     color: black;

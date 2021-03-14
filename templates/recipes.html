@@ -6,8 +6,8 @@
     <!-- search bar -->
     <div class="row">
         <form action="{{ url_for('search') }}" method="POST" class="col s12">
-            <div class="row valign-wrapper center-align">
-                <div class="input-field col s3">                    
+            <div class="row center-align">
+                <div id="country_field" class="input-field col s12 m3">                    
                     <select id="country" name="country">
                         <option value="" selected>All countries</option>
                         {% for country in countries %}
@@ -16,13 +16,7 @@
                     </select>
                     <label>Country of origin</label>    
                 </div>
-                <div class="input-field col s9 m9">
-                    <input type="text" name="query" id="query">
-                    <label for="query">Search Recipes</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s3">
+                <div id="category_field" class="input-field col s12 m3">
                     <select id="category" name="category">
                         <option value="" selected>All Categories</option>
                         {% for category in categories %}
@@ -31,15 +25,23 @@
                     </select>
                     <label>Category</label>
                 </div>
-                <label>
-                    <input type="checkbox" name="vegetarian" class="filled-in" />
-                    <span>Vegetarian</span>
-                </label>
+                <div id="vegetarian_field" class="input-field col s12 m3 center-align">
+                    <label>
+                        <input type="checkbox" name="vegetarian" class="filled-in" />
+                        <span>Vegetarian</span>
+                    </label>
+                </div>
+            </div>
+            <div class="row ">
+                <div id="query_field" class="input-field col s12">
+                    <input type="text" name="query" id="query">
+                    <label for="query">Search Recipes</label>
+                </div>
             </div>
             <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s12">
                     <a href="{{ url_for('get_recipes') }}" class="red btn-small text-shadow">Reset</a>
-                    <button type="submit" class="light-blue darken-1 btn-small text-shadow">
+                    <button id="search_button" type="submit" class="btn-small text-shadow">
                         <i class="fas fa-search left"></i>Search
                     </button>
                 </div>

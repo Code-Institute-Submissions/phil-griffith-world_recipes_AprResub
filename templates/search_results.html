@@ -5,8 +5,9 @@
     <!-- search bar -->
     <div class="row">
         <form action="{{ url_for('search') }}" method="POST" class="col s12">
-            <div class="row valign-wrapper center-align">
-                <div class="input-field col s3">                    
+            <div class="row center-align">
+                <!-- country field -->
+                <div id="country_field" class="input-field col s12 m3">                    
                     <select id="country" name="country">
                         <option value="" selected>All countries</option>
                         {% for country_name in countries %}
@@ -19,17 +20,8 @@
                     </select>
                     <label>Country of origin</label>    
                 </div>
-                <div class="input-field col s9 m9">
-                    {% if query %}
-                        <input type="text" name="query" id="query" value="{{ query }}">
-                    {% else %}
-                        <input type="text" name="query" id="query">
-                    {% endif %}
-                    <label for="query">Search Recipes</label>
-                </div>
-            </div>
-            <div class="row">
-                <div class="input-field col s3">
+                <!-- category field -->
+                <div id="category_field" class="input-field col s12 m3">
                     <select id="category" name="category">
                         <option value="" selected>All Categories</option>
                         {% for category_name in categories %}
@@ -42,19 +34,33 @@
                     </select>
                     <label>Category</label>
                 </div>
-                <label>
-                    {% if is_vegetarian %}
-                    <input type="checkbox" name="vegetarian" class="filled-in" checked="true"/>
-                    {% else %}                    
-                    <input type="checkbox" name="vegetarian" class="filled-in" />
+                <!-- vegetarian field -->
+                <div id="vegetarian_field" class="input-field col s12 m3 center-align">
+                    <label>
+                        {% if is_vegetarian %}
+                        <input type="checkbox" name="vegetarian" class="filled-in" checked="true"/>
+                        {% else %}                    
+                        <input type="checkbox" name="vegetarian" class="filled-in" />
+                        {% endif %}
+                        <span>Vegetarian</span>
+                    </label>
+                </div>
+            </div>
+            <!-- query field -->
+            <div class="row">
+                <div id="query_field"class="input-field col s12">
+                    {% if query %}
+                        <input type="text" name="query" id="query" value="{{ query }}">
+                    {% else %}
+                        <input type="text" name="query" id="query">
                     {% endif %}
-                    <span>Vegetarian</span>
-                </label>
+                    <label for="query">Search Recipes</label>
+                </div>
             </div>
             <div class="row">
-                <div class="input-field col s3">
+                <div class="input-field col s12">
                     <a href="{{ url_for('get_recipes') }}" class="red btn-small text-shadow">Reset</a>
-                    <button type="submit" class="light-blue darken-1 btn-small text-shadow">
+                    <button id="search_button" type="submit" class="btn-small text-shadow">
                         <i class="fas fa-search left"></i>Search
                     </button>
                 </div>
