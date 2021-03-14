@@ -9,15 +9,17 @@
             {% for recipe in favourite_recipes %}
                 {% set recipe_number = loop.index %}
                 <div class="col s12 m6 l4">
-                    <div class="card recipe{{ recipe_number }} recipe-card hoverable">
+                    <div class="card recipe{{ recipe_number }} recipe-card hoverable center-align">
                         <div class="card-image">
                             <img src="{{ recipe[0].image_url }}">
-                            <span class="card-title">Card Title</span>
+                            <span class="card-title">{{ recipe[0].country }}</span>
                         </div>
                         <div class="card-content">
                             <h5>{{ recipe[0].recipe_name }}</h5>
                             <p>{{ recipe[0].recipe_description }}</p>
-                            <span>Added by: {{ recipe[0].added_by }}</span>
+                            </div>
+                            <div id="added_by">
+                                <span>Added by: {{ recipe[0].added_by }}</span>
                             </div>                   
                             <div class="card-action center-align">
                             <form method="POST" action="/recipe_details/<see_recipe>">

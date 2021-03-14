@@ -35,7 +35,7 @@
                         <div id="added_by">
                             <span>Added by: {{ recipe.added_by }}</span>
                         </div>
-                        <div class="col s6">
+                        <div class="favourite">
                             <form method="POST" action="{{ url_for('add_to_favourites') }}">
                                 <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ recipe._id }}">
                                 {% if session['user'] %}

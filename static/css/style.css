@@ -96,7 +96,7 @@ h4.card-content {
     padding: 20px;
 }
 
-#favourite {
+.favourite {
     position: absolute;
     top: 10px;
     right: 10px;
