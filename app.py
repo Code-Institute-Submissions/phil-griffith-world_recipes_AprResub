@@ -163,11 +163,13 @@ def recipe_details(see_recipe):
     top_recipe = request.form.get("top_recipe")
     fav_recipe = request.form.get("fav_recipe")
     my_recipes = request.form.get("my_recipes")
+    manage_recipes = request.form.get("manage_recipes")
     # get full recipe details from db
     selected_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe)})
     return render_template(
         "recipe_details.html", selected_recipe=selected_recipe,
-        top_recipe=top_recipe, fav_recipe=fav_recipe, my_recipes=my_recipes)
+        top_recipe=top_recipe, fav_recipe=fav_recipe,
+        my_recipes=my_recipes, manage_recipes=manage_recipes)
 
 
 @app.route("/sign_in", methods=["GET", "POST"])
@@ -298,8 +300,12 @@ def add_recipe():
 
 @app.route("/my_recipes")
 def my_recipes():
-    my_recipes = mongo.db.recipes.find({"added_by": session['user']})
-    return render_template("my_recipes.html", my_recipes=my_recipes)
+    if mongo.db.recipes.find_one({"added_by": session['user']}):
+        my_added_recipes = mongo.db.recipes.find({"added_by": session['user']})
+    else:
+        my_added_recipes = False
+    return render_template("my_recipes.html",
+                           my_added_recipes=my_added_recipes)
 
 
 @app.route("/favourite_recipes")
@@ -320,8 +326,13 @@ def favourite_recipes():
             "favourite_recipes.html", username=session['user'])
 
 
-@app.route("/edit_recipe/<recipe_id>", methods=["GET", "POST"])
-def edit_recipe(recipe_id):
+@app.route("/edit_recipe/<recipe_id>/<manage_recipes>",
+           methods=["GET", "POST"])
+def edit_recipe(recipe_id, manage_recipes):
+    if manage_recipes != "False":
+        manage_recipes = True
+    else:
+        manage_recipes = False
     if request.method == "POST":
         is_vegetarian = True if request.form.get("is_vegetarian") else False
         x = 1
@@ -358,7 +369,10 @@ def edit_recipe(recipe_id):
         mongo.db.recipes.update_one({"_id": ObjectId(
             recipe_id)}, {"$set": updated_recipe}, upsert=True)
         flash("Recipe Successfully Updated")
-        return redirect(url_for("my_recipes"))
+        if manage_recipes:
+            return redirect(url_for("manage_recipes"))
+        else:
+            return redirect(url_for("my_recipes"))
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
     countries = []
@@ -367,7 +381,7 @@ def edit_recipe(recipe_id):
     categories = mongo.db.categories.find().sort("category_name", 1)
     return render_template(
         "edit_recipe.html", countries=countries,
-        recipe=recipe, categories=categories)
+        recipe=recipe, categories=categories, manage_recipes=manage_recipes)
 
 
 @app.route("/delete_recipe/<recipe_id>")
@@ -513,6 +527,19 @@ def change_password():
 
         username = session['user']
     return render_template("my_account.html", username=username)
+
+
+@app.route("/manage_recipes")
+def manage_recipes():
+    # create countries object for country select
+    countries = []
+    with open("data/countries.json", "r") as json_data:
+        countries = json.load(json_data)
+    recipes = mongo.db.recipes.find()
+    categories = mongo.db.categories.find()
+    return render_template("manage_recipes.html",
+                           recipes=recipes, countries=countries,
+                           categories=categories)
 
 
 if __name__ == "__main__":

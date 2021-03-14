@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2 class="center-align">{{ username }}Recipes</h2>
+    <h2 class="center-align">{{ username }}'s Recipes</h2>
 
     <div class="row">
     {% if favourite_recipes %}
@@ -34,7 +34,7 @@
             {%  endfor %}
         </div>
     {% else %}
-        <h3 class="red-text center-align">You have not added any favourtire recipes yet</h3>
+        <h3 class="red-text center-align">You have not added any favourite recipes yet</h3>
     {% endif %}
     </div>
 {% endblock %}

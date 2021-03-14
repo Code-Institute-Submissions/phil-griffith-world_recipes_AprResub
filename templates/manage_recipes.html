@@ -1,11 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
     
-    <h2 class="center-align">{{ session['user']}}'s Recipes</h2>
-    
-    {% if my_added_recipes %}
-        <div class="row">    
-            {% for recipe in my_added_recipes %}
+    <h2 class="center-align">Manage Recipes</h2>
+       <div class="row">
+            {% for recipe in recipes %}
                 {% set recipe_number = loop.index %}
                 <div class="col s12 m3 l4">
                     <div class="card recipe{{ recipe_number }} recipe-card">
@@ -21,8 +19,8 @@
                         <div class="card-action center-align">
                             <form method="POST" action="/recipe_details/<see_recipe>">
                                 <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe._id }}">
-                                <!-- set my_recipes to true for back button redirect on Recipe details -->
-                                <input type="hidden" id="my_recipes" name="my_recipes" value="{{ True }}">
+                                <!-- set manage_recipes to true for cancel button redirect edit recipe details -->
+                                <input type="hidden" id="manage_recipes" name="manage_recipes" value="{{ True }}">
                                 <button type="submit" class="btn waves-effect waves-light green ">
                                     See Recipe
                                 </button>
@@ -30,14 +28,11 @@
                         </div>
                     </div>
                     <div class="edit_buttons center-align">
-                        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id, manage_recipes=False) }}" class="btn-small">Edit</a>
+                        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id, manage_recipes=True) }}" class="btn-small">Edit</a>
                         <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="btn-small red">Delete</a>
                     </div>
                 </div>
             {%  endfor %}
         </div>
-        {% else %}
-        <h3 class="red-text center-align">You have not added any recipes yet</h3>
-        {% endif %}
 
 {% endblock %}

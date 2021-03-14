@@ -33,7 +33,7 @@
                         {% if session.user and session.user != "admin" %}
                             <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>                     
                         {% elif session.user == "admin" %}                    
-                            <li><a href="">Manage Recipes</a></li>
+                            <li><a href="{{ url_for('manage_recipes') }}">Manage Recipes</a></li>
                             <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
                         {% endif %}                        
                         <li><a class="dropdown-trigger" href="#!" data-target="account">My Account<i class="material-icons right">arrow_drop_down</i></a></li>
@@ -61,7 +61,7 @@
            {% if session.user and session.user != "admin" %}
                 <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>            
             {% elif session.user == "admin" %}
-                <li><a href="">Manage Recipes</a></li>
+                <li><a href="{{ url_for('manage_recipes') }}">Manage Recipes</a></li>
                 <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
             {% endif %}
                 <li><a class="dropdown-trigger" href="#!" data-target="account-mobile">My Account
