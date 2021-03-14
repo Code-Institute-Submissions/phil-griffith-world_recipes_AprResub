@@ -25,14 +25,14 @@
                                 <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe._id }}">
                                 <!-- set my_recipes to true for back button redirect on Recipe details -->
                                 <input type="hidden" id="my_recipes" name="my_recipes" value="{{ True }}">
-                                <button type="submit" class="btn waves-effect waves-light green ">
+                                <button type="submit" class="btn waves-effect waves-light submit-buttons">
                                     See Recipe
                                 </button>
                             </form>
                         </div>
                     </div>
                     <div class="edit_buttons center-align">
-                        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id, manage_recipes=False) }}" class="btn-small">Edit</a>
+                        <a href="{{ url_for('edit_recipe', recipe_id=recipe._id, manage_recipes=False) }}" class="btn-small submit-buttons">Edit</a>
                         <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="btn-small red">Delete</a>
                     </div>
                 </div>

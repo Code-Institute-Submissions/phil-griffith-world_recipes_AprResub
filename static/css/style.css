@@ -8,7 +8,7 @@ html {
 
 body {
    min-height: 100%;
-   padding: 50px 0 100px;   
+   padding: 50px 0 100px;
 }
 
 .text-shadow {
@@ -29,10 +29,9 @@ button, .btn, .btn-small {
     font-style: italic;
 }
 
-#search_button {
-    background-color: rgb(48, 102, 190);
+.submit-buttons {
+    background-color: rgb(109, 157, 197);
 }
-
 
 
 

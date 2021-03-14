@@ -109,9 +109,12 @@
             </div>
             <!-- submit button -->
             <div class="center-align">
-                <button class="btn waves-effect waves-light" type="submit">Submit
+                <button class="btn-small waves-effect waves-light submit-buttons" type="submit">Submit
                     <i class="material-icons right">send</i>
                 </button>
+                <a href="{{ url_for('home') }}" class="waves-effect waves-light btn-small red">
+                    Cancel
+                </a>
             </div>
         </form>
     </div>
