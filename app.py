@@ -234,7 +234,7 @@ def register():
 @app.route("/sign_out")
 def sign_out():
     # remove user session cookie
-    flash("You are no longer Signed in")
+    flash("Goodbye")
     session.pop("user")
     return(redirect(url_for("sign_in")))
 

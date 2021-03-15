@@ -4,13 +4,15 @@
     <h3 class="center-align">Register</h3>
     
     <div class="row">
-        <form class="col s8 m6 offset-m3" method="POST" action="{{ url_for('register') }}">
-            <div class="card-panel">
+        
+            <div class="col s12 m8 card-panel register z-depth-5 offset-m2">
+                <form method="POST" action="{{ url_for('register') }}">
                 <!-- username -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
                         <input id="username" name="username" type="text" class="validate" pattern="^[a-zA-Z0-9]{5,15}$" required>
+                        <span class="form-rules">(Must be between 5 & 15 characters & only contain letters or numbers)</span>
                         <label for="username">Username</label>
                     </div>
                 </div>
@@ -20,7 +22,8 @@
                         <i class="material-icons prefix">lock</i>
                         <!-- enforce pattern match - at least 1 captial letter, 1 lower case letter and 1 number
                         https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a -->
-                        <input id="password" name="password" type="password" class="validate" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$" required>
+                        <input id="password" name="password" type="password" class="validate" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" required>
+                        <span class="form-rules">(Must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter & 1 number)</span>
                         <label for="password">Password</label>
                     </div>
                 </div>
@@ -55,7 +58,7 @@
                 </div>
                 <!-- register -->
                 <div class="row">
-                    <button type="submit" class="col s12 btn-large light-blue darken-4 text-shadow" required>
+                    <button type="submit" class="col s10 btn-large text-shadow offset-m1" required>
                         Register <i class="fas fa-sign-in-alt"></i>
                     </button>
                 </div>
@@ -64,8 +67,8 @@
                         <span id="signin">Already have an account? <a href="{{ url_for('sign_in') }}">Sign In</a></span>
                     </div>
                 </div>
-            </div>
-        </form>
+                </form>
+            </div>       
     </div>
 
 {% endblock %}
