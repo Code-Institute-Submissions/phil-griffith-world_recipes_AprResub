@@ -26,35 +26,44 @@
         <a href="{{ url_for('search') }}" id="rd_back" class="waves-effect waves-light btn-small red">
             Back
         </a>
-    {% endif %}
-
-    <h2 class="center-align">{{ recipe_name }}</h2>
-    
+    {% endif %}    
 
     <div class="row">        
-        <div class="col card-panel s12">
+        <div class="col card-panel s12 recipe-details z-depth-5">
             <div class="row">
-                <div class="col s6 recipe-details">                    
+                <div id="recipe_image" class="col s12 m6">                                       
                     <img src="{{ selected_recipe.image_url }}">
+                    <div>
+                        <span id="recipe_country" class="card-title text-shadow">{{ selected_recipe.country }}</span>
+                    </div>
+                    <div id="category">
+                        <span>Category: {{ selected_recipe.category_name }}</span>
+                    </div>
+                        <div class="favourite">
+                            <form method="POST" action="{{ url_for('add_to_favourites') }}">
+                                <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ selected_recipe._id }}">
+                                {% if session['user'] %}
+                                    <button id="rd_favourite" type="submit" class="btn-floating">
+                                        <i class="far fa-heart"></i>
+                                    </button>
+                                {% else %}
+                                    <a id="rd_favourite" class="btn-floating modal-trigger" href="#modal1">
+                                        <i class="far fa-heart"></i>
+                                    </a>
+                                {% endif %}   
+                            </form>
+                        </div>   
                 </div>
-                <div class="col s6">
-                    <h5 class="center-align">{{ selected_recipe.recipe_name }}</h5>
-                    <div class="">
-                        <span>Likes</span>
-                    </div>
-                    <div class="">
-                        <span>Favourites</span>
-                    </div>
-                    <span>Category: {{ selected_recipe.category_name }}</span>
-                    <p class="center-align">{{ selected_recipe.recipe_description }}</p>                    
+                <div id="recipe_description" class="col s12 m6">
+                    <h3 class="center-align">{{ selected_recipe.recipe_name }}</h3>
+                    <p class="center-align">{{ selected_recipe.recipe_description }}</p>                                      
                 </div>
             </div>
             <div class="row">
                 <!-- recipe ingredients -->
-                <div class="col s12 m6">
-                    <h5 class="center-align">Ingredients</h5>
+                <div id="recipe_ingredients" class="col s12 m6">
                     <div class="col s8">
-                        <h6>Ingredient</h6>
+                        <h6>Ingredients</h6>
                         {% for ingredient in selected_recipe.ingredients %}
                             <div>
                                 <span class="ingredients">{{ ingredient[0] }}</span>
@@ -85,9 +94,25 @@
             <div class="row">
                 <div class="col s12">
                     {% if selected_recipe.recipe_story %}
-                        <h5>Recipe Story</h5>
+                        <h5 class="center-align">Recipe Story</h5>
                         <p>{{ selected_recipe.recipe_story }}</p>
                     {% endif %}
+                    <div class="center-align" id="rd_like_counter">
+                            <form method="POST" action="{{ url_for('like_recipe') }}">
+                                <input type="hidden" id="like_recipe" name="like_recipe" value="{{ selected_recipe._id }}">                                
+                                {% if session['user'] %}
+                                    <button type="submit" id="like_button" class="btn-floating">
+                                        <i class="far fa-thumbs-up"></i>
+                                    </button>
+                                    <span>{{ selected_recipe.likes }}</span>
+                                {% else %}
+                                    <a id="like_button" class="btn-floating modal-trigger" href="#modal1">
+                                        <i class="far fa-thumbs-up"></i>
+                                    </a>
+                                    <span>{{ recipe.likes }}</span>
+                                {% endif %}
+                            </form>
+                        </div>
                 </div>
             </div>
         </div>

@@ -108,7 +108,7 @@ a.btn-floating.social-media {
 }
 
 
-/* ********************************** Recipe Page ************************************* */
+/* ********************************** Recipes Page ************************************* */
 
 #category_field, #country_field, #query_field {
     margin-top: 20px;
@@ -189,6 +189,49 @@ h4.card-content {
     margin-top: 50px;
 }
 
+.recipe-details {
+    margin-top: 25px;
+}
+
+#recipe_image {
+    margin-top: 20px;
+    position: relative;
+}
+
+#recipe_description h3 {
+    font-family: 'Courgette', cursive;
+    font-weight: 500;
+    margin: 0;
+}
+
+#recipe_description p {
+    font-family: 'Dancing Script', cursive;
+    font-size: 26px;
+    margin: 5px;
+}
+
+#recipe_image span {
+    font-family: 'Courgette', cursive;
+    font-size: 20px;
+}
+
+#rd_like_counter {
+    margin: 30px;
+}
+
+#category {
+    padding-top: 15px;
+}
+
+.recipe-details .favourite {
+    position: relative;
+}
+
+#rd_favourite {
+    position: absolute;
+    bottom: 30px;
+    right: 10px;
+}
 
 /* ********************************** Sign In / Register Page ************************************* */
 
