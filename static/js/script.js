@@ -13,6 +13,7 @@
     $('.parallax').parallax();
     $('.carousel').carousel();
     $(".dropdown-trigger").dropdown();
+    $('.tooltipped').tooltip();
    
 
     // ************************* Register ****************************

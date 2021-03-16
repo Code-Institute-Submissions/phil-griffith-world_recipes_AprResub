@@ -39,15 +39,18 @@
                     <div id="category">
                         <span>Category: {{ selected_recipe.category_name }}</span>
                     </div>
+                    <!-- add to favourites button  -->
                         <div class="favourite">
                             <form method="POST" action="{{ url_for('add_to_favourites') }}">
                                 <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ selected_recipe._id }}">
                                 {% if session['user'] %}
-                                    <button id="rd_favourite" type="submit" class="btn-floating">
+                                    <button id="rd_favourite" type="submit" class="btn-floating tooltipped"
+                                    data-position="bottom" data-tooltip="Add to Favourites">
                                         <i class="far fa-heart"></i>
                                     </button>
                                 {% else %}
-                                    <a id="rd_favourite" class="btn-floating modal-trigger" href="#modal1">
+                                    <a id="rd_favourite" class="btn-floating modal-trigger tooltipped"
+                                    data-position="bottom" data-tooltip="Add to Favourites" href="#modal1">
                                         <i class="far fa-heart"></i>
                                     </a>
                                 {% endif %}   
@@ -101,13 +104,14 @@
                             <form method="POST" action="{{ url_for('like_recipe') }}">
                                 <input type="hidden" id="like_recipe" name="like_recipe" value="{{ selected_recipe._id }}">                                
                                 {% if session['user'] %}
-                                    <button type="submit" id="like_button" class="btn-floating btn-tooltipped"
-                                    data-position="bottom" data-tooltip="I am a tooltip">
+                                    <button type="submit" id="like_button" class="btn-floating tooltipped"
+                                    data-position="bottom" data-tooltip="Like Recipe">
                                         <i class="far fa-thumbs-up"></i>
                                     </button>
                                     <span>{{ selected_recipe.likes }}</span>
                                 {% else %}
-                                    <a id="like_button" class="btn-floating modal-trigger" href="#modal1">
+                                    <a id="like_button" class="btn-floating modal-trigger tooltipped"
+                                    data-position="bottom" data-tooltip="Like Recipe" href="#modal1">
                                         <i class="far fa-thumbs-up"></i>
                                     </a>
                                     <span>{{  selected_recipe.likes }}</span>
