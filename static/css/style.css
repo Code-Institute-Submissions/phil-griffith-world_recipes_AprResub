@@ -37,6 +37,12 @@ button, .btn, .btn-small, .card-panel {
     background-color: rgb(109, 157, 197);
 }
 
+.search.card-panel {
+    background-color: #fff;
+    padding: 12px 0;
+    margin: 15px 10px;
+}
+
 
 
 /* ********************************** Home Page ************************************* */
@@ -231,6 +237,10 @@ h4.card-content {
     position: absolute;
     bottom: 30px;
     right: 10px;
+}
+
+#recipe_method, #recipe_story {
+    padding: 1.5rem;
 }
 
 /* ********************************** Sign In / Register Page ************************************* */
