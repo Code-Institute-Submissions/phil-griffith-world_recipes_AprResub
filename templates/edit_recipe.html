@@ -3,12 +3,12 @@
 
     <h3 class="center-align">Edit Recipe</h3>
     
-    <div class="row card-panel grey lighten-5">
-        <form class="col s12" method="POST" action="{{ url_for('edit_recipe', recipe_id=recipe._id, manage_recipes=manage_recipes) }}">
+    <div class="card-panel grey lighten-5">
+        <form class="" method="POST" action="{{ url_for('edit_recipe', recipe_id=recipe._id, manage_recipes=manage_recipes) }}">
             <!-- recipe name -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="material-icons prefix">account_circle</i>
+                    <i class="material-icons prefix">local_dining</i>
                     <input id="recipe_name" name="recipe_name" type="text" value="{{ recipe.recipe_name }}" required>
                     <label for="recipe_name">Recipe Name</label>
                 </div>
@@ -16,7 +16,7 @@
             <!-- recipe image URL -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="material-icons prefix">phone</i>
+                    <i class="material-icons prefix">panorama</i>
                     <input id="image_url" name="image_url" type="tel" value="{{ recipe.image_url }}" required>
                     <label for="image_url">Recipe image URL</label>
                 </div>
@@ -24,7 +24,7 @@
                 <!-- recipe category -->
                 <div class="row">
                     <div class="input-field col s12">
-                        <i class="material-icons prefix">phone</i>
+                        <i class="material-icons prefix">folder_open</i>
                         <select id="category_name" name="category_name" class="validate" required>
                             <option value="" disabled>Recipe category</option>
                             {% for category in categories %}
@@ -41,7 +41,7 @@
                 <!-- recipe description -->
                 <div class="row">
                 <div class="input-field col s12">
-                    <i class="material-icons prefix">phone</i>
+                    <i class="material-icons prefix">format_align_center</i>
                     <textarea id="recipe_description" name="recipe_description" class="materialize-textarea validate" minlength="5"
                     maxlength="200" required>{{ recipe.recipe_description}}</textarea>
                     <label for="recipe_description">Recipe Description</label>
@@ -51,7 +51,7 @@
             <div class="row">
                 <div class="input-field col s12">
                     <div class="switch">
-                        <i class="material-icons prefix">phone</i>
+                        <i class="material-icons prefix">local_florist</i>
                         <label for="is_vegetarian">
                             {% if recipe.is_vegetarian %}
                                 <input type="checkbox" id="is_vegetarian" name="is_vegetarian" checked>
@@ -86,7 +86,7 @@
                 {% for ingredient in recipe.ingredients %}
                     <div class="row" id="ingredient_{{ loop.index }}">
                         <div class="input-field col s8">
-                            <i class="material-icons prefix">account_circle</i>                        
+                            <i class="material-icons prefix">kitchen</i>                        
                             <input id="ingredient{{ loop.index }}" name="ingredient{{ loop.index }}"
                             type="text" class="validate" value="{{ ingredient[0] }}" required>
                             <label for="ingredient{{ loop.index }}">Ingredient {{ loop.index }}</label>
@@ -100,9 +100,9 @@
             </div> 
             {% set num = recipe.ingredients|length %}                       
             <div class="row ingredient-buttons" id="buttons{{ num + 1 }}">
-                <button type="button" id="add_ingredient">Add Ingredient</button> 
+                <button type="button" id="add_ingredient" class="btn-small">Add Ingredient</button> 
                 {% if num > 1 %}                   
-                    <button type="button" id="remove_ingredient">Remove Ingredient</button>
+                    <button type="button" id="remove_ingredient" class="btn-small">Remove Ingredient</button>
                 {% endif %}
             </div>                
                        
@@ -111,7 +111,7 @@
                 {% for step in recipe.method %}
                     <div class="row" id="step_{{ loop.index }}">
                         <div class="input-field col s12">
-                            <i class="material-icons prefix">account_circle</i>
+                            <i class="material-icons prefix">build</i>
                             <textarea id="step{{ loop.index }}" name="step{{ loop.index }}" class="materialize-textarea validate" minlength="5" maxlength="200"
                             required>{{ step }}</textarea>
                             <label for="step{{ loop.index }}">Step 1</label>
@@ -120,27 +120,27 @@
                 {% endfor %}
             </div>
             <div class="row method-buttons" id="m_buttons{{ num+1 }}">
-                <button type="button" id="add_step">Add Step</button>
+                <button type="button" id="add_step" class="btn-small">Add Step</button>
                 {% if num > 1 %}                   
-                    <button type="button" id="remove_step">Remove Step</button>
+                    <button type="button" id="remove_step" class="btn-small">Remove Step</button>
                 {% endif %}                
             </div>
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="material-icons prefix">account_circle</i>
+                    <i class="material-icons prefix">format_align_center</i>
                     <textarea id="recipe_story" name="recipe_story" class="materialize-textarea validate" maxlength="500">{{ recipe.recipe_story }}</textarea>
                     <label for="step1">Recipe background story (optional)</label>
                 </div>
             </div>
             <!-- submit button -->
             <div class="center-align">
-                <button class="btn waves-effect waves-light" type="submit">Confirm Changes
+                <button class="btn-small waves-effect waves-light submit-buttons confirm_edit_buttons" type="submit">Confirm Changes
                     <i class="material-icons right">send</i>                
                 </button>
                 {% if manage_recipes %}
-                    <a href="{{ url_for('manage_recipes') }}" class="btn-small red">Cancel</a>
+                    <a href="{{ url_for('manage_recipes') }}" class="btn-small red confirm_edit_buttons">Cancel</a>
                 {% else %}
-                    <a href="{{ url_for('my_recipes') }}" class="btn-small red">Cancel</a>
+                    <a href="{{ url_for('my_recipes') }}" class="btn-small red confirm_edit_buttons">Cancel</a>
                 {% endif %}
             </div>
         </form>

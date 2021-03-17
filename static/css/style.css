@@ -293,6 +293,19 @@ h4.card-content {
     padding: 30px;
 }
 
+/* ********************************** Add Recipe page ************************************* */
+
+.method-buttons button, .ingredient-buttons button {
+    background-color: rgb(109, 157, 197);
+    margin-bottom: 15px;
+}
+
+
+/* ********************************** Edit Recipe page ************************************* */
+
+.confirm_edit_buttons {
+    margin-bottom: 15px;
+}
 
 
 /* ********************************** Media Queries ************************************* */
