@@ -420,6 +420,15 @@ def delete_recipe(recipe_id):
     return redirect(url_for("my_recipes"))
 
 
+@app.route("/remove_recipe/<recipe_id>")
+def remove_recipe(recipe_id):
+    mongo.db.users.update_one({"username": session['user']},
+                              {"$pull":
+                              {"favourites": recipe_id}})
+    flash("Recipe Successfully Removed")
+    return redirect(url_for("favourite_recipes"))
+
+
 @app.route("/get_categories")
 def get_categories():
     categories = list(mongo.db.categories.find().sort("category_name", 1))
