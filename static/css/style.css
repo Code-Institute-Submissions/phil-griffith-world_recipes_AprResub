@@ -43,9 +43,13 @@ button, .btn, .btn-small, .card-panel {
     margin: 15px 10px;
 }
 
-#like_button:hover, #rd_favourite:hover,
+#like_button i:hover,
 .social-media a:hover {
-    background-color: rgb(48, 102, 190);
+    color: rgb(48, 102, 190);
+}
+
+ .favourite i:hover {
+    color: red;
 }
 
 

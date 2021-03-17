@@ -43,6 +43,7 @@
                         <div class="favourite">
                             <form method="POST" action="{{ url_for('add_to_favourites') }}">
                                 <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ selected_recipe._id }}">
+                                <input type="hidden" id="page" name="page" value="recipe_details">
                                 {% if session['user'] %}
                                     <button id="rd_favourite" type="submit" class="btn-floating tooltipped"
                                     data-position="bottom" data-tooltip="Add to Favourites">
@@ -50,7 +51,7 @@
                                     </button>
                                 {% else %}
                                     <a id="rd_favourite" class="btn-floating modal-trigger tooltipped"
-                                    data-position="bottom" data-tooltip="Add to Favourites" href="#modal1">
+                                    data-position="bottom" data-tooltip="Add to Favourites" href="#modal2">
                                         <i class="far fa-heart"></i>
                                     </a>
                                 {% endif %}   
@@ -111,7 +112,7 @@
                                     <span>{{ selected_recipe.likes }}</span>
                                 {% else %}
                                     <a id="like_button" class="btn-floating modal-trigger tooltipped"
-                                    data-position="bottom" data-tooltip="Like Recipe" href="#modal1">
+                                    data-position="bottom" data-tooltip="Like Recipe" href="#modal2">
                                         <i class="far fa-thumbs-up"></i>
                                     </a>
                                     <span>{{  selected_recipe.likes }}</span>

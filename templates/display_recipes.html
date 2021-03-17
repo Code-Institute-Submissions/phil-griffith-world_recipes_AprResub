@@ -26,7 +26,7 @@
                                     </button>
                                     <span>{{ recipe.likes }}</span>
                                 {% else %}
-                                    <a id="like_button" class="btn-floating modal-trigger" href="#modal1">
+                                    <a id="like_button" class="btn-floating modal-trigger" href="#modal2">
                                         <i class="far fa-thumbs-up"></i>
                                     </a>
                                     <span>{{ recipe.likes }}</span>
@@ -44,14 +44,14 @@
                                         <i class="far fa-heart"></i>
                                     </button>
                                 {% else %}
-                                    <a id="favourite" class="btn-floating modal-trigger" href="#modal1">
+                                    <a id="favourite" class="btn-floating modal-trigger" href="#modal2">
                                         <i class="far fa-heart"></i>
                                     </a>
                                 {% endif %}   
                             </form>
                         </div>
                     <div class="card-action center-align">
-                    <form method="POST" action="/recipe_details/<see_receipe>">
+                    <form method="POST" action="{{ url_for('recipe_details') }}">
                         <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe._id }}">
                         <button type="submit" class="btn waves-effect waves-light submit-buttons">
                             See Recipe
@@ -62,16 +62,5 @@
         </div>
         {%  endfor %}
     </div>
-
-  <!-- Modal Structure -->
-  <div id="modal1" class="modal">
-    <div class="modal-content">
-      <p>Please Sign in or Register to like this recipe</p>
-    </div>
-    <div class="modal-footer">
-      <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-      <a href="{{ url_for('sign_in')}}" class="modal-close waves-effect waves-green btn-flat">Sign In / Register</a>
-    </div>
-  </div>
-
+    
 {% endblock %}

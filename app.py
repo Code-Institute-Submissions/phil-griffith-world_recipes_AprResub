@@ -156,8 +156,8 @@ def search():
                            categories=categories)
 
 
-@app.route("/recipe_details/<see_recipe>", methods=["GET", "POST"])
-def recipe_details(see_recipe):
+@app.route("/recipe_details", methods=["GET", "POST"])
+def recipe_details():
     # get recipe id from recipe card
     recipe = request.form.get("see_recipe")
     top_recipe = request.form.get("top_recipe")
@@ -169,7 +169,8 @@ def recipe_details(see_recipe):
     return render_template(
         "recipe_details.html", selected_recipe=selected_recipe,
         top_recipe=top_recipe, fav_recipe=fav_recipe,
-        my_recipes=my_recipes, manage_recipes=manage_recipes)
+        my_recipes=my_recipes, manage_recipes=manage_recipes,
+        recipe_details=recipe_details)
 
 
 @app.route("/sign_in", methods=["GET", "POST"])
@@ -429,6 +430,7 @@ def add_to_favourites():
             fav_recipe = request.form.get("fav_recipe")
             if mongo.db.users.find_one({"username": session["user"],
                                         "favourites": {"$exists": True}}):
+                # check if user has already added recipe to favourites
                 if mongo.db.users.find_one({"username": session["user"],
                                             "favourites": fav_recipe}):
                     flash("Recipe has already been added to favourites")
@@ -442,7 +444,7 @@ def add_to_favourites():
                 mongo.db.users.update_one({"username": session["user"]},
                                           {"$set":
                                           {"favourites": [fav_recipe]}})
-    return redirect(url_for("get_recipes"))
+        return ('', 204)
 
 
 @app.route("/like_recipe", methods=["GET", "POST"])
