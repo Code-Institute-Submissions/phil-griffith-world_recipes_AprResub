@@ -17,6 +17,7 @@
                     {{ is_recipe_page }}
                     <p>{{ recipe.recipe_description }}</p>
                 </div>
+                <!-- like button -->
                 <div class="center-align" id="like_counter">
                     <form method="POST" action="{{ url_for('like_recipe') }}">
                         <input type="hidden" id="like_recipe" name="like_recipe" value="{{ recipe._id }}">
@@ -49,9 +50,11 @@
                         {% endif %}
                     </form>
                 </div>
+                <!-- /like button -->
                 <div id="added_by">
                     <span>Added by: {{ recipe.added_by }}</span>
                 </div>
+                <!-- favourite button -->
                 <div class="favourite">
                     <form method="POST" action="{{ url_for('add_to_favourites') }}">
                         <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ recipe._id }}">
@@ -81,6 +84,7 @@
                         {% endif %}
                     </form>
                 </div>
+                <!-- /favourite button -->
                 <div class="card-action center-align">
                     <form method="POST" action="{{ url_for('recipe_details') }}">
                         <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe._id }}">

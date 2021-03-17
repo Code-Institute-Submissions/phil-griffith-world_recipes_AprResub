@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2 class="center-align">{{ username }}'s Recipes</h2>
+    <h2 class="center-align">{{ username }}'s Favourite Recipes</h2>
 
     <div class="row">
     {% if favourite_recipes %}
@@ -17,7 +17,35 @@
                         <div class="card-content">
                             <h5>{{ recipe[0].recipe_name }}</h5>
                             <p>{{ recipe[0].recipe_description }}</p>
-                            </div>
+                        </div>
+                        <!-- like button -->
+                <div class="center-align" id="like_counter">
+                    <form method="POST" action="{{ url_for('like_recipe') }}">
+                        <input type="hidden" id="like_recipe" name="like_recipe" value="{{ recipe[0]._id }}">
+                        
+                            <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
+                            <!-- check if user has liked this recipe -->
+                            {% set ns = namespace(found=false) %}
+                            {% for likes in user_likes  %}
+                                {% if likes|string == recipe[0]._id|string %}
+                                    {% set ns.found = true %}
+                                {% endif %}
+                            {% endfor %}
+                            <!-- if user has already liked the recipe, colour icon blue -->
+                            {% if ns.found %}
+                                <button type="submit" id="like_button_blue" class="btn-floating blue">
+                                    <i class="far fa-thumbs-up"></i>
+                                </button>
+                                <span id="liked">{{ recipe[0].likes }}</span>
+                            {% else %}
+                                <button type="submit" id="like_button" class="btn-floating">
+                                    <i class="far fa-thumbs-up"></i>
+                                </button>
+                                <span id="not_liked">{{ recipe[0].likes }}</span>
+                            {% endif %}                        
+                    </form>
+                </div>
+                <!-- /like button -->
                             <div id="added_by">
                                 <span>Added by: {{ recipe[0].added_by }}</span>
                             </div>                   

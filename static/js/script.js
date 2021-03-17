@@ -187,6 +187,10 @@
     $('button#favourite_button').on("click", function() {
          $(this).addClass('red');
     })
+
+    $('button#rd_favourite').on("click", function() {
+         $(this).addClass('red');
+    })
  });
 
 

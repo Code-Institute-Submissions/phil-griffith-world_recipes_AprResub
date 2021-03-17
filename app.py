@@ -54,6 +54,7 @@ def get_recipes():
         countries = json.load(json_data)
     recipes = mongo.db.recipes.find()
     categories = mongo.db.categories.find()
+    # check if user has any favourite or liked recipes
     if session.get("user") is not None:
         if mongo.db.users.find_one({"username": session["user"],
                                     "favourites": {"$exists": True}}):
@@ -180,11 +181,24 @@ def recipe_details():
     manage_recipes = request.form.get("manage_recipes")
     # get full recipe details from db
     selected_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe)})
-    return render_template(
-        "recipe_details.html", selected_recipe=selected_recipe,
-        top_recipe=top_recipe, fav_recipe=fav_recipe,
-        my_recipes=my_recipes, manage_recipes=manage_recipes,
-        recipe_details=recipe_details)
+    # check if user has any favourite or liked recipes
+    if session.get("user") is not None:
+        user_favourites = mongo.db.users.find_one(
+            {"username": session['user']})['favourites']
+        user_likes = mongo.db.users.find_one(
+            {"username": session['user']})['liked_recipes']
+        return render_template(
+            "recipe_details.html", selected_recipe=selected_recipe,
+            top_recipe=top_recipe, fav_recipe=fav_recipe,
+            my_recipes=my_recipes, manage_recipes=manage_recipes,
+            recipe_details=recipe_details, user_likes=user_likes,
+            user_favourites=user_favourites)
+    else:
+        return render_template(
+            "recipe_details.html", selected_recipe=selected_recipe,
+            top_recipe=top_recipe, fav_recipe=fav_recipe,
+            my_recipes=my_recipes, manage_recipes=manage_recipes,
+            recipe_details=recipe_details)
 
 
 @app.route("/sign_in", methods=["GET", "POST"])
@@ -307,6 +321,11 @@ def add_recipe():
 def my_recipes():
     if mongo.db.recipes.find_one({"added_by": session['user']}):
         my_added_recipes = mongo.db.recipes.find({"added_by": session['user']})
+        user_likes = mongo.db.users.find_one(
+            {"username": session['user']})['liked_recipes']
+        return render_template("my_recipes.html",
+                               my_added_recipes=my_added_recipes,
+                               user_likes=user_likes)
     else:
         my_added_recipes = False
     return render_template("my_recipes.html",
@@ -325,9 +344,12 @@ def favourite_recipes():
             favourite_recipes.append(mongo.db.recipes.find(
                 {"_id": ObjectId(recipe_id)}))
             print(favourite_recipes)
+        user_likes = mongo.db.users.find_one(
+            {"username": session['user']})['liked_recipes']
         return render_template("favourite_recipes.html",
                                favourite_recipes=favourite_recipes,
-                               username=session['user'])
+                               username=session['user'],
+                               user_likes=user_likes)
     else:
         return render_template(
             "favourite_recipes.html", username=session['user'])

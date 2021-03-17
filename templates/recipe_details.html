@@ -39,24 +39,37 @@
                     <div id="category">
                         <span>Category: {{ selected_recipe.category_name }}</span>
                     </div>
-                    <!-- add to favourites button  -->
-                        <div class="favourite">
-                            <form method="POST" action="{{ url_for('add_to_favourites') }}">
-                                <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ selected_recipe._id }}">
-                                <input type="hidden" id="page" name="page" value="recipe_details">
-                                {% if session['user'] %}
-                                    <button id="rd_favourite" type="submit" class="btn-floating tooltipped"
-                                    data-position="bottom" data-tooltip="Add to Favourites">
-                                        <i class="far fa-heart"></i>
-                                    </button>
-                                {% else %}
-                                    <a id="rd_favourite" class="btn-floating modal-trigger tooltipped"
-                                    data-position="bottom" data-tooltip="Add to Favourites" href="#modal2">
-                                        <i class="far fa-heart"></i>
-                                    </a>
-                                {% endif %}   
-                            </form>
-                        </div>   
+                    <!-- favourite button -->
+                <div class="favourite">
+                    <form method="POST" action="{{ url_for('add_to_favourites') }}">
+                        <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ selected_recipe._id }}">
+                        {% if session['user'] %}
+                            <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
+                            <!-- check if user has liked this recipe -->
+                            {% set ns = namespace(found=false) %}
+                            {% for favourites in user_favourites  %}
+                                {% if favourites|string == selected_recipe._id|string %}
+                                    {% set ns.found = true %}
+                                {% endif %}
+                            {% endfor %}
+                            <!-- if user has already liked the recipe, colour icon blue -->
+                            {% if ns.found %}
+                                <button id="rd_favourite" type="submit" class="btn-floating red">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            {% else %}
+                                <button id="rd_favourite" type="submit" class="btn-floating">
+                                    <i class="far fa-heart"></i>
+                                </button>
+                            {% endif %}
+                        {% else %}
+                        <a id="rd_favourite" class="btn-floating modal-trigger" href="#modal2">
+                            <i class="far fa-heart"></i>
+                        </a>
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- /favourite button --> 
                 </div>
                 <div id="recipe_description" class="col s12 m6">
                     <h3 class="center-align">{{ selected_recipe.recipe_name }}</h3>
@@ -100,25 +113,45 @@
                         <h5 class="center-align">Recipe Story</h5>
                         <p>{{ selected_recipe.recipe_story }}</p>
                     {% endif %}
-                    <!-- recipe likes -->
-                    <div class="center-align" id="rd_like_counter">
-                            <form method="POST" action="{{ url_for('like_recipe') }}">
-                                <input type="hidden" id="like_recipe" name="like_recipe" value="{{ selected_recipe._id }}">                                
-                                {% if session['user'] %}
-                                    <button type="submit" id="like_button" class="btn-floating tooltipped"
-                                    data-position="bottom" data-tooltip="Like Recipe">
-                                        <i class="far fa-thumbs-up"></i>
-                                    </button>
-                                    <span>{{ selected_recipe.likes }}</span>
-                                {% else %}
-                                    <a id="like_button" class="btn-floating modal-trigger tooltipped"
-                                    data-position="bottom" data-tooltip="Like Recipe" href="#modal2">
-                                        <i class="far fa-thumbs-up"></i>
-                                    </a>
-                                    <span>{{  selected_recipe.likes }}</span>
+                   
+
+                                    <!-- like button -->
+                <div class="center-align" id="like_counter">
+                    <form method="POST" action="{{ url_for('like_recipe') }}">
+                        <input type="hidden" id="like_recipe" name="like_recipe" value="{{ selected_recipe._id }}">
+                        {% if session['user'] %}
+                            <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
+                            <!-- check if user has liked this recipe -->
+                            {% set ns = namespace(found=false) %}
+                            {% for likes in user_likes  %}
+                                {% if likes|string == selected_recipe._id|string %}
+                                    {% set ns.found = true %}
                                 {% endif %}
-                            </form>
-                        </div>
+                            {% endfor %}
+                            <!-- if user has already liked the recipe, colour icon blue -->
+                            {% if ns.found %}
+                                <button type="submit" id="like_button_blue" class="btn-floating blue">
+                                    <i class="far fa-thumbs-up"></i>
+                                </button>
+                                <span id="liked">{{ selected_recipe.likes }}</span>
+                            {% else %}
+                                <button type="submit" id="like_button" class="btn-floating tooltipped"
+                                data-position="bottom" data-tooltip="Like Recipe">
+                                    <i class="far fa-thumbs-up"></i>
+                                </button>
+                                <span id="not_liked">{{ selected_recipe.likes }}</span>
+                            {% endif %}
+                        {% else %}
+                            <a id="like_button" class="btn-floating modal-trigger tooltipped"
+                            data-position="bottom" data-tooltip="Like Recipe" href="#modal2">
+                                <i class="far fa-thumbs-up"></i>
+                            </a>
+                            <span>{{ selected_recipe.likes }}</span>
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- /like button -->
+
                 </div>
             </div>
         </div>
