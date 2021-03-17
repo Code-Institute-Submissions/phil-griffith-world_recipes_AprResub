@@ -22,7 +22,7 @@
                                 <span>Added by: {{ recipe[0].added_by }}</span>
                             </div>                   
                             <div class="card-action center-align">
-                            <form method="POST" action="/recipe_details/<see_recipe>">
+                            <form method="POST" action="{{ url_for('recipe_details')}}">
                                 <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe[0]._id }}">
                                 <!-- set fav_recipe to true for back button redirect on Recipe details -->
                                 <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ True }}">

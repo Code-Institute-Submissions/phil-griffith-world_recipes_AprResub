@@ -54,9 +54,23 @@ def get_recipes():
         countries = json.load(json_data)
     recipes = mongo.db.recipes.find()
     categories = mongo.db.categories.find()
-    return render_template(
-        "recipes.html", recipes=recipes,
-        countries=countries, categories=categories)
+    if session.get("user") is not None:
+        if mongo.db.users.find_one({"username": session["user"],
+                                    "favourites": {"$exists": True}}):
+            user_favourites = mongo.db.users.find_one(
+                {"username": session['user']})['favourites']
+        if mongo.db.users.find_one({"username": session["user"],
+                                    "liked_recipes": {"$exists": True}}):
+            user_likes = mongo.db.users.find_one(
+                {"username": session['user']})['liked_recipes']
+            return render_template(
+                "recipes.html", recipes=recipes,
+                countries=countries, categories=categories,
+                user_favourites=user_favourites, user_likes=user_likes)
+    else:
+        return render_template(
+            "recipes.html", recipes=recipes,
+            countries=countries, categories=categories)
 
 
 @app.route("/search", methods=["GET", "POST"])
@@ -221,7 +235,9 @@ def register():
                 "password": generate_password_hash(
                     request.form.get("password")),
                 "email": request.form.get("email").lower(),
-                "country": request.form.get("country")
+                "country": request.form.get("country"),
+                "favourites": [],
+                "liked_recipes": []
             }
             mongo.db.users.insert_one(register)
 
@@ -432,15 +448,12 @@ def add_to_favourites():
                                         "favourites": {"$exists": True}}):
                 # check if user has already added recipe to favourites
                 if mongo.db.users.find_one({"username": session["user"],
-                                            "favourites": fav_recipe}):
-                    flash("Recipe has already been added to favourites")
-                else:
-                    flash("Recipe added to favourites")
+                                            "favourites":
+                                            {"$ne": fav_recipe}}):
                     mongo.db.users.update_one({"username": session['user']},
                                               {"$push":
                                               {"favourites": fav_recipe}})
             else:
-                flash("Recipe added to favourites")
                 mongo.db.users.update_one({"username": session["user"]},
                                           {"$set":
                                           {"favourites": [fav_recipe]}})
@@ -480,9 +493,10 @@ def like_recipe():
                     current_likes = mongo.db.recipes.find_one(
                         {"_id": ObjectId(like_recipe)})["likes"]
                     likes = current_likes + 1
+                    # update the recipes likes to likes + 1
                     mongo.db.recipes.update_one({"_id": ObjectId(like_recipe)},
                                                 {"$set": {"likes": likes}})
-
+                    # add recipe to users liked recipes
                     mongo.db.users.update_one({"username": session["user"]},
                                               {"$push":
                                               {"liked_recipes": like_recipe}})
@@ -493,11 +507,6 @@ def like_recipe():
                     mongo.db.users.update_one({"username": session["user"]},
                                               {"$push":
                                               {"liked_recipes": like_recipe}})
-                # reload page to update likes counter
-                if like_recipe == "True":
-                    return redirect(url_for('get_recipes'))
-                else:
-                    return redirect(url_for('search'))
 
     # https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response
     return ('', 204)

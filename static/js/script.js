@@ -179,6 +179,14 @@
         $('#modal2 p').text("Please sign in or Register to like this Recipe");
     })
 
+     $('button#like_button').on("click", function() {
+         $(this).addClass('blue');
+         $(this).next('#not_liked').text(Number($('#not_liked').text())+1);
+    })
+
+    $('button#favourite_button').on("click", function() {
+         $(this).addClass('red');
+    })
  });
 
 
