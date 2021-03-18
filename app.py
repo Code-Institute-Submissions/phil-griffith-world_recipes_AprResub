@@ -428,6 +428,17 @@ def edit_recipe(recipe_id, manage_recipes):
 @app.route("/delete_recipe/<recipe_id>/<manage_recipes>")
 def delete_recipe(recipe_id, manage_recipes):
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
+    users = mongo.db.users.find()
+    for user in users:
+        for favourite in user.get('favourites'):
+            username = user.get('username')
+            if favourite == recipe_id:
+                print("It's a match!!")
+                print(favourite)
+                print(recipe_id)
+                mongo.db.users.update_one({"username": username},
+                                          {"$pull":
+                                          {"favourites": recipe_id}})
     flash("Recipe Successfully Deleted")
     if manage_recipes != "False":
         manage_recipes = True
@@ -439,6 +450,13 @@ def delete_recipe(recipe_id, manage_recipes):
 
 @app.route("/remove_recipe/<recipe_id>")
 def remove_recipe(recipe_id):
+    users = mongo.db.users.find()
+    for user in users:
+        for favourite in user.get('favourites'):
+            if favourite == recipe_id:
+                print("It's a match!!")
+                print(favourite)
+                print(recipe_id)
     mongo.db.users.update_one({"username": session['user']},
                               {"$pull":
                               {"favourites": recipe_id}})
