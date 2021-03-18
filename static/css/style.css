@@ -51,16 +51,13 @@ button, .btn, .btn-small, .card-panel {
     background-color: rgb(48, 102, 190);
 }
 
- .favourite i:hover {
+#favourite_button i:hover, #rd_favourite i:hover {
     color: red;
 }
 
-#like_button_blue .blue i:hover {
+#like_button_blue .blue i:hover, #favourite_red .red i:hover {
     color: none;
 }
-
-
-
 
 
 /* ********************************** Home Page ************************************* */
@@ -209,6 +206,11 @@ h4.card-content {
     right: 10px;
 }
 
+#favourite {
+    top: 0px;
+    right: 0px;
+}
+
 #like_counter {
     padding-bottom: 0px;
 }
@@ -258,7 +260,7 @@ h4.card-content {
     position: relative;
 }
 
-#rd_favourite {
+#rd_favourite, #favourite_red {
     position: absolute;
     bottom: 30px;
     right: 10px;

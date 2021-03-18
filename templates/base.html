@@ -39,7 +39,7 @@
                             <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
                         {% endif %}                        
                         <li><a class="dropdown-trigger" href="#!" data-target="account">My Account<i class="material-icons right">arrow_drop_down</i></a></li>
-                        <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
+                        <li><a href="#sign_out" class="modal-trigger">Sign out</a></li>
                     {% else %}
                         <li><a href="{{ url_for('sign_in') }}">Sign in / Register</a></li>
                     {% endif %}
@@ -68,7 +68,7 @@
             {% endif %}
                 <li><a class="dropdown-trigger" href="#!" data-target="account-mobile">My Account
                     <i class="material-icons right">arrow_drop_down</i></a></li>
-                <li><a href="{{ url_for('sign_out') }}">Sign out</a></li>
+                <li><a href="#sign_out" class="modal-trigger">Sign out</a></li>
         {% else %}
             <li><a href="{{ url_for('sign_in') }}">Sign in / Register</a></li>
         {% endif %}
@@ -177,6 +177,17 @@
         <div class="modal-footer">
             <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
             <a href="{{ url_for('sign_in')}}" class="modal-close waves-effect waves-green btn-flat">Sign In / Register</a>
+        </div>
+    </div>
+
+        <!-- sign out modal -->
+    <div id="sign_out" class="modal">
+        <div class="modal-content">
+            <p>Are you sure you want to sign out?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
+            <a href="{{ url_for('sign_out') }}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
         </div>
     </div>
     

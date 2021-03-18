@@ -77,7 +77,6 @@ def get_recipes():
 @app.route("/search", methods=["GET", "POST"])
 def search():
     if request.method == "POST":
-        print("Method is Post")
         query = request.form.get("query")
         country = request.form.get("country")
         category = request.form.get("category")
@@ -164,11 +163,24 @@ def search():
         session["category"] = category
     if is_vegetarian:
         session["is_vegetarian"] = is_vegetarian
-    return render_template("search_results.html", recipes=recipes,
-                           country=country, query=query,
-                           countries=countries, category=category,
-                           is_vegetarian=is_vegetarian,
-                           categories=categories)
+    # get user likes and favourites
+    if session.get("user") is not None:
+        user_favourites = mongo.db.users.find_one(
+            {"username": session['user']})['favourites']
+        user_likes = mongo.db.users.find_one(
+            {"username": session['user']})['liked_recipes']
+        return render_template("search_results.html", recipes=recipes,
+                               country=country, query=query,
+                               countries=countries, category=category,
+                               is_vegetarian=is_vegetarian,
+                               categories=categories, user_likes=user_likes,
+                               user_favourites=user_favourites)
+    else:
+        return render_template("search_results.html", recipes=recipes,
+                               country=country, query=query,
+                               countries=countries, category=category,
+                               is_vegetarian=is_vegetarian,
+                               categories=categories)
 
 
 @app.route("/recipe_details", methods=["GET", "POST"])
