@@ -9,10 +9,15 @@
             {% for recipe in favourite_recipes %}
                 {% set recipe_number = loop.index %}
                 <div class="col s12 m6 l4">
-                    <div class="card recipe{{ recipe_number }} recipe-card hoverable center-align">
+                    <div id="rem_fav" class="card recipe{{ recipe_number }} recipe-card hoverable center-align">
+                        <div id="remove_fav">                
+                            <a href="#remove_recipe" id="remove_favourite" class="btn-floating red modal-trigger">
+                                <i class="material-icons prefix">remove</i>
+                            </a>
+                        </div>
                         <div class="card-image">
                             <img src="{{ recipe[0].image_url }}">
-                            <span class="card-title">{{ recipe[0].country }}</span>
+                            <span class="card-title text-shadow">{{ recipe[0].country }}</span>
                         </div>
                         <div class="card-content">
                             <h5>{{ recipe[0].recipe_name }}</h5>
@@ -60,18 +65,17 @@
                             </form>
                         </div>
                     </div>
-                    <div class="edit_buttons center-align">                
-                    <a href="#remove_recipe" class="btn-small red modal-trigger">REMOVE</a>
-                    </div>
                 </div>
                 <!-- delete recipe modal structure -->
-                <div id="remove_recipe" class="modal">
+                <div id="remove_recipe" class="modal modal-small">
                     <div class="modal-content">
                         <p>Are you sure you want to remove this recipe from your favourites?</p>
                     </div>
                     <div class="modal-footer">
-                        <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
-                        <a href="{{ url_for('remove_recipe', recipe_id=recipe[0]._id) }}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                        <div class="center-align">                        
+                            <a href="{{ url_for('remove_recipe', recipe_id=recipe[0]._id) }}" class="modal-close waves-effect waves-green btn-small">Yes</a>
+                            <a href="#!" class="modal-close waves-effect waves-green btn-small red">No</a>
+                        </div>
                     </div>
                 </div>
                 

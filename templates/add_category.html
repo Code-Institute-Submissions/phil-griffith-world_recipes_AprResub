@@ -8,7 +8,7 @@
             <!-- category name -->
             <div class="row">
                 <div class="input-field col s12">
-                    <i class="material-icons prefix">account_circle</i>
+                    <i class="material-icons prefix">folder_open</i>
                     <input id="category_name" name="category_name" min="3" maxlength="25"
                         type="text" class="validate" required>
                     <label for="category_name">Category Name</label>
@@ -16,7 +16,7 @@
             </div>          
             <!-- submit button -->
             <div class="center-align">
-                <button class="btn waves-effect waves-light" type="submit">Submit
+                <button class="btn waves-effect waves-light submit-buttons" type="submit">Submit
                     <i class="material-icons right">send</i>
                 </button>
                 <a href="{{ url_for('get_categories') }}" class="waves-effect waves-light btn red">

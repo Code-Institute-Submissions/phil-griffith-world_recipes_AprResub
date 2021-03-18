@@ -28,7 +28,7 @@ h2, h3 {
     padding: 30px;
 }
 
-button, .btn, .btn-small, .card-panel {
+button, .btn, .btn-small, .card-panel, .modal {
     font-family: 'Comfortaa', cursive;
     font-style: italic;
 }
@@ -57,6 +57,23 @@ button, .btn, .btn-small, .card-panel {
 
 #like_button_blue .blue i:hover, #favourite_red .red i:hover {
     color: none;
+}
+
+.modal a{
+    margin-right: 50px;
+}
+
+.edit-buttons {
+    margin-top: -5px;
+    margin-bottom: 20px;
+}
+
+.modal-small {
+    max-width: 400px;
+}
+
+.modal {
+
 }
 
 
@@ -308,6 +325,33 @@ h4.card-content {
 .confirm_edit_buttons {
     margin-bottom: 15px;
 }
+
+/* ********************************** Favourite Recipes page ************************************* */
+
+
+
+#remove_fav {
+    position: absolute;
+    right: 5px;
+    bottom: 5px;
+    border-radius: 50%;
+    z-index: 1;
+}
+
+#remove_fav i:hover {
+    color: pink;
+}
+
+
+/* ********************************** Manage Categories page ************************************* */
+
+.category-cards, edit-category,
+edit-category label{
+    font-family: 'Comfortaa', cursive;
+    font-style: italic;
+}
+
+
 
 
 /* ********************************** Media Queries ************************************* */
