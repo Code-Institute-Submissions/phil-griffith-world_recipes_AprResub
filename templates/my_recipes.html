@@ -73,7 +73,7 @@
             </div>
             <div class="modal-footer">
                 <a href="#!" class="modal-close waves-effect waves-green btn-flat">No</a>
-                <a href="{{ url_for('delete_recipe', recipe_id=recipe._id) }}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
+                <a href="{{ url_for('delete_recipe', recipe_id=recipe._id, manage_recipes=False) }}" class="modal-close waves-effect waves-green btn-flat">Yes</a>
             </div>
         </div>
         {%  endfor %}

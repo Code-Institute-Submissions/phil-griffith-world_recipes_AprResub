@@ -425,11 +425,16 @@ def edit_recipe(recipe_id, manage_recipes):
         recipe=recipe, categories=categories, manage_recipes=manage_recipes)
 
 
-@app.route("/delete_recipe/<recipe_id>")
-def delete_recipe(recipe_id):
+@app.route("/delete_recipe/<recipe_id>/<manage_recipes>")
+def delete_recipe(recipe_id, manage_recipes):
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
     flash("Recipe Successfully Deleted")
-    return redirect(url_for("my_recipes"))
+    if manage_recipes != "False":
+        manage_recipes = True
+        return redirect(url_for("manage_recipes"))
+    else:
+        manage_recipes = False
+        return redirect(url_for("my_recipes"))
 
 
 @app.route("/remove_recipe/<recipe_id>")
@@ -584,9 +589,14 @@ def manage_recipes():
         countries = json.load(json_data)
     recipes = mongo.db.recipes.find()
     categories = mongo.db.categories.find()
+    user_favourites = mongo.db.users.find_one(
+        {"username": session['user']})['favourites']
+    user_likes = mongo.db.users.find_one(
+        {"username": session['user']})['liked_recipes']
     return render_template("manage_recipes.html",
                            recipes=recipes, countries=countries,
-                           categories=categories)
+                           categories=categories, user_likes=user_likes,
+                           user_favourites=user_favourites)
 
 
 if __name__ == "__main__":

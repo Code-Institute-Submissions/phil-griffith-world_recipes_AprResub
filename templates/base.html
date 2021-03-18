@@ -30,11 +30,10 @@
                 <a href="#" data-target="mobile-demo" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                 <ul class="right hide-on-med-and-down">
                     <li><a href="{{ url_for('home') }}">Home</a></li>
-                    <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
+                    <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>                    
                     {% if session.user %}
-                        {% if session.user and session.user != "admin" %}
-                            <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>                     
-                        {% elif session.user == "admin" %}                    
+                        <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>                                                                      
+                        {% if session.user == "admin" %}                    
                             <li><a href="{{ url_for('manage_recipes') }}">Manage Recipes</a></li>
                             <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
                         {% endif %}                        
@@ -55,24 +54,21 @@
     </ul>
     <!-- mobile side navbar -->
     <ul class="sidenav" id="mobile-demo">
-        <li>
-            <a href="{{ url_for('home') }}">Home</a>
-        </li>
+        <li><a href="{{ url_for('home') }}">Home</a></li>
         <li><a href="{{ url_for('get_recipes') }}">Recipes</a></li>
         {% if session.user %}
-           {% if session.user and session.user != "admin" %}
-                <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>            
-            {% elif session.user == "admin" %}
-                <li><a href="{{ url_for('manage_recipes') }}">Manage Recipes</a></li>
-                <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
-            {% endif %}
-                <li><a class="dropdown-trigger" href="#!" data-target="account-mobile">My Account
-                    <i class="material-icons right">arrow_drop_down</i></a></li>
-                <li><a href="#sign_out" class="modal-trigger">Sign out</a></li>
+            <li><a href="{{ url_for('add_recipe') }}">Add Recipe</a></li>
+        {% if session.user == "admin" %}
+            <li><a href="{{ url_for('manage_recipes') }}">Manage Recipes</a></li>
+            <li><a href="{{ url_for('get_categories') }}">Manage Search Categories</a></li>
+        {% endif %}
+            <li><a class="dropdown-trigger" href="#!" data-target="account-mobile">My Account<i
+                        class="material-icons right">arrow_drop_down</i></a></li>
+            <li><a href="#sign_out" class="modal-trigger">Sign out</a></li>
         {% else %}
             <li><a href="{{ url_for('sign_in') }}">Sign in / Register</a></li>
         {% endif %}
-    </ul>    
+    </ul>
     
     <section>
         <!-- flash messages -->
