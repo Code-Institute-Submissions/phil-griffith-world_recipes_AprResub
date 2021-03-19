@@ -65,12 +65,20 @@
         </div>
         <div class="parallax-container">
             <div id="home_page2" class="center-align">
-                <h2 class="text-shadow2">Do you have a favourite Recipe to share?</h2>
-                <span class="text-shadow2">Register or sign in to add your own recipe & save your favourites</span>
+                <h2 class="text-shadow2">Do you have a favourite Recipe to share?</h2>                
                 <div>
-                    <a href="{{ url_for('sign_in' )}}" class="btn waves-effect waves-light submit-buttons text-shadow">
-                        Start Sharing
+                    {% if session['user'] %}
+                        <a href="{{ url_for('add_recipe' )}}" class="btn waves-effect waves-light submit-buttons text-shadow">
+                        Share Recipe
                     </a>
+                    {% else %}
+                        <span class="text-shadow2">Register or sign in to add your own recipe & save your favourites</span>
+                        <div>
+                            <a href="{{ url_for('sign_in' )}}" class="btn waves-effect waves-light submit-buttons text-shadow">
+                            Start Sharing
+                            </a>
+                        </div>                    
+                    {% endif %}                    
                 </div>
             </div>
             <div class="parallax"><img src="static/images/home_page1.jpg"></div>

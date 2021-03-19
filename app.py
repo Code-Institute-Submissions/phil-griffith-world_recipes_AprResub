@@ -30,23 +30,19 @@ def home():
     top_recipes = mongo.db.recipes.find().sort("likes", -1).limit(4)
     # check if user has any favourite or liked recipes
     if session.get("user") is not None:
-        if mongo.db.users.find_one({"username": session["user"],
-                                    "favourites": {"$exists": True}}):
-            user_favourites = mongo.db.users.find_one(
-                {"username": session['user']})['favourites']
-        if mongo.db.users.find_one({"username": session["user"],
-                                    "liked_recipes": {"$exists": True}}):
-            user_likes = mongo.db.users.find_one(
-                {"username": session['user']})['liked_recipes']
-            return render_template("home.html", countries=countries,
-                                   categories=categories,
-                                   top_recipes=top_recipes,
-                                   user_likes=user_likes,
-                                   user_favourites=user_favourites)
-        else:
-            return render_template(
-                "home.html", countries=countries,
-                categories=categories, top_recipes=top_recipes)
+        user_favourites = mongo.db.users.find_one(
+            {"username": session['user']})['favourites']
+        user_likes = mongo.db.users.find_one(
+            {"username": session['user']})['liked_recipes']
+        return render_template("home.html", countries=countries,
+                               categories=categories,
+                               top_recipes=top_recipes,
+                               user_likes=user_likes,
+                               user_favourites=user_favourites)
+    else:
+        return render_template(
+            "home.html", countries=countries,
+            categories=categories, top_recipes=top_recipes)
 
 
 @app.route("/get_recipes", methods=["GET", "POST"])

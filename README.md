@@ -4,6 +4,8 @@
 ## Contents ##
 ---
 
+[Testing](documents/testing.md)
+
 * UX
     * [Introduction](#introduction)
     * [User Stories](#user-stories)
