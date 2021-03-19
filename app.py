@@ -596,16 +596,22 @@ def change_password():
         if check_password_hash(
             existing_user["password"],
                 request.form.get("old_password")):
-            mongo.db.users.update_one(
-                {"username": session["user"]},
-                {"$set": {"password": generate_password_hash(
-                    request.form.get("new_password"))}})
-            flash("Password Successfully Changed")
+            if request.form.get('new_password') != request.form.get(
+                            'confirm_new_password'):
+                flash("Passwords do not match")
+            else:
+                mongo.db.users.update_one(
+                    {"username": session["user"]},
+                    {"$set": {"password": generate_password_hash(
+                        request.form.get("new_password"))}})
+                flash("Password Successfully updated")
+                return redirect(url_for('home'))
         else:
             flash("Wrong old password")
-
-        username = session['user']
-    return render_template("my_account.html", username=username)
+            username = session['user']
+            return render_template("change_password.html", username=username)
+    username = session['user']
+    return render_template("change_password.html", username=username)
 
 
 @app.route("/manage_recipes")

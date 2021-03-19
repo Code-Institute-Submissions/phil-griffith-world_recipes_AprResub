@@ -21,7 +21,7 @@
         <ul id="account" class="dropdown-content">
             <li><a href="{{ url_for('favourite_recipes') }}">Favourite Recipes</a></li>
             <li><a href="{{ url_for('my_recipes') }}">My Recipes</a></li>
-            <li><a href="#modal1" class="modal-trigger">Change Password</a></li>
+            <li><a href="{{ url_for('change_password') }}">Change Password</a></li>
         </ul>
         <!-- navbar -->
         <nav class="nav-extended">
@@ -50,7 +50,7 @@
     <ul id="account-mobile" class="dropdown-content">
         <li><a href="{{ url_for('favourite_recipes') }}">Favourite Recipes</a></li>
         <li><a href="{{ url_for('my_recipes') }}">My Recipes</a></li>
-        <li><a href="#modal1" class="modal-trigger">Change Password</a></li>
+        <li><a href="{{ url_for('change_password') }}">Change Password</a></li>
     </ul>
     <!-- mobile side navbar -->
     <ul class="sidenav" id="mobile-demo">
