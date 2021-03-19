@@ -1,45 +1,213 @@
-![CI logo](https://codeinstitute.s3.amazonaws.com/fullstack/ci_logo_small.png)
 
-Welcome phil-griffith,
+![Hero Screenshot](static/img/.png)
 
-This is the Code Institute student template for Gitpod. We have preinstalled all of the tools you need to get started. You can safely delete this README.md file, or change it for your own project. Please do read it at least once, though! It contains some important information about Gitpod and the extensions we use.
+## Contents ##
+---
 
-## Gitpod Reminders
+* UX
+    * [Introduction](#introduction)
+    * [User Stories](#user-stories)
+    * [Design](#design)
+        * [Fonts](#fonts)
+        * [Icons](#icons)
+        * [Colours](#colours)
 
-To run a frontend (HTML, CSS, Javascript only) application in Gitpod, in the terminal, type:
+* [Features](#features)
+    * [Features that have been developed](#developed)
+    * [Features that will be implemented in the future](#implemented)
+* [Technologies](#technologies)
+* [Defensive Design](#defensive)
+    * [Feature Testing](#ftest)
+    * [Defensive Design Testing](#dtest)
+* [Issues](#issues)
+* [Deployment](#deployment)
+* [Credit](#credits)
 
-`python3 -m http.server`
+<a name="introduction"></a>
+## Introduction ##
 
-A blue button should appear to click: *Make Public*,
+One or two paragraphs providing an overview of your project.
 
-Another blue button should appear to click: *Open Browser*.
+Essentially, this part is your sales pitch.
 
-To run a backend Python file, type `python3 app.py`, if your Python file is named `app.py` of course.
 
-A blue button should appear to click: *Make Public*,
 
-Another blue button should appear to click: *Open Browser*.
+## UX (User Experience) ##
+---
 
-In Gitpod you have superuser security privileges by default. Therefore you do not need to use the `sudo` (superuser do) command in the bash terminal in any of the lessons.
+<a name="user-stories"></a>
+### User Stories ### 
 
-## Updates Since The Instructional Video
+As a user I would like:
 
-We continually tweak and adjust this template to help give you the best experience. Here is the version history:
+* 
 
-**October 21 2020:** Versions of the HTMLHint, Prettier, Bootstrap4 CDN and Auto Close extensions updated. The Python extension needs to stay the same version for now.
 
-**October 08 2020:** Additional large Gitpod files (`core.mongo*` and `core.python*`) are now hidden in the Explorer, and have been added to the `.gitignore` by default.
 
-**September 22 2020:** Gitpod occasionally creates large `core.Microsoft` files. These are now hidden in the Explorer. A `.gitignore` file has been created to make sure these files will not be committed, along with other common files.
+Admin
 
-**April 16 2020:** The template now automatically installs MySQL instead of relying on the Gitpod MySQL image. The message about a Python linter not being installed has been dealt with, and the set-up files are now hidden in the Gitpod file explorer.
+* 
 
-**April 13 2020:** Added the _Prettier_ code beautifier extension instead of the code formatter built-in to Gitpod.
 
-**February 2020:** The initialisation files now _do not_ auto-delete. They will remain in your project. You can safely ignore them. They just make sure that your workspace is configured correctly each time you open it. It will also prevent the Gitpod configuration popup from appearing.
 
-**December 2019:** Added Eventyret's Bootstrap 4 extension. Type `!bscdn` in a HTML file to add the Bootstrap boilerplate. Check out the <a href="https://github.com/Eventyret/vscode-bcdn" target="_blank">README.md file at the official repo</a> for more options.
 
---------
 
-Happy coding!
+* 
+
+<a name="design"></a>
+
+## Design  ##
+---
+<a name="wireframes"></a>
+
+### Wireframes ###
+
+
+* 
+
+<a name="database"></a>
+
+### Database ###
+*
+
+<a name="fonts"></a>
+
+### Fonts ###
+
+* 
+
+<a name="icons"></a>
+
+### Icons ###
+
+*  [**Font Awesome**](https://fontawesome.com/)
+* 
+* [Favicon.io](https://favicon.io/).
+
+<a name="colours"></a>
+
+### Colours ###
+
+*
+
+
+
+
+<a name="features"></a>
+## Features ## 
+---
+
+
+**Navigation bar**
+
+* 
+
+** Another feature**
+
+
+
+<a name="technologies"></a>
+
+## Technologies, libraries and tools used ##
+
+**Front-End**
+* [Bootstrap](https://bootstrap4.com/)
+* [CSS](https://developer.mozilla.org/en-US/docs/Web/CSS)
+* [Font-Awesome](https://fontawesome.com/)
+* [Google fonts](https://fonts.google.com/)
+
+* [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
+* [Javascript](https://www.javascript.com/)
+
+* [SCSS](https://sass-lang.com/)
+
+**Back-end**
+* [Flask](https://flask.palletsprojects.com/en/1.1.x/)
+* [Jinja](https://jinja.palletsprojects.com/en/2.11.x/)
+* [MongoDB](https://www.mongodb.com/1)
+* [Python](https://www.python.org/)
+* [Werkzeug](https://werkzeug.palletsprojects.com/en/1.0.x/)
+
+**Deployment**
+* [Heroku](https://dashboard.heroku.com/)
+* [Git](https://git-scm.com/)
+* [Github](https://github.com/)
+* [Gitpod](https://gitpod.io/)
+
+
+## Testing ##
+---
+
+* [JSHint](https://jshint.com/) (JS file passed validator)
+* [PEP8 online](http://pep8online.com/)
+* [W3C HTML Validator](https://validator.w3.org/) (all pages passed validator)
+* [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) (css file passed validator)
+\
+\
+<a name="issues"></a>
+### Issues identified and fixed ###
+
+
+**Issue title**
+
+* text
+
+**Issue title**
+
+* 
+
+
+
+## Deployment ##
+---
+
+### Local Deployment ###
+
+* Open browser of choice.
+* Copy/Paste the address of [****]() in your search box.
+* When on the page, click on the "Code" button.
+* Copy the the |****]().
+* Open your IDE and in your terminal, create a virtual environement supporting python and flask and activate it.
+* Type "git clone" and paste the []().
+* Create an environement file called "env.py" and add :
+    - MONGO_URI=mongodb+srv://...
+    - SECRET_KEY= [Your Secret key]
+* Add your env.py to .gitignore. to avoid it being uploaded.
+* In app.py, switch **debug=False** to **debug=True**
+* Upgrade pip locally with the command "pip install -U pip".
+* Install the modules used to run the application using "pip freeze > requirements.txt" in your terminal.
+* In parallel, create a MongoDB account and create a database called **"sante_project"**.
+* These are the following collections in the database:
+
+
+
+
+* You can now run your application locally by typing the command "python3 app.py" or "run app.py" in your terminal.
+* You can visit the website at http://127.0.0.1:5000
+
+## Deploying on Heroku<hr>
+
+- Create a requirements.txt file using the command **pip3 freeze --local > requirements.txt** in your CLI.
+- Create a Procfile (always with an uppercase P) through the command **echo web: python app.py > Procfile**. Commit and Push.
+- Create an account on [**Heroku**](https://www.heroku.com/home).
+- Create a new app with **unique name**.
+- Select your **nearest region**.
+- Create a **new python project** within the project.
+- Link that project through your **Github repository** in the **deployment** section.
+- Navigate to Haroku Settings and set up the following in **Config Vars**
+
+
+
+
+
+* Go back to the Deploy section, select the master branch and deploy the project. 
+
+
+<a name="credits"></a>
+## Credits ##
+---
+
+**
+
+
+
