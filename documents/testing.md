@@ -502,14 +502,14 @@ The following tests have been completed during the development of this site.
     * Expect: Home page to load and flash message saying "Password Successfully updated"
 
 
-### Manage Recipes Page (admin only ###
+### Manage Recipes Page (admin only) ###
 ---
 
-* Expect: All recipes created by user to be displayed or message displaying "You have not added any recipes yet"
-* Expect: All like icons on Recipes that the current user has liked to be blue and the rest to be green, and to have a number that matches the number of recipe likes in the database
+* Expect: All recipes created by admin to be displayed or message displaying "You have not added any recipes yet"
+* Expect: All like icons on Recipes that admin has liked to be blue and the rest to be green, and to have a number that matches the number of recipe likes in the database
 * Click like icon
-    * If Recipe has not already been liked by user Expect: like icon to turn blue, number to increment by one and database to be updated
-    * If Recipe has already been liked by user - Expect: Nothing
+    * If Recipe has not already been liked by admin Expect: like icon to turn blue, number to increment by one and database to be updated
+    * If Recipe has already been liked by admin - Expect: Nothing
 * Click Edit button
     * Expect: Edit Recipe page to load
 * Click Delete button
@@ -520,3 +520,20 @@ The following tests have been completed during the development of this site.
             * Expect: Recipe to disappear, document be removed from datebase, all user favourite links to be removed and a flash message displaying "Recipe Successully Deleted"
 * Click See Recipe
     * Expect: Recipe Details page to load
+
+### Manage Search Categories Page (admin only) ###
+---
+
+* Click Edit on any category
+    * Expect: Edit category page to load
+        * Click Cancel
+            * Expect Manage Search Categories page to load
+        * Edit category and Click Submit
+            * Expect Manage Search Categories page to load showing updated category name
+* Click Delete on any category
+    * Expect: modal popup requesting confirmation
+        * Click No
+            * Expect: modal to close
+        * Click Yes
+            * Expect: Category to disappear
+        
