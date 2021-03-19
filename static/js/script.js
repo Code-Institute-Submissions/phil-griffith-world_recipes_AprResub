@@ -86,7 +86,7 @@
             <input id="quantity${ingredient}" name="quantity${ingredient}" type="text" class="validate" required>\
             <label for="quantity${ingredient}">Quantity</label></div></div)`);
             if (ingredient == 2){
-                $('.ingredient-buttons').append(`<button type="button" id="remove_ingredient">Remove Ingredient</button>`);
+                $('.ingredient-buttons').append(`<button type="button" id="remove_ingredient" class="btn-small submit-buttons">Remove Ingredient</button>`);
             }
             ingredient++;
         })
@@ -120,7 +120,7 @@
             <label for="step${step}">Step ${step}</label>\
             </div></div)`);
             if (step == 2){
-                $('.method-buttons').append(`<button type="button" id="remove_step">Remove Step</button>`);
+                $('.method-buttons').append(`<button type="button" id="remove_step" class="btn-small submit-buttons">Remove Step</button>`);
             }
             step++;
         })

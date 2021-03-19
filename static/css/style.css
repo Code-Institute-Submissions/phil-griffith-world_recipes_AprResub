@@ -399,12 +399,5 @@ edit-category label{
 @media only screen and (max-width: 540px) {
     .parallax-container, parallax img {
         height: 300px;
-}
     }
-}
-
-
-
-.parallax-container {
-    margin-bottom: -50px;
 }

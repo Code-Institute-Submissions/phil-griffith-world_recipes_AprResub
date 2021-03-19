@@ -11,7 +11,7 @@
                 <div class="col s12 m6 l4">
                     <div id="rem_fav" class="card recipe{{ recipe_number }} recipe-card hoverable center-align">
                         <div id="remove_fav">                
-                            <a href="#remove_recipe" id="remove_favourite" class="btn-floating red modal-trigger">
+                            <a href="#remove_recipe{{ loop.index }}" id="remove_favourite" class="btn-floating red modal-trigger">
                                 <i class="material-icons prefix">remove</i>
                             </a>
                         </div>
@@ -67,7 +67,7 @@
                     </div>
                 </div>
                 <!-- delete recipe modal structure -->
-                <div id="remove_recipe" class="modal modal-small">
+                <div id="remove_recipe{{ loop.index }}" class="modal modal-small">
                     <div class="modal-content">
                         <p>Are you sure you want to remove this recipe from your favourites?</p>
                     </div>

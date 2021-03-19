@@ -5,6 +5,7 @@
 The following tests have been completed during the development of this site.
 
 ### Home Page ###
+---
 
 #### Navigation Bar ####
 
@@ -167,6 +168,7 @@ The following tests have been completed during the development of this site.
     * Expect: Instagram homepage to load
 
 ### Recipe Page ###
+---
 
 #### Search Bar ####
 
@@ -255,3 +257,80 @@ The following tests have been completed during the development of this site.
             * Expect: Sign in page to load
 * Click See Recipe
     * Expect: Recipe Details page to load
+
+### Sign In Page ###
+---
+
+* Click Sign In
+    * Expect: Prompt to complete Username field and red underline
+* Enter a username and Click Sign In
+    * Expect: Prompt to complete password field and red underline
+* Enter a password and Click Sign In
+    * If username and password are valid - Expect: Home page to load with a flash message displaying "Welcome, [username]"
+    * If username is invalid - Expect: flash message displaying "Incorrect Username and/or Password"
+    * If password is invalid - Expect: flash message displaying "Incorrect Username and/or Password"
+    * If both username and password are invalid - Expect: flash message displaying "Incorrect Username and/or Password"
+* Click Regiser
+    * Expect: Register page to load
+
+### Sign In Page ###
+---
+* Click Register
+    * Expect: Prompt to complete username field
+* Enter a username with less than 5 characters and Click Register
+    * Expect: Prompt to match the username format requested and red underline
+* Enter a username with more than 15 characters and Click Register
+    * Expect: Prompt to match the username format requested and red underline
+* Enter a username with more than 5 characters and less then 15 characters and Click Register
+    * Expect: Prompt to complete password field and green underline for username
+* Enter a password with less than 8 non special characters, containing at least 1 number and 1 capital letter and Click Register
+    * Expect: Prompt to match the password format requested and red underline
+* Enter a password with more than 8 non special characters containing all lowercase letters and 1 number and Click Register
+    * Expect: Prompt to match the password format requested and red underline
+* Enter a password with more than 8 non special characters containing all capital letters and 1 number and Click Register
+    * Expect: Prompt to match the password format requested and red underline
+* Enter a password with more than 8 non special characters containing at least 1 capital letter and no numbers and Click Register
+    * Expect: Prompt to match the password format requested and red underline
+* Enter a password with more than 8 non special characters containing at least 1 capital letter and 1 number and Click Register
+    * Expect: Prompt to complete the confirm password field and green underline for password field
+* Enter a confirm password that does not match the password entered and Click Register
+    * Expect: Message under Confirm Password field saying "Passwords do not match and red underline
+* Enter a confirm password that matches the password entered and Click Register
+    * Expect: Prompt to complete Email field
+* Enter an email address without the @ symbol
+    * Expect: Prompt to use the @ symbol in the email address and a red underline
+* Enter a valid email address and Click Register
+    * Expect: Prompt to complete Country of Residence field
+* Select a country from the drop down and Click Register
+    * Expect: 
+        * Home page to load with flash message saying "Registration Successfull"
+        * Sign In / Register button to be replaced with Sign out button
+        * Add Recipe and My Account to appear on Nav Bar
+
+### Add Recipe Page ###
+---
+* Click Cancel
+    * Expect Home Page to load
+* Click Submit
+    * Expect: Promt to complete Recipe Name field
+* Enter Recipe Name and Click Submit
+    * Expect: Promt to complete Recipe image URL field
+* Enter Recipe image URL and Click Submit
+    * Expect: Promt to complete Reicpe category field
+* Enter Recipe image URL and Click Submit
+    * Expect: Promt to complete Reicpe category field
+* Select Category and Click Submit
+    * Expect: Promt to complete Country field
+* Select Country and Click Submit
+    * Expect: Promt to complete Ingredient field
+* Enter ingredient and Click Submit
+    * Expect: Promt to complete Quantity field
+* Enter Quantity and Click Submit
+    * Expect: Promt to complete step field
+* Enter Quantity and Click Submit
+    * Expect: Promt to complete Step field
+* Enter Step with less than 5 characters and Click Submit
+    * Expect: Promt to enter 5 or more charcters for the step
+* Enter Step with more than 5 characters and Click Submit
+    * Expect: Recipes page to load with a flash message saying Recipe Successfully added
+    

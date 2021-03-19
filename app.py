@@ -445,9 +445,6 @@ def delete_recipe(recipe_id, manage_recipes):
         for favourite in user.get('favourites'):
             username = user.get('username')
             if favourite == recipe_id:
-                print("It's a match!!")
-                print(favourite)
-                print(recipe_id)
                 mongo.db.users.update_one({"username": username},
                                           {"$pull":
                                           {"favourites": recipe_id}})
