@@ -87,7 +87,7 @@ button, .btn, .btn-small, .card-panel, .modal {
 }
 
 .carousel .carousel-item {
-    height: 450px;
+    height: 425px;
     width: 400px;
 }
 
@@ -119,6 +119,10 @@ button, .btn, .btn-small, .card-panel, .modal {
 
 #home_page #like_counter {
     margin: 30px;
+}
+
+#home_page .card-title {
+    font-family: 'Courgette', cursive;
 }
 
 /* ********************************** NavBar & Footer ************************************* */

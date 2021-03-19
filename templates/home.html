@@ -9,59 +9,59 @@
             </div>
         </div>
         <div id="popular_recipes" class="section white">
-        <div class="row container">
-            <h2 class="center-align">Popular Recipes</h2>
-            <div class="carousel">
-                {% for recipe in top_recipes %}
+            <div class="row container">
+                <h2 class="center-align">Popular Recipes</h2>
+                <div class="carousel">
+                    {% for recipe in top_recipes %}
                     <div class="card carousel-item top-recipes center-align">
                         <img src="{{ recipe.image_url }}">
-                        <span class="card-title ">{{ recipe.recipe_name }}</span>
-                        <form method="POST" action="{{ url_for('recipe_details' )}}">
-                            <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe._id }}">
-                            <!-- set top_recipe to true for back button redirect on Recipe details -->
-                            <input type="hidden" id="top_recipe" name="top_recipe" value="{{ True }}">
+                        <span class="card-title">{{ recipe.recipe_name }}</span>
+                        
                             <!-- like button -->
-                <div class="center-align" id="like_counter">
-                    <form method="POST" action="{{ url_for('like_recipe') }}">
-                        <input type="hidden" id="like_recipe" name="like_recipe" value="{{ recipe._id }}">
-                        {% if session['user'] %}
-                            <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
-                            <!-- check if user has liked this recipe -->
-                            {% set ns = namespace(found=false) %}
-                            {% for likes in user_likes  %}
-                                {% if likes|string == recipe._id|string %}
-                                    {% set ns.found = true %}
-                                {% endif %}
-                            {% endfor %}
-                            <!-- if user has already liked the recipe, colour icon blue -->
-                            {% if ns.found %}
-                                <button type="submit" id="like_button_blue" class="btn-floating blue">
-                                    <i class="far fa-thumbs-up"></i>
+                            <div class="center-align" id="like_counter">
+                                <form method="POST" action="{{ url_for('like_recipe') }}">
+                                    <input type="hidden" id="like_recipe" name="like_recipe" value="{{ recipe._id }}">
+                                    {% if session['user'] %}
+                                        <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
+                                        <!-- check if user has liked this recipe -->
+                                        {% set ns = namespace(found=false) %}
+                                        {% for likes in user_likes  %}
+                                            {% if likes|string == recipe._id|string %}
+                                                {% set ns.found = true %}
+                                            {% endif %}
+                                        {% endfor %}
+                                        <!-- if user has already liked the recipe, colour icon blue -->
+                                        {% if ns.found %}
+                                            <button type="submit" id="like_button_blue" class="btn-floating blue">
+                                                <i class="far fa-thumbs-up"></i>
+                                            </button>
+                                            <span id="liked">{{ recipe.likes }}</span>
+                                        {% else %}
+                                            <button type="submit" id="like_button" class="btn-floating">
+                                                <i class="far fa-thumbs-up"></i>
+                                            </button>
+                                            <span id="not_liked">{{ recipe.likes }}</span>
+                                        {% endif %}
+                                    {% else %}
+                                        <a id="like_button" class="btn-floating modal-trigger" href="#modal2">
+                                            <i class="far fa-thumbs-up"></i>
+                                        </a>
+                                        <span>{{ recipe.likes }}</span>
+                                    {% endif %}
+                                </form>
+                            </div>
+                            <!-- /like button -->
+                            <form method="POST" action="{{ url_for('recipe_details') }}">
+                                <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe._id }}">
+                                <input type="hidden" id="top_recipe" name="top_recipe" value="{{ recipe._id }}">
+                                <button type="submit" class="btn waves-effect waves-light submit-buttons">
+                                    See Recipe
                                 </button>
-                                <span id="liked">{{ recipe.likes }}</span>
-                            {% else %}
-                                <button type="submit" id="like_button" class="btn-floating">
-                                    <i class="far fa-thumbs-up"></i>
-                                </button>
-                                <span id="not_liked">{{ recipe.likes }}</span>
-                            {% endif %}
-                        {% else %}
-                        <a id="like_button" class="btn-floating modal-trigger" href="#modal2">
-                            <i class="far fa-thumbs-up"></i>
-                        </a>
-                        <span>{{ recipe.likes }}</span>
-                        {% endif %}
-                    </form>
-                </div>
-                <!-- /like button -->
-                            <button type="submit" class="btn waves-effect waves-light top-recipes submit-buttons">
-                                See Recipe
-                            </button>
-                        </form>
+                            </form>                            
                     </div>
-                {% endfor %}
-            </div>                                 
-        </div>
+                    {% endfor %}
+                </div>
+            </div>
         </div>
         <div class="parallax-container">
             <div id="home_page2" class="center-align">
@@ -72,8 +72,8 @@
                         Start Sharing
                     </a>
                 </div>
-            </div>            
-        <div class="parallax"><img src="static/images/home_page1.jpg"></div>
+            </div>
+            <div class="parallax"><img src="static/images/home_page1.jpg"></div>
         </div>
     </div>
 {% endblock %}
