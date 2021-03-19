@@ -16,6 +16,10 @@ body {
     text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5) ;
 }
 
+.text-shadow2 {
+    text-shadow: 3px 3px 3px rgba(0, 0, 0);
+}
+
 .flashes h4.light-blue.lighten-4  {
     line-height: 2;
     background-color: rgb(128, 222, 217) !important;
@@ -72,26 +76,49 @@ button, .btn, .btn-small, .card-panel, .modal {
     max-width: 400px;
 }
 
-.modal {
 
-}
 
 
 /* ********************************** Home Page ************************************* */
 
 /* negate body padding */
 .parallax-container {
-    height: "100%";
     margin-bottom: -50px;
 }
 
 .carousel .carousel-item {
-    height: 350px;
+    height: 450px;
     width: 400px;
 }
 
 .carousel .carousel-item img{
     max-height: 200px;
+}
+
+#popular_recipes {
+    background-color: rgb(174, 236, 239) !important;
+}
+
+#popular_recipes h2 {
+    margin: 0;
+}
+
+#home_page h1, #home_page2 {
+    color: white;
+    font-family: 'Courgette', cursive;
+    margin-top: 100px;
+}
+
+#home_page2 span {
+    font-size: 24px;
+}
+
+#home_page2 a {
+    margin-top: 20px;
+}
+
+#home_page #like_counter {
+    margin: 30px;
 }
 
 /* ********************************** NavBar & Footer ************************************* */
@@ -360,4 +387,20 @@ edit-category label{
     nav .brand-logo {
         left: 10%;
     }
+}
+
+
+/* home page images */
+/* surface duo */
+@media only screen and (max-width: 540px) {
+    .parallax-container, parallax img {
+        height: 300px;
+}
+    }
+}
+
+
+
+.parallax-container {
+    margin-bottom: -50px;
 }

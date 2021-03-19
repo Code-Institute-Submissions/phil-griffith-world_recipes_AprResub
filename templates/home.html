@@ -1,11 +1,14 @@
 {% extends "base.html" %}
 {% block home %}
 
-    <div>
-        <div class="parallax-container">
-        <div class="parallax"><img src="static/images/MapMaster-WorldFoods-IndexImage.jpg" width="100%"></div>
+    <div id="home_page">
+        <div class="parallax-container center-align">
+            <h1 class="text-shadow2">Discover & share Recipes from around the world</h1>
+            <div class="parallax">
+                <img src="static/images/home_page2.jpg" width="100%">
+            </div>
         </div>
-        <div class="section white">
+        <div id="popular_recipes" class="section white">
         <div class="row container">
             <h2 class="center-align">Popular Recipes</h2>
             <div class="carousel">
@@ -17,7 +20,41 @@
                             <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe._id }}">
                             <!-- set top_recipe to true for back button redirect on Recipe details -->
                             <input type="hidden" id="top_recipe" name="top_recipe" value="{{ True }}">
-                            <button type="submit" class="btn waves-effect waves-light green top-recipes">
+                            <!-- like button -->
+                <div class="center-align" id="like_counter">
+                    <form method="POST" action="{{ url_for('like_recipe') }}">
+                        <input type="hidden" id="like_recipe" name="like_recipe" value="{{ recipe._id }}">
+                        {% if session['user'] %}
+                            <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
+                            <!-- check if user has liked this recipe -->
+                            {% set ns = namespace(found=false) %}
+                            {% for likes in user_likes  %}
+                                {% if likes|string == recipe._id|string %}
+                                    {% set ns.found = true %}
+                                {% endif %}
+                            {% endfor %}
+                            <!-- if user has already liked the recipe, colour icon blue -->
+                            {% if ns.found %}
+                                <button type="submit" id="like_button_blue" class="btn-floating blue">
+                                    <i class="far fa-thumbs-up"></i>
+                                </button>
+                                <span id="liked">{{ recipe.likes }}</span>
+                            {% else %}
+                                <button type="submit" id="like_button" class="btn-floating">
+                                    <i class="far fa-thumbs-up"></i>
+                                </button>
+                                <span id="not_liked">{{ recipe.likes }}</span>
+                            {% endif %}
+                        {% else %}
+                        <a id="like_button" class="btn-floating modal-trigger" href="#modal2">
+                            <i class="far fa-thumbs-up"></i>
+                        </a>
+                        <span>{{ recipe.likes }}</span>
+                        {% endif %}
+                    </form>
+                </div>
+                <!-- /like button -->
+                            <button type="submit" class="btn waves-effect waves-light top-recipes submit-buttons">
                                 See Recipe
                             </button>
                         </form>
@@ -27,7 +64,16 @@
         </div>
         </div>
         <div class="parallax-container">
-        <div class="parallax"><img src="static/images/MapMaster-WorldFoods-IndexImage.jpg"></div>
+            <div id="home_page2" class="center-align">
+                <h2 class="text-shadow2">Do you have a favourite Recipe to share?</h2>
+                <span class="text-shadow2">Register or sign in to add your own recipe & save your favourites</span>
+                <div>
+                    <a href="{{ url_for('sign_in' )}}" class="btn waves-effect waves-light submit-buttons text-shadow">
+                        Start Sharing
+                    </a>
+                </div>
+            </div>            
+        <div class="parallax"><img src="static/images/home_page1.jpg"></div>
         </div>
     </div>
 {% endblock %}

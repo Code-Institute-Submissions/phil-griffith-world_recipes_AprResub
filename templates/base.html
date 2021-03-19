@@ -165,14 +165,16 @@
     </div>
     <!--/ change password modal -->
 
-    <!-- Modal Structure -->
+    <!-- not signed in like button -->
     <div id="modal2" class="modal">
         <div class="modal-content">
             <p>Please Sign in or Register to like this recipe</p>
         </div>
         <div class="modal-footer">
-            <a href="#!" class="modal-close waves-effect waves-green btn-flat">Close</a>
-            <a href="{{ url_for('sign_in')}}" class="modal-close waves-effect waves-green btn-flat">Sign In / Register</a>
+            <div class="center-align">      
+                <a href="{{ url_for('sign_in')}}" class="modal-close waves-effect waves-green btn-small submit-buttons">Sign In / Register</a>
+                <a href="#!" class="modal-close waves-effect waves-green btn-small red">Close</a>
+            </div>    
         </div>
     </div>
 
