@@ -251,12 +251,72 @@ The following tests have been completed during the development of this site.
     * If Recipe has already been added to favourites - Expect: Nothing
 * Click like icon
     * If Recipe has not already been liked by user Expect: like icon to turn blue, number to increment by one and database to be updated
+    * If Recipe has already been liked by user - Expect: Nothing
+* Click See Recipe
+    * Expect: Recipe Details page to load
+
+
+### Recipe Details Page (Not Signed In) ###
+---
+
+* Expect: favourite icon to be green
+* Expect: like icon to be green and to have a number that matches the number of recipe likes in the database
+* Click favourite icon
+    * Expect: modal pop up asking user to Sign in or Register
         * Click close
             * Expect: modal to close
         * Click Sign in / Register
             * Expect: Sign in page to load
-* Click See Recipe
-    * Expect: Recipe Details page to load
+* Click like icon
+    * Expect: modal pop up asking user to Sign in or Register
+        * Click close
+            * Expect: modal to close
+        * Click Sign in / Register
+            * Expect: Sign in page to load
+
+#### Back button ####
+* From Home page - Click See Recipe on any recipe
+    * From Recipe Details page- Click Back
+        * Expect: Home page to load
+* From Recipes page - Click See Recipe on any recipe
+    * From Recipe Details page- Click Back
+        * Expect: Recipes page to load
+* From Recipe Search Results page - Click See Recipe on any recipe
+    * From Recipe Details page- Click Back
+        * Expect: Recipe Search Results to load
+
+
+### Recipe Details Page (Signed In) ###
+---
+
+* Expect: Favourite icon to be red if user has added to favourites or green if not added
+* Expect: Like icon to be showing number of likes and blue if user has liked recipe or green if not
+* Click favourite icon
+    * If Recipe has not already been added to favourites - Expect:favourite icon to turn red and for recipe to be added to users favourite recipes page
+    * If Recipe has already been added to favourites - Expect: Nothing
+* Click like icon
+    * If Recipe has not already been liked by user Expect: like icon to turn blue, number to increment by one and database to be updated
+    * If Recipe has already been liked by user - Expect: Nothing
+
+#### Back button ####
+* From Home page - Click See Recipe on any recipe
+    * From Recipe Details page- Click Back
+        * Expect: Home page to load
+* From Recipes page - Click See Recipe on any recipe
+    * From Recipe Details page- Click Back
+        * Expect: Recipes page to load
+* From Recipe Search Results page - Click See Recipe on any recipe
+    * From Recipe Details page- Click Back
+        * Expect: Recipe Search Results to load
+* From Favourite Recipes page - Click See Recipe on any recipe
+    * From Recipe Details page- Click Back
+        * Expect: Favourite Recipes page to load
+* From My Recipes page - Click See Recipe on any recipe
+    * From Recipe Details page- Click Back
+        * Expect: My Recipes page to load
+* From Manage Recipes page - Click See Recipe on any recipe
+    * From Recipe Details page- Click Back
+        * Expect: Manage Recipes page to load
 
 ### Sign In Page ###
 ---
@@ -270,10 +330,10 @@ The following tests have been completed during the development of this site.
     * If username is invalid - Expect: flash message displaying "Incorrect Username and/or Password"
     * If password is invalid - Expect: flash message displaying "Incorrect Username and/or Password"
     * If both username and password are invalid - Expect: flash message displaying "Incorrect Username and/or Password"
-* Click Regiser
+* Click Register
     * Expect: Register page to load
 
-### Sign In Page ###
+### Register Page ###
 ---
 * Click Register
     * Expect: Prompt to complete username field
@@ -310,27 +370,153 @@ The following tests have been completed during the development of this site.
 ### Add Recipe Page ###
 ---
 * Click Cancel
-    * Expect Home Page to load
+    * Expect Previous page to load (Manage Recipes or My Recipes)
 * Click Submit
     * Expect: Promt to complete Recipe Name field
 * Enter Recipe Name and Click Submit
     * Expect: Promt to complete Recipe image URL field
 * Enter Recipe image URL and Click Submit
-    * Expect: Promt to complete Reicpe category field
-* Enter Recipe image URL and Click Submit
-    * Expect: Promt to complete Reicpe category field
+    * Expect: Promt to complete Recipe Category field
 * Select Category and Click Submit
+    * Expect: Promt to complete Recipe Description field
+* Enter description and Click Submit
     * Expect: Promt to complete Country field
+* Click vegetarian toggle
+    * Expect toggle to turn green and slide to the right
 * Select Country and Click Submit
     * Expect: Promt to complete Ingredient field
 * Enter ingredient and Click Submit
     * Expect: Promt to complete Quantity field
 * Enter Quantity and Click Submit
     * Expect: Promt to complete step field
+* Click Add Ingredient
+    * Expect: Remove Ingredient button to appear
+* Enter ingredient and Click Submit
+    * Expect: Promt to complete Quantity field
 * Enter Quantity and Click Submit
     * Expect: Promt to complete Step field
+* Click Remove Ingredient
+    * Expect: Remove Ingredient button and additional Ingredient and Quantity fields to disappear
+* Click Add Step
+    * Expect Remove step button and additional step field to appear
+* Click Remove Step
+    * Expect: Remove Step button and additional step field to disappear
 * Enter Step with less than 5 characters and Click Submit
     * Expect: Promt to enter 5 or more charcters for the step
 * Enter Step with more than 5 characters and Click Submit
     * Expect: Recipes page to load with a flash message saying Recipe Successfully added
-    
+
+### Favourite Recipes Page ###
+---
+
+* Expect: All favourtite recipes for user to be displayed or message displaying "You have not added any favourite recipes yet"
+* Expect: All like icons on Recipes that the current user has liked to be blue and the rest to be green, and to have a number that matches the number of recipe likes in the database
+* Click like icon
+    * If Recipe has not already been liked by user Expect: like icon to turn blue, number to increment by one and database to be updated
+    * If Recipe has already been liked by user - Expect: Nothing
+* Click Remove icon
+    * Expect: modal popup request confirmation
+        * Click No
+            * Expect: modal to close
+        * Click Yes
+            * Expect: Recipe to disappear and recipe id to be removed from user account in database
+* Click See Recipe
+    * Expect: Recipe Details page to load
+
+### My Recipes Page ###
+---
+
+* Expect: All recipes created by user to be displayed or message displaying "You have not added any recipes yet"
+* Expect: All like icons on Recipes that the current user has liked to be blue and the rest to be green, and to have a number that matches the number of recipe likes in the database
+* Click like icon
+    * If Recipe has not already been liked by user Expect: like icon to turn blue, number to increment by one and database to be updated
+    * If Recipe has already been liked by user - Expect: Nothing
+* Click Edit button
+    * Expect: Edit Recipe page to load
+* Click Delete button
+    * Expect: modal popup requesting confirmation
+        * Click No
+            * Expect: modal to close
+        * Click Yes
+            * Expect: Recipe to disappear, document be removed from datebase, all user favourite links to be removed and a flash message displaying "Recipe Successully Deleted"
+* Click See Recipe
+    * Expect: Recipe Details page to load
+
+
+### Edit Recipe Page ###
+---
+
+* Click Cancel
+    * Expect Previous page to load (Manage Recipes or My Recipes)
+* Click Submit
+    * Expect Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+* EDIT Recipe Name and Click Submit
+    * Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+* EDIT Recipe image URL and Click Submit
+    * Expect: Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+* EDIT Category and Click Submit
+    * Expect: Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+* EDIT description and Click Submit
+    * Expect: Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+* Click vegetarian toggle
+    * Expect toggle to change from green to grey or grey to green and slide to the right or left
+* EDIT Country and Click Submit
+    * Expect: Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+* EDIT ingredient and Click Submit
+    * Expect: Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+* EDIT Quantity and Click Submit
+    * Expect: Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+* Click Add Ingredient
+    * Expect: Remove Ingredient button to appear
+* Enter ingredient and Click Submit
+    * Expect: Promt to complete Quantity field
+* Enter Quantity and Click Submit
+    * Expect: Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+* Click Remove Ingredient
+    * Expect: Remove Ingredient button and additional Ingredient and Quantity fields to disappear
+* Click Add Step
+    * Expect Remove step button and additional step field to appear
+* Click Remove Step
+    * Expect: Remove Step button and additional step field to disappear
+
+
+### Change Password Page ###
+---
+* Click Cancel
+    * Expect: Home page to load
+* Click Change Password
+    * Expect: Prompt to complete old password field
+* Enter wrong old password and Click Change Password
+    * Expect: Prompt to complete new password field
+* Enter new password and Click Change Password
+    * Expect: Prompt to complete confirm new password field
+* Enter confirm new password and Click Change Password
+    * Expect: flash message saying "Incorrect old password" and form to Reset
+* Enter correct old password and Click Change Password
+    * Expect: Prompt to complete new password field
+* Enter new password and Click Change Password
+    * Expect: Prompt to complete confirm new password field
+* Enter wrong confirm new password and Click Change Password
+    * Expect: flash message saying "Passswords do not match"
+* Enter correct old password, new password and confirm new password and Click Change Password
+    * Expect: Home page to load and flash message saying "Password Successfully updated"
+
+
+### Manage Recipes Page (admin only ###
+---
+
+* Expect: All recipes created by user to be displayed or message displaying "You have not added any recipes yet"
+* Expect: All like icons on Recipes that the current user has liked to be blue and the rest to be green, and to have a number that matches the number of recipe likes in the database
+* Click like icon
+    * If Recipe has not already been liked by user Expect: like icon to turn blue, number to increment by one and database to be updated
+    * If Recipe has already been liked by user - Expect: Nothing
+* Click Edit button
+    * Expect: Edit Recipe page to load
+* Click Delete button
+    * Expect: modal popup requesting confirmation
+        * Click No
+            * Expect: modal to close
+        * Click Yes
+            * Expect: Recipe to disappear, document be removed from datebase, all user favourite links to be removed and a flash message displaying "Recipe Successully Deleted"
+* Click See Recipe
+    * Expect: Recipe Details page to load
