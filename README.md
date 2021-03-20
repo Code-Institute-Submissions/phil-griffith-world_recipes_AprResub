@@ -42,19 +42,19 @@ Essentially, this part is your sales pitch.
 
 As a user I would like:
 
-* 
+* To be able to view recipes without having to create an account
+* To be able to see popular recipes that other users have liked
+* To have the option of saving favourite recipes
+* To have the option to remove favourite recipes
+* To have the option to share recipes
+* To have the option to edit shared recipes
+* To be able to change my password
 
+In addition to these options, as the admin user I would like:
 
+* To be able to Edit search categories
+* To be able to Edit all recipes
 
-Admin
-
-* 
-
-
-
-
-
-* 
 
 <a name="design"></a>
 
@@ -64,8 +64,10 @@ Admin
 
 ### Wireframes ###
 
+The webite was initially designed using [balsamiq](https://balsamiq.com/) to create wireframes representing the site structure. See link below for details
 
-* 
+
+* [Wireframes]
 
 <a name="database"></a>
 
