@@ -18,7 +18,6 @@
         * [Colours](#colours)
 
 * [Features](#features)
-    * [Features that have been developed](#developed)
 * [Technologies](#technologies)
 * [Testing](#testing)
 * [Deployment](#deployment)
@@ -273,11 +272,9 @@ For the majority of colours the below colour panel was used to represent differe
 ![](documents/images/reg_pass.png)
 
 
-
-
-
 <a name="technologies"></a>
 ## Technologies, libraries and tools used ##
+---
 
 **Front-End**
 * [Bootstrap](https://bootstrap4.com/)
