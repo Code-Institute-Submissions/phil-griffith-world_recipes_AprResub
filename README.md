@@ -106,14 +106,14 @@ The following sites were used for icon creation
 
 For the majority of colours the below colour panel was used to represent different colours of the world (land, sky and sea)
 
-[](documents/colours.png)
+[](/documents/colours.png)
 
 &nbsp;
-[](documents/colour1.png)
-[](documents/colour2.png)
-[](documents/colour3.png)
-[](documents/colour4.png)
-[](documents/colour5.png)
+[](/documents/colour1.png)
+[](/documents/colour2.png)
+[](/documents/colour3.png)
+[](/documents/colour4.png)
+[](/documents/colour5.png)
 
 
 
