@@ -1,36 +1,33 @@
 
-![Hero Screenshot](static/img/.png)
+![Hero Screenshot](documents/images/hero.png)
+
+[World Recipes](https://world-recipes-pg.herokuapp.com/)
 
 ## Contents ##
 ---
 
-[Testing](documents/testing.md)
 
 * UX
     * [Introduction](#introduction)
     * [User Stories](#user-stories)
     * [Design](#design)
+        * [Wireframe](#design)
+        * [Database](#design)
         * [Fonts](#fonts)
         * [Icons](#icons)
         * [Colours](#colours)
 
 * [Features](#features)
     * [Features that have been developed](#developed)
-    * [Features that will be implemented in the future](#implemented)
 * [Technologies](#technologies)
-* [Defensive Design](#defensive)
-    * [Feature Testing](#ftest)
-    * [Defensive Design Testing](#dtest)
-* [Issues](#issues)
+* [Testing](#testing)
 * [Deployment](#deployment)
 * [Credit](#credits)
 
 <a name="introduction"></a>
 ## Introduction ##
 
-One or two paragraphs providing an overview of your project.
-
-Essentially, this part is your sales pitch.
+World Recipes has been created for people to discover and share recipes from around the world and offers users the ability to save favourite recipes
 
 
 
@@ -74,7 +71,10 @@ The webite was initially designed using [balsamiq](https://balsamiq.com/) to cre
 <a name="database"></a>
 
 ### Database ###
-*
+I used [dbdiagram.io](https://dbdiagram.io/d) to design the database structure and relations ships
+
+![](documents/images/database_design.png)
+
 
 <a name="fonts"></a>
 
@@ -277,7 +277,6 @@ For the majority of colours the below colour panel was used to represent differe
 
 
 <a name="technologies"></a>
-
 ## Technologies, libraries and tools used ##
 
 **Front-End**
@@ -290,6 +289,7 @@ For the majority of colours the below colour panel was used to represent differe
 * [Javascript](https://www.javascript.com/)
 
 * [materializecss](https://materializecss.com/)
+* [favicon.io](https://materializecss.com/)
 
 **Back-end**
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/)
@@ -303,12 +303,18 @@ For the majority of colours the below colour panel was used to represent differe
 * [Git](https://git-scm.com/)
 * [Github](https://github.com/)
 * [Gitpod](https://gitpod.io/)
+* [dbdiagram.io](https://dbdiagram.io/d)
 
 
+<a name="testing"></a>
 ## Testing ##
 ---
 
 Details of all tests that were performed can be found [here](documents/testing.md)
+
+In order to test this site as admin you will need the following credentials:
+* Username: admin
+* Password: Password1
 
 <a name="issues"></a>
 ### Issues identified and fixed ###
@@ -325,7 +331,31 @@ In addition to the tests that were completed in the testing document, all code h
 * [W3C HTML Validator](https://validator.w3.org/) (all pages passed validator)
 * [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) (css file passed validator)
 
+#### User Story verification ####
 
+Does this site provide the following user features?
+
+* To be able to view recipes without having to create an account
+    * Yes
+* To be able to see popular recipes that other users have liked
+    * Yes
+* To have the option of saving favourite recipes
+    * Yes
+* To have the option to remove favourite recipes
+    * Yes
+* To have the option to share recipes
+    * Yes
+* To have the option to edit shared recipes
+    * Yes
+* To be able to change my password
+    * Yes
+
+As admin user:
+
+* To be able to Edit search categories
+    * Yes
+* To be able to Edit all recipes
+    * Yes
 
 
 
@@ -380,7 +410,14 @@ In addition to the tests that were completed in the testing document, all code h
 ## Credits ##
 ---
 
-**
+* Recipes
+    * https://www.bbcgoodfood.com/recipes/sausages-winter-veg-mash
+    * https://www.bbc.co.uk/food/recipes/spaghetti_bolognese_with_23409
+    * https://www.bbc.co.uk/food/recipes/hawaiian_pizza_48114
+    * https://www.japancentre.com/en/recipes/1141-datemaki
 
+* Home page images
+    * https://www.pnas.org/content/116/37/18152.full
+    * https://www.kcrw.com/culture/shows/good-food/sonoran-tortillas-korean-home-cooking-jet-ali-tila/making-korean-meals-at-home-is-easier-than-you-think-says-sohui-kim
 
-
+I would also like to thank my Mentor Aaron Sinnot for all of his advice and my family and friends for testing the site for me

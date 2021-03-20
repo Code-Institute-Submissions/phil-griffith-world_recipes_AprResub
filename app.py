@@ -49,16 +49,12 @@ def home():
 def get_recipes():
     # clear any stored search parameters
     if session.get("country"):
-        print("There's a country")
         session.pop("country")
     if session.get("query") is not None:
-        print("There's a query")
         session.pop("query")
     if session.get("category"):
-        print("There's a category")
         session.pop("category")
     if session.get("is_vegetarian"):
-        print("There's a vegetarian")
         session.pop("is_vegetarian")
     # create countries object for country select
     countries = []
@@ -362,12 +358,10 @@ def favourite_recipes():
                                 "favourites": {"$exists": True}}):
         favourite_recipes_ids = mongo.db.users.find_one(
             {"username": session['user']})['favourites']
-        print("Favourite Recipe ID's" + str(favourite_recipes_ids))
         favourite_recipes = []
         for recipe_id in favourite_recipes_ids:
             favourite_recipes.append(mongo.db.recipes.find(
                 {"_id": ObjectId(recipe_id)}))
-            print(favourite_recipes)
         user_likes = mongo.db.users.find_one(
             {"username": session['user']})['liked_recipes']
         return render_template("favourite_recipes.html",
@@ -394,7 +388,6 @@ def edit_recipe(recipe_id, manage_recipes):
         # https://stackoverflow.com/questions/32741216/2d-array-python-list-index-out-of-range
         while request.form.get("ingredient"+str(x)):
             row = []
-            print(request.form.get("ingredient"+str(x)))
             row.append(request.form.get("ingredient"+str(x)))
             row.append(request.form.get("quantity"+str(x)))
             ingredients.append(row)
@@ -403,7 +396,6 @@ def edit_recipe(recipe_id, manage_recipes):
         y = 1
         # loop over each added method step
         while request.form.get("step"+str(y)):
-            print(request.form.get("step"+str(y)))
             method.append(request.form.get("step"+str(y)))
             y += 1
         updated_recipe = {
@@ -459,13 +451,6 @@ def delete_recipe(recipe_id, manage_recipes):
 
 @app.route("/remove_recipe/<recipe_id>")
 def remove_recipe(recipe_id):
-    users = mongo.db.users.find()
-    for user in users:
-        for favourite in user.get('favourites'):
-            if favourite == recipe_id:
-                print("It's a match!!")
-                print(favourite)
-                print(recipe_id)
     mongo.db.users.update_one({"username": session['user']},
                               {"$pull":
                               {"favourites": recipe_id}})
@@ -547,10 +532,8 @@ def like_recipe():
                 # check if user has already liked the recipe
                 if mongo.db.users.find_one({"username": session["user"],
                                             "liked_recipes": like_recipe}):
-                    print("You already liked")
                     like_allowed = False
                 else:
-                    print("You haven't liked yet")
                     like_allowed = True
             # create a liked_recipe array in the user's account
             else:
@@ -589,7 +572,6 @@ def like_recipe():
 @app.route("/change_password", methods=["GET", "POST"])
 def change_password():
     if request.method == "POST":
-        print("hello")
         existing_user = mongo.db.users.find_one(
             {"username": session['user']})
         if check_password_hash(
@@ -634,4 +616,4 @@ def manage_recipes():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=True)
+            debug=False)

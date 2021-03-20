@@ -180,7 +180,7 @@
     })
 
      $('button#like_button').on("click", function() {
-         user_liked = false;
+         let user_liked = false;
          if ($(this).hasClass('blue')) {
             user_liked = true                
          }

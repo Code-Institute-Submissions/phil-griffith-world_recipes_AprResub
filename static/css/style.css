@@ -1,433 +1,449 @@
-
 /* ********************************** General / utilities ************************************* */
 
-
 html {
-   height: 100%;
+	height: 100%;
 }
 
 body {
-   min-height: 100%;
-   padding: 50px 0 100px;
-   background-color: rgb(174, 236, 239);
+	min-height: 100%;
+	padding: 50px 0 100px;
+	background-color: rgb(174, 236, 239);
 }
 
 .text-shadow {
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5) ;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
 .text-shadow2 {
-    text-shadow: 3px 3px 3px rgba(0, 0, 0);
+	text-shadow: 3px 3px 3px rgba(0, 0, 0);
 }
 
-.flashes h4.light-blue.lighten-4  {
-    line-height: 2;
-    background-color: rgb(128, 222, 217) !important;
-    font-family: 'Comfortaa', cursive;
-    font-style: italic;
+.flashes h4.light-blue.lighten-4 {
+	line-height: 2;
+	background-color: rgb(128, 222, 217) !important;
+	font-family: 'Comfortaa', cursive;
+	font-style: italic;
 }
 
-h2, h3 {
-    font-family: 'Courgette', cursive;
-    padding: 30px;
+h2,
+h3 {
+	font-family: 'Courgette', cursive;
+	padding: 30px;
 }
 
-button, .btn, .btn-small, .card-panel, .modal {
-    font-family: 'Comfortaa', cursive;
-    font-style: italic;
+button,
+.btn,
+.btn-small,
+.card-panel,
+.modal {
+	font-family: 'Comfortaa', cursive;
+	font-style: italic;
 }
 
 .submit-buttons {
-    background-color: rgb(109, 157, 197);
+	background-color: rgb(109, 157, 197);
 }
 
 .search.card-panel {
-    background-color: #fff;
-    padding: 12px 0;
-    margin: 15px 10px;
+	background-color: #fff;
+	padding: 12px 0;
+	margin: 15px 10px;
 }
 
 #like_button i:hover {
-    color: rgb(48, 102, 190);
+	color: rgb(48, 102, 190);
 }
 
 .social-media a:hover {
-    background-color: rgb(48, 102, 190);
+	background-color: rgb(48, 102, 190);
 }
 
-#favourite_button i:hover, #rd_favourite i:hover {
-    color: red;
+#favourite_button i:hover,
+#rd_favourite i:hover {
+	color: red;
 }
 
-#like_button_blue .blue i:hover, #favourite_red .red i:hover {
-    color: none;
+#like_button_blue .blue i:hover,
+#favourite_red .red i:hover {
+	color: white;
 }
 
-.modal a{
-    margin-right: 50px;
+.modal a {
+	margin-right: 50px;
 }
 
 .edit-buttons {
-    margin-top: -5px;
-    margin-bottom: 20px;
+	margin-top: -5px;
+	margin-bottom: 20px;
 }
 
 .modal-small {
-    max-width: 400px;
+	max-width: 400px;
 }
-
-
 
 
 /* ********************************** Home Page ************************************* */
 
+
 /* negate body padding */
+
 .parallax-container {
-    margin-bottom: -50px;
+	margin-bottom: -50px;
 }
 
 .carousel .carousel-item {
-    height: 425px;
-    width: 400px;
+	height: 425px;
+	width: 400px;
 }
 
-.carousel .carousel-item img{
-    max-height: 200px;
+.carousel .carousel-item img {
+	max-height: 200px;
 }
 
 #popular_recipes {
-    background-color: rgb(174, 236, 239) !important;
+	background-color: rgb(174, 236, 239) !important;
 }
 
 #popular_recipes h2 {
-    margin: 0;
+	margin: 0;
 }
 
-#home_page h1, #home_page2 {
-    color: white;
-    font-family: 'Courgette', cursive;
-    margin-top: 100px;
+#home_page h1,
+#home_page2 {
+	color: white;
+	font-family: 'Courgette', cursive;
+	margin-top: 100px;
 }
 
 #home_page2 span {
-    font-size: 24px;
+	font-size: 24px;
 }
 
 #home_page2 a {
-    margin-top: 20px;
+	margin-top: 20px;
 }
 
 #home_page #like_counter {
-    margin: 30px;
+	margin: 30px;
 }
 
 #home_page .card-title {
-    font-family: 'Courgette', cursive;
+	font-family: 'Courgette', cursive;
 }
 
 #home_page .container {
-    margin-bottom: -10px;
+	margin-bottom: -10px;
 }
 
 #home_page .carousel {
-    height: 600px;    
+	height: 600px;
 }
+
 
 /* ********************************** NavBar & Footer ************************************* */
 
-
 header {
-    position: fixed;
-    top: 0px;
-    width: 100%;
-    z-index: 2; 
+	position: fixed;
+	top: 0px;
+	width: 100%;
+	z-index: 2;
 }
 
 .nav-wrapper {
-    background-color: rgb(17, 157, 164);    
+	background-color: rgb(17, 157, 164);
 }
 
 .nav-wrapper a.brand-logo {
-    font-family: 'Dancing Script', cursive;
-    font-weight: 600;
-    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
+	font-family: 'Dancing Script', cursive;
+	font-weight: 600;
+	text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.5);
 }
 
-.nav-wrapper a, .sidenav {
-    font-family: 'Courgette', cursive;
-    text-shadow: none;
+.nav-wrapper a,
+.sidenav {
+	font-family: 'Courgette', cursive;
+	text-shadow: none;
 }
 
 .page-footer {
-    position: fixed;
-    bottom: 0px;
-    width: 100%;
-    z-index: 2;
-    background-color: rgb(17, 157, 164); 
-    font-family: 'Courgette', cursive;
+	position: fixed;
+	bottom: 0px;
+	width: 100%;
+	z-index: 2;
+	background-color: rgb(17, 157, 164);
+	font-family: 'Courgette', cursive;
 }
 
 .copyright.col {
-    padding-top: 10px;
+	padding-top: 10px;
 }
 
 a.btn-floating.social-media {
-    margin: 0;
-
+	margin: 0;
 }
+
 
 /* .social-media {
     min-width: 400px;
 } */
 
-.social-media a{
-    margin: 0 10px;
+.social-media a {
+	margin: 0 10px;
 }
 
 
 /* ********************************** Recipes Page ************************************* */
 
-#category_field, #country_field, #query_field {
-    margin-top: 20px;
-    font-family: 'Comfortaa', cursive;
-    font-style: italic;
+#category_field,
+#country_field,
+#query_field {
+	margin-top: 20px;
+	font-family: 'Comfortaa', cursive;
+	font-style: italic;
 }
 
 #vegetarian_field {
-    font-family: 'Comfortaa', cursive;
-    font-style: italic;
+	font-family: 'Comfortaa', cursive;
+	font-style: italic;
 }
 
 .select-dropdown {
-    font-family: 'Comfortaa', cursive;
-    font-style: italic;
+	font-family: 'Comfortaa', cursive;
+	font-style: italic;
 }
 
 h4.card-content {
-    color: black;
+	color: black;
 }
 
 .recipe-details img {
-    width: 100%;
-    max-height: 400px;
-    overflow: hidden;
+	width: 100%;
+	max-height: 400px;
+	overflow: hidden;
 }
 
-.card-image img{
-    width: 100%;
-    height: 250px;
-    object-fit: fill;
+.card-image img {
+	width: 100%;
+	height: 250px;
+	object-fit: fill;
 }
 
 .recipe-card .card-content {
-    height: 300px;
+	height: 300px;
 }
 
-.card .card-image .card-title, .card .card-content p {
-    top: 2px;
-    padding: 0 20px;
-    font-family: 'Dancing Script', cursive;
+.card .card-image .card-title,
+.card .card-content p {
+	top: 2px;
+	padding: 0 20px;
+	font-family: 'Dancing Script', cursive;
 }
+
 
 /* https://stackoverflow.com/questions/33058004/applying-an-ellipsis-to-multiline-text */
- .card .card-content p {
-     padding: 20px;
-     font-size: 22px;
-     font-weight: 500;
-     max-height: 155px;
-     display: -webkit-box;
-    -webkit-line-clamp: 4;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
- }
 
-.recipe-card h5, .recipe-card span {
-    font-family: 'Courgette', cursive;
-    font-weight: 500;
+.card .card-content p {
+	padding: 20px;
+	font-size: 22px;
+	font-weight: 500;
+	max-height: 155px;
+	overflow: hidden;
+}
+
+.recipe-card h5,
+.recipe-card span {
+	font-family: 'Courgette', cursive;
+	font-weight: 500;
 }
 
 #added_by {
-   padding: 30px;
-   margin-top: -10px;
-   /* height: 100px; */
+	padding: 30px;
+	margin-top: -10px;
+	/* height: 100px; */
 }
 
 .recipe-card p {
-    padding: 20px;
+	padding: 20px;
 }
 
 .favourite {
-    position: absolute;
-    top: 10px;
-    right: 10px;
+	position: absolute;
+	top: 10px;
+	right: 10px;
 }
 
 #favourite {
-    top: 0px;
-    right: 0px;
+	top: 0px;
+	right: 0px;
 }
 
 #like_counter {
-    padding-bottom: 0px;
+	padding-bottom: 0px;
 }
+
 
 /* ********************************** Recipe Details Page ************************************* */
 
 #rd_back {
-    margin-top: 50px;
+	margin-top: 50px;
 }
 
 .recipe-details {
-    margin-top: 25px;
+	margin-top: 25px;
 }
 
 #recipe_image {
-    margin-top: 20px;
-    position: relative;
+	margin-top: 20px;
+	position: relative;
 }
 
 #recipe_description h3 {
-    font-family: 'Courgette', cursive;
-    font-weight: 500;
-    margin: 0;
+	font-family: 'Courgette', cursive;
+	font-weight: 500;
+	margin: 0;
 }
 
 #recipe_description p {
-    font-family: 'Dancing Script', cursive;
-    font-size: 24px;
-    margin: 5px;
-    padding: 20px;
+	font-family: 'Dancing Script', cursive;
+	font-size: 24px;
+	margin: 5px;
+	padding: 20px;
 }
 
 #recipe_image span {
-    font-family: 'Courgette', cursive;
-    font-size: 20px;
+	font-family: 'Courgette', cursive;
+	font-size: 20px;
 }
 
 #rd_like_counter {
-    margin: 30px;
+	margin: 30px;
 }
 
 #category {
-    padding-top: 15px;
+	padding-top: 15px;
 }
 
 .recipe-details .favourite {
-    position: relative;
+	position: relative;
 }
 
-#rd_favourite, #favourite_red {
-    position: absolute;
-    bottom: 30px;
-    right: 10px;
+#rd_favourite,
+#favourite_red {
+	position: absolute;
+	bottom: 30px;
+	right: 10px;
 }
 
-#recipe_method, #recipe_story {
-    padding: 1.5rem;
+#recipe_method,
+#recipe_story {
+	padding: 1.5rem;
 }
 
 #recipe_method {
-    padding-top: 0;
-    margin-top: -20px;;
+	padding-top: 0;
+	margin-top: -20px;
+	;
 }
 
 #recipe_ingredients {
-    padding-top: 20px;
+	padding-top: 20px;
 }
+
 
 /* ********************************** Sign In / Register Page ************************************* */
 
-
-
-.sign-in button, .register button {
-    background-color: rgb(48, 102, 190);
+.sign-in button,
+.register button {
+	background-color: rgb(48, 102, 190);
 }
 
 .form-rules {
-    font-size: 12px;
+	font-size: 12px;
 }
 
 .register form {
-    padding: 30px;
+	padding: 30px;
 }
+
 
 /* ********************************** Add Recipe page ************************************* */
 
-.method-buttons button, .ingredient-buttons button {
-    background-color: rgb(109, 157, 197);
-    margin-bottom: 15px;
+.method-buttons button,
+.ingredient-buttons button {
+	background-color: rgb(109, 157, 197);
+	margin-bottom: 15px;
 }
 
 
 /* ********************************** Edit Recipe page ************************************* */
 
 .confirm_edit_buttons {
-    margin-bottom: 15px;
+	margin-bottom: 15px;
 }
+
 
 /* ********************************** Favourite Recipes page ************************************* */
 
-
-
 #remove_fav {
-    position: absolute;
-    right: 5px;
-    bottom: 5px;
-    border-radius: 50%;
-    z-index: 1;
+	position: absolute;
+	right: 5px;
+	bottom: 5px;
+	border-radius: 50%;
+	z-index: 1;
 }
 
 #remove_fav i:hover {
-    color: pink;
+	color: pink;
 }
 
 
 /* ********************************** Manage Categories page ************************************* */
 
-.category-cards, edit-category,
-edit-category label{
-    font-family: 'Comfortaa', cursive;
-    font-style: italic;
+.category-cards,
+edit-category,
+edit-category label {
+	font-family: 'Comfortaa', cursive;
+	font-style: italic;
 }
-
-
 
 
 /* ********************************** Media Queries ************************************* */
 
 @media only screen and (min-width: 993px) {
-    nav .brand-logo {
-        left: 10%;
-    }
+	nav .brand-logo {
+		left: 10%;
+	}
 }
 
 
 /* home page images */
+
+
 /* surface duo */
+
 @media only screen and (max-width: 540px) {
-    .parallax-container, parallax img {
-        height: 300px;
-    }
-    #home_page h1 {
-        font-size: 24px;
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-
-    #popular_recipes h2 {
-        font-size: 26px;
-    }
-
-    #home_page .card-title {
-        font-size: 20px;  
-    }
-    #home_page2 h2, #home_page2 span {
-        font-size: 20px;
-        margin: 10px 10px;        
-        padding: 0;
-    }
-
-    #recipe_method {
-        margin-top: 20px;
-    }
+	.parallax-container,
+	parallax img {
+		height: 300px;
+	}
+	#home_page h1 {
+		font-size: 24px;
+		margin-left: 10px;
+		margin-right: 10px;
+	}
+	#popular_recipes h2 {
+		font-size: 26px;
+	}
+	#home_page .card-title {
+		font-size: 20px;
+	}
+	#home_page2 h2,
+	#home_page2 span {
+		font-size: 20px;
+		margin: 10px 10px;
+		padding: 0;
+	}
+	#recipe_method {
+		margin-top: 20px;
+	}
 }
