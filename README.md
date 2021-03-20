@@ -67,7 +67,7 @@ In addition to these options, as the admin user I would like:
 The webite was initially designed using [balsamiq](https://balsamiq.com/) to create wireframes representing the site structure. See link below for details
 
 
-* [Destop](documents/wireframes/desktop.md)
+* [Desktop](documents/wireframes/desktop.md)
 * [Tablet](documents/wireframes/tablet.md)
 * [Mobile](documents/wireframes/mobile.md)
 
@@ -78,23 +78,42 @@ The webite was initially designed using [balsamiq](https://balsamiq.com/) to cre
 
 <a name="fonts"></a>
 
-### Fonts ###
+### **Fonts** ###
 
-* 
+In order to create the feeling of handwritten recipe cards I chose the following fonts from Google fonts.
+
+##### Logo and Recipe descriptions #####
+* Dancing Script cursive
+##### Titles #####
+* Courgette cursive
+
+##### Buttons and other where clairity is required #####
+* Comfortaa cursive, Style: Italic
 
 <a name="icons"></a>
 
-### Icons ###
+### **Icons** ###
 
-*  [**Font Awesome**](https://fontawesome.com/)
-* 
+The following sites were used for icon creation
+
+* [Font Awesome](https://fontawesome.com/)
 * [Favicon.io](https://favicon.io/).
+* [Materialize CSS](https://materializecss.com/)
 
 <a name="colours"></a>
 
-### Colours ###
+### **Colours** ###
 
-*
+For the majority of colours the below colour panel was used to represent different colours of the world (land, sky and sea)
+
+[](documents/colours.png)
+
+&nbsp;
+[](documents/colour1.png)
+[](documents/colour2.png)
+[](documents/colour3.png)
+[](documents/colour4.png)
+[](documents/colour5.png)
 
 
 
