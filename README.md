@@ -67,7 +67,9 @@ In addition to these options, as the admin user I would like:
 The webite was initially designed using [balsamiq](https://balsamiq.com/) to create wireframes representing the site structure. See link below for details
 
 
-* [Wireframes]
+* [Destop](documents/wireframes/desktop.md)
+* [Tablet](documents/wireframes/tablet.md)
+* [Mobile](documents/wireframes/mobile.md)
 
 <a name="database"></a>
 
