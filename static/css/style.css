@@ -400,4 +400,26 @@ edit-category label{
     .parallax-container, parallax img {
         height: 300px;
     }
+    #home_page h1 {
+        font-size: 24px;
+        margin-left: 10px;
+        margin-right: 10px;
+    }
+
+    #popular_recipes h2 {
+        font-size: 26px;
+    }
+
+    #home_page .card-title {
+        font-size: 20px;  
+    }
+    #home_page2 h2, #home_page2 span {
+        font-size: 20px;
+        margin: 10px 10px;        
+        padding: 0;
+    }
+
+    #recipe_method {
+        margin-top: 20px;
+    }
 }

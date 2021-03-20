@@ -140,23 +140,26 @@ Admin
 ## Testing ##
 ---
 
+Details of all tests that were performed can be found [here](documents/testing.md)
+
+<a name="issues"></a>
+### Issues identified and fixed ###
+
+* Incorrect Recipes deleting & Removing from Favourites
+    * Issue was caused by a modal generation in for loop taking the same ID for every modal. Fixed by appending {{ loop.index }} to modal id
+* Change Password modal trying to flash messages to deleted my account page
+    * Fixed by changing modal to a Change password page where flash message can be displayed until password is successfully changed and then redirect to Home page
+
+In addition to the tests that were completed in the testing document, all code has been tested using the following code validators.
+
 * [JSHint](https://jshint.com/) (JS file passed validator)
 * [PEP8 online](http://pep8online.com/)
 * [W3C HTML Validator](https://validator.w3.org/) (all pages passed validator)
 * [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) (css file passed validator)
-\
-\
-<a name="issues"></a>
-### Issues identified and fixed ###
 
 
-**Issue title**
 
-* text
 
-**Issue title**
-
-* 
 
 
 
@@ -166,11 +169,11 @@ Admin
 ### Local Deployment ###
 
 * Open browser of choice.
-* Copy/Paste the address of [****]() in your search box.
+* Copy/Paste the address of [World Recipes](https://github.com/phil-griffith/world_recipes) in your search box.
 * When on the page, click on the "Code" button.
-* Copy the the |****]().
+* Copy the the [HTTPS Link](https://github.com/phil-griffith/world_recipes).
 * Open your IDE and in your terminal, create a virtual environement supporting python and flask and activate it.
-* Type "git clone" and paste the []().
+* Type "git clone" and paste the [HTTPS Link](https://github.com/phil-griffith/world_recipes).
 * Create an environement file called "env.py" and add :
     - MONGO_URI=mongodb+srv://...
     - SECRET_KEY= [Your Secret key]
@@ -178,8 +181,8 @@ Admin
 * In app.py, switch **debug=False** to **debug=True**
 * Upgrade pip locally with the command "pip install -U pip".
 * Install the modules used to run the application using "pip freeze > requirements.txt" in your terminal.
-* In parallel, create a MongoDB account and create a database called **"sante_project"**.
-* These are the following collections in the database:
+* Create a MongoDB account and create a database called **"world_recipes"**.
+* Add documtents to database collection as per [database design](#database)
 
 
 
