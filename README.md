@@ -106,14 +106,20 @@ The following sites were used for icon creation
 
 For the majority of colours the below colour panel was used to represent different colours of the world (land, sky and sea)
 
-[](documents/colours.png)
+![](documents/images/colours.png)
 
-&nbsp;
-[](documents/images/colour1.png)
-[](documents/images/colour2.png)
-[](documents/images/colour3.png)
-[](documents/images/colour4.png)
-[](documents/images/colour5.png)
+* ![](documents/images/colour1.png)
+    * like hover
+* ![](documents/images/colour2.png)
+    * Header & Footer
+* ![](documents/images/colour3.png)
+    * Submit Buttons
+* ![](documents/images/colour4.png)
+    * button effects
+* ![](documents/images/colour5.png)
+    * Background
+
+
 
 
 
@@ -125,9 +131,148 @@ For the majority of colours the below colour panel was used to represent differe
 
 **Navigation bar**
 
-* 
+* Not signed in Nav Bar
 
-** Another feature**
+![](documents/images/navbar_su.png)
+
+* Not signed in Nav Bar Mobile
+
+![](documents/images/navbar_su_mob.png)
+
+* Standard User Nav Bar
+
+![](documents/images/navbar_signed_in.png)
+
+* Standard User Nav Bar Mobile
+
+![](documents/images/navbar_signed_in_mob1.png)
+
+![](documents/images/navbar_signed_in_mob2.png)
+
+* admin User Nav Bar
+
+![](documents/images/navbar_signed_in_admin.png)
+
+* admin User Nav Bar Mobile
+
+![](documents/images/navbar_signed_in_admin_mob.png)
+
+
+**Footer**
+
+* Social media links
+
+![](documents/images/footer_links_mob.png)
+
+**Home Page**
+
+* Popular Recipes Carousel
+
+![](documents/images/popular_recipes.png)
+
+* Blue like button showing number of likes and indicating current user has liked the recipe
+
+![](documents/images/like_button_blue.png)
+
+**Recipe Details Page**
+
+* Recipe showing:    
+    * Reicpe Name
+    * Category
+    * Country of origin
+    * Description
+    * Ingredients 
+    * Method steps 
+    * Likes 
+    * Favourite button
+
+![](documents/images/recipe_details.png)
+
+**Recipes Page**
+
+* Recipe card showing:
+    * Recipe name
+    * description
+    * added by
+    * likes* favourite
+    * Country of origin
+
+![](documents/images/recipe_card.png)
+
+* Search bar showing fields for:
+    * Country
+    * Category
+    * Vegetarian yes/no
+    * Keyword search
+
+![](documents/images/search.png)
+
+**Manage Recipes & My Recipes Page**
+
+* Edit & Delete Recipe buttons
+
+![](documents/images/edit_delete.png)
+
+**Manage Categories Page**
+
+* Manage Categories cards with Edit and Delete options
+
+![](documents/images/manage_cats.png)
+
+**Favourite Recipes Page**
+
+* Remove favourite button
+
+![](documents/images/remove_fav.png)
+
+**Add Recipe Page**
+
+
+![](documents/images/add_recipe.png)
+
+* Remove Ingredient & Remove step Buttons after click add 
+
+![](documents/images/remove_ingred_step.png)
+
+&nbsp;
+### **Defensive Programming** ###
+
+
+* Sign out confirm modal 
+
+![](documents/images/sign_out_modal.png)
+
+* Delete Recipe confirm modal 
+
+![](documents/images/delete_recipe_modal.png)
+
+* Delete Category confirm modal 
+
+![](documents/images/delete_cat.png)
+
+**Change Password**
+
+* Incorrect old password entered
+
+![](documents/images/wrong_old_pass.png)
+
+* New and confirm passwords don't match
+
+![](documents/images/wrong_confirm_pass.png)
+
+**Sign In**
+
+* Incorrect username or password entered
+
+![](documents/images/wrong_user_pass.png)
+
+**Register**
+
+* Incorrect confirm password entered
+
+![](documents/images/reg_pass.png)
+
+
 
 
 
@@ -144,7 +289,7 @@ For the majority of colours the below colour panel was used to represent differe
 * [HTML](https://developer.mozilla.org/en-US/docs/Web/HTML)
 * [Javascript](https://www.javascript.com/)
 
-* [SCSS](https://sass-lang.com/)
+* [materializecss](https://materializecss.com/)
 
 **Back-end**
 * [Flask](https://flask.palletsprojects.com/en/1.1.x/)

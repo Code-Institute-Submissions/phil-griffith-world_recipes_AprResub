@@ -180,8 +180,14 @@
     })
 
      $('button#like_button').on("click", function() {
-         $(this).addClass('blue');
-         $(this).next('#not_liked').text(Number($('#not_liked').text())+1);
+         user_liked = false;
+         if ($(this).hasClass('blue')) {
+            user_liked = true                
+         }
+         if (!user_liked) {
+            $(this).addClass('blue');
+            $(this).next('#not_liked').text(Number($('#not_liked').text())+1);
+         }
     })
 
     $('button#favourite_button').on("click", function() {

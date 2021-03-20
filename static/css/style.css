@@ -125,6 +125,14 @@ button, .btn, .btn-small, .card-panel, .modal {
     font-family: 'Courgette', cursive;
 }
 
+#home_page .container {
+    margin-bottom: -10px;
+}
+
+#home_page .carousel {
+    height: 600px;    
+}
+
 /* ********************************** NavBar & Footer ************************************* */
 
 
