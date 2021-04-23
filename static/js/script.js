@@ -175,18 +175,20 @@
     $('.favourite i').on("click", function() {
         $('#modal2 p').text("Please sign in or Register to save this Recipe to your favourites")
     })
-    $('a#like_button').on("click", function() {
+    $('a.like-button2').on("click", function() {
         $('#modal2 p').text("Please sign in or Register to like this Recipe");
     })
 
-     $('button.like_button').on("click", function() {
+    // check if user has already liked the recipe
+     $('a.like-button').on("click", function() {
          let user_liked = false;
          if ($(this).hasClass('blue')) {
             user_liked = true                
          }
          if (!user_liked) {
             $(this).addClass('blue');
-            $(this).next('#not_liked').text(Number($('#not_liked').text())+1);
+            // increment the liked counter by 1
+            $(this).next().text(Number($(this).next().text())+1);
          }
     })
 

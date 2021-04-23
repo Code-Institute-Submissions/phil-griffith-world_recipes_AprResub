@@ -523,47 +523,47 @@ def add_to_favourites():
 def like_recipe():
     # check if user is logged in
     if session.get('user') is not None:
-        if request.method == "POST":
-            # get recipe id from recipe page
-            like_recipe = request.form.get("like_recipe")
-            # check if user has liked any recipes
+        # get recipe id from recipe page
+        like_recipe = request.args.get("recipe_id")
+        print(like_recipe)
+        # check if user has liked any recipes
+        if mongo.db.users.find_one({"username": session["user"],
+                                    "liked_recipes": {"$exists": True}}):
+            # check if user has already liked the recipe
             if mongo.db.users.find_one({"username": session["user"],
-                                        "liked_recipes": {"$exists": True}}):
-                # check if user has already liked the recipe
-                if mongo.db.users.find_one({"username": session["user"],
-                                            "liked_recipes": like_recipe}):
-                    like_allowed = False
-                else:
-                    like_allowed = True
-            # create a liked_recipe array in the user's account
+                                        "liked_recipes": like_recipe}):
+                like_allowed = False
             else:
-                mongo.db.users.update_one({"username": session["user"]},
-                                          {"$set":
-                                          {"liked_recipes": []}})
                 like_allowed = True
+        # create a liked_recipe array in the user's account
+        else:
+            mongo.db.users.update_one({"username": session["user"]},
+                                      {"$set":
+                                      {"liked_recipes": []}})
+            like_allowed = True
 
-            if like_allowed:
-                # check if recipe has any likes
-                if mongo.db.recipes.find_one({"_id": ObjectId(like_recipe),
-                                              "likes": {"$exists": True}}):
-                    # get current likes
-                    current_likes = mongo.db.recipes.find_one(
-                        {"_id": ObjectId(like_recipe)})["likes"]
-                    likes = current_likes + 1
-                    # update the recipes likes to likes + 1
-                    mongo.db.recipes.update_one({"_id": ObjectId(like_recipe)},
-                                                {"$set": {"likes": likes}})
-                    # add recipe to users liked recipes
-                    mongo.db.users.update_one({"username": session["user"]},
-                                              {"$push":
-                                              {"liked_recipes": like_recipe}})
+        if like_allowed:
+            # check if recipe has any likes
+            if mongo.db.recipes.find_one({"_id": ObjectId(like_recipe),
+                                          "likes": {"$exists": True}}):
+                # get current likes
+                current_likes = mongo.db.recipes.find_one(
+                    {"_id": ObjectId(like_recipe)})["likes"]
+                likes = current_likes + 1
+                # update the recipes likes to likes + 1
+                mongo.db.recipes.update_one({"_id": ObjectId(like_recipe)},
+                                            {"$set": {"likes": likes}})
+                # add recipe to users liked recipes
+                mongo.db.users.update_one({"username": session["user"]},
+                                          {"$push":
+                                           {"liked_recipes": like_recipe}})
 
-                else:
-                    mongo.db.recipes.update_one({"_id": ObjectId(like_recipe)},
-                                                {"$set": {"likes": 1}})
-                    mongo.db.users.update_one({"username": session["user"]},
-                                              {"$push":
-                                              {"liked_recipes": like_recipe}})
+            else:
+                mongo.db.recipes.update_one({"_id": ObjectId(like_recipe)},
+                                            {"$set": {"likes": 1}})
+                mongo.db.users.update_one({"username": session["user"]},
+                                          {"$push":
+                                          {"liked_recipes": like_recipe}})
 
     # https://stackoverflow.com/questions/24295426/python-flask-intentional-empty-response
     return ('', 204)

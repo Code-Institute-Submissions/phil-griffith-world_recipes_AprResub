@@ -63,7 +63,7 @@ button,
 	color: red;
 }
 
-#like_button_blue .blue i:hover,
+.like-button-blue .blue i:hover,
 #favourite_red .red i:hover {
 	color: white;
 }
