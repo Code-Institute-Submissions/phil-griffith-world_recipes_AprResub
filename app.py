@@ -194,8 +194,8 @@ def search():
 @app.route("/recipe_details", methods=["GET", "POST"])
 def recipe_details():
     # get recipe id from recipe card
-    recipe = request.form.get("see_recipe")
-    top_recipe = request.form.get("top_recipe")
+    recipe = request.args.get("recipe_id")
+    top_recipe = request.args.get("top_recipe")
     fav_recipe = request.form.get("fav_recipe")
     my_recipes = request.form.get("my_recipes")
     manage_recipes = request.form.get("manage_recipes")
@@ -616,4 +616,4 @@ def manage_recipes():
 if __name__ == "__main__":
     app.run(host=os.environ.get("IP"),
             port=int(os.environ.get("PORT")),
-            debug=False)
+            debug=True)

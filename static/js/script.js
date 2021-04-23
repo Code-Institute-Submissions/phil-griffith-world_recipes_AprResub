@@ -179,7 +179,7 @@
         $('#modal2 p').text("Please sign in or Register to like this Recipe");
     })
 
-     $('button#like_button').on("click", function() {
+     $('button.like_button').on("click", function() {
          let user_liked = false;
          if ($(this).hasClass('blue')) {
             user_liked = true                
