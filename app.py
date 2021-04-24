@@ -475,11 +475,20 @@ def remove_recipe(recipe_id):
 
 @app.route("/get_categories")
 def get_categories():
+    # check if user is logged in
     if "user" in session:
-        categories = list(mongo.db.categories.find().sort("category_name", 1))
-        return render_template("manage_categories.html", categories=categories)
+        # check if user is admin
+        if session['user'] == "admin":
+            categories = list(
+                mongo.db.categories.find().sort("category_name", 1))
+            return render_template(
+                "manage_categories.html", categories=categories)
+        else:
+            # if user is not admin do nothing
+            return ('', 204)
     else:
-        return redirect(url_for("favourite_recipes"))
+        # if user is not signed, redirect to sign in page
+        return redirect(url_for("sign_in"))
 
 
 @app.route("/add_category", methods=["GET", "POST"])
@@ -614,20 +623,23 @@ def change_password():
 @app.route("/manage_recipes")
 def manage_recipes():
     if session.get('user') is not None:
-        # create countries object for country select
-        countries = []
-        with open("data/countries.json", "r") as json_data:
-            countries = json.load(json_data)
-        recipes = mongo.db.recipes.find()
-        categories = mongo.db.categories.find()
-        user_favourites = mongo.db.users.find_one(
-            {"username": session['user']})['favourites']
-        user_likes = mongo.db.users.find_one(
-            {"username": session['user']})['liked_recipes']
-        return render_template("manage_recipes.html",
-                            recipes=recipes, countries=countries,
-                            categories=categories, user_likes=user_likes,
-                            user_favourites=user_favourites)
+        if session['user'] == "admin":
+            # create countries object for country select
+            countries = []
+            with open("data/countries.json", "r") as json_data:
+                countries = json.load(json_data)
+            recipes = mongo.db.recipes.find()
+            categories = mongo.db.categories.find()
+            user_favourites = mongo.db.users.find_one(
+                {"username": session['user']})['favourites']
+            user_likes = mongo.db.users.find_one(
+                {"username": session['user']})['liked_recipes']
+            return render_template("manage_recipes.html",
+                                recipes=recipes, countries=countries,
+                                categories=categories, user_likes=user_likes,
+                                user_favourites=user_favourites)
+        else:
+            return ('', 204)
     else:
         return redirect(url_for('sign_in'))
 
