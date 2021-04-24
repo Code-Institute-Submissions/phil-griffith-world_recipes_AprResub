@@ -2,6 +2,7 @@
 {% block content %}
     
     <h2 class="center-align">{{ session['user']}}'s Recipes</h2>
+    <span>{{ manage_recipes }}</span>
     
     {% if my_added_recipes %}
     <div class="row">
@@ -51,7 +52,7 @@
                 </div>
             </div>
             <div class="edit-buttons center-align">
-                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id, manage_recipes=False) }}"
+                <a href="{{ url_for('edit_recipe', recipe_id=recipe._id) }}"
                     class="btn-small ">Edit</a>
                 <a href="#delete_recipe{{ loop.index }}" class="btn-small red modal-trigger">Delete</a>
             </div>
