@@ -195,9 +195,10 @@ def search():
 def recipe_details():
     # get recipe id from recipe card
     recipe = request.args.get("recipe_id")
+    # capture requesting page for the back button
     top_recipe = request.args.get("top_recipe")
     fav_recipe = request.args.get("fav_recipe")
-    my_recipes = request.form.get("my_recipes")
+    my_recipes = request.args.get("my_recipes")
     manage_recipes = request.form.get("manage_recipes")
     # get full recipe details from db
     selected_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe)})
