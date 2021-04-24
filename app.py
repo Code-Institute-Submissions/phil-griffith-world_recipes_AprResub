@@ -199,7 +199,7 @@ def recipe_details():
     top_recipe = request.args.get("top_recipe")
     fav_recipe = request.args.get("fav_recipe")
     my_recipes = request.args.get("my_recipes")
-    manage_recipes = request.form.get("manage_recipes")
+    manage_recipes = request.args.get("manage_recipes")
     # get full recipe details from db
     selected_recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe)})
     # check if user has any favourite or liked recipes
@@ -293,49 +293,52 @@ def sign_out():
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
-    if request.method == "POST":
-        is_vegetarian = True if request.form.get("is_vegetarian") else False
-        x = 1
-        ingredients = []
-        # loop over each added ingedient
-        # https://stackoverflow.com/questions/32741216/2d-array-python-list-index-out-of-range
-        while request.form.get("ingredient"+str(x)):
-            row = []
-            print(request.form.get("ingredient"+str(x)))
-            row.append(request.form.get("ingredient"+str(x)))
-            row.append(request.form.get("quantity"+str(x)))
-            ingredients.append(row)
-            x += 1
-        method = []
-        y = 1
-        # loop over each added method step
-        while request.form.get("step"+str(y)):
-            print(request.form.get("step"+str(y)))
-            method.append(request.form.get("step"+str(y)))
-            y += 1
-        recipe = {
-            "recipe_name": request.form.get("recipe_name"),
-            "image_url": request.form.get("image_url"),
-            "category_name": request.form.get("category_name"),
-            "is_vegetarian": is_vegetarian,
-            "recipe_description": request.form.get("recipe_description"),
-            "country": request.form.get("country"),
-            "ingredients": ingredients,
-            "method": method,
-            "recipe_story": request.form.get("recipe_story"),
-            "added_by": session["user"]
-        }
-        mongo.db.recipes.insert_one(recipe)
-        flash("Recipe Successfully Added")
-        return redirect(url_for("get_recipes"))
+    if "user" in session:
+        if request.method == "POST":
+            is_vegetarian = True if request.form.get("is_vegetarian") else False
+            x = 1
+            ingredients = []
+            # loop over each added ingedient
+            # https://stackoverflow.com/questions/32741216/2d-array-python-list-index-out-of-range
+            while request.form.get("ingredient"+str(x)):
+                row = []
+                print(request.form.get("ingredient"+str(x)))
+                row.append(request.form.get("ingredient"+str(x)))
+                row.append(request.form.get("quantity"+str(x)))
+                ingredients.append(row)
+                x += 1
+            method = []
+            y = 1
+            # loop over each added method step
+            while request.form.get("step"+str(y)):
+                print(request.form.get("step"+str(y)))
+                method.append(request.form.get("step"+str(y)))
+                y += 1
+            recipe = {
+                "recipe_name": request.form.get("recipe_name"),
+                "image_url": request.form.get("image_url"),
+                "category_name": request.form.get("category_name"),
+                "is_vegetarian": is_vegetarian,
+                "recipe_description": request.form.get("recipe_description"),
+                "country": request.form.get("country"),
+                "ingredients": ingredients,
+                "method": method,
+                "recipe_story": request.form.get("recipe_story"),
+                "added_by": session["user"]
+            }
+            mongo.db.recipes.insert_one(recipe)
+            flash("Recipe Successfully Added")
+            return redirect(url_for("get_recipes"))
 
-    # create countries object for country select
-    countries = []
-    with open("data/countries.json", "r") as json_data:
-        countries = json.load(json_data)
-    categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template(
-        "add_recipe.html", countries=countries, categories=categories)
+        # create countries object for country select
+        countries = []
+        with open("data/countries.json", "r") as json_data:
+            countries = json.load(json_data)
+        categories = mongo.db.categories.find().sort("category_name", 1)
+        return render_template(
+            "add_recipe.html", countries=countries, categories=categories)
+    else:
+        return redirect(url_for('home'))
 
 
 @app.route("/my_recipes")

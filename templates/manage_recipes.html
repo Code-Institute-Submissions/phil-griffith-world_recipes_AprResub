@@ -10,7 +10,7 @@
             <div class="col s12 m6 l4">
                 <div class="card recipe{{ recipe_number }} recipe-card hoverable">
                     <div class="card-image">
-                        <img src="{{ recipe.image_url }}">
+                        <img src="{{ recipe.image_url }}" alt="{{ recipe.recipe_name }} image">
                         <span class="card-title text-shadow">{{ recipe.country }}</span>
                     </div>
                     <div class="card-content center-align">
@@ -19,83 +19,62 @@
                         <p>{{ recipe.recipe_description }}</p>
                     </div>
                     <!-- like button -->
-                    <div class="center-align" id="like_counter">
-                        <form method="POST" action="{{ url_for('like_recipe') }}">
-                            <input type="hidden" id="like_recipe" name="like_recipe" value="{{ recipe._id }}">
-                            {% if session['user'] %}
-                                <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
-                                <!-- check if user has liked this recipe -->
-                                {% set ns = namespace(found=false) %}
-                                {% for likes in user_likes  %}
-                                    {% if likes|string == recipe._id|string %}
-                                        {% set ns.found = true %}
-                                    {% endif %}
-                                {% endfor %}
-                                <!-- if user has already liked the recipe, colour icon blue -->
-                                {% if ns.found %}
-                                    <button type="submit" id="like_button_blue" class="btn-floating blue">
-                                        <i class="far fa-thumbs-up"></i>
-                                    </button>
-                                    <span id="liked">{{ recipe.likes }}</span>
-                                {% else %}
-                                    <button type="submit" id="like_button" class="btn-floating">
-                                        <i class="far fa-thumbs-up"></i>
-                                    </button>
-                                    <span id="not_liked">{{ recipe.likes }}</span>
-                                {% endif %}
-                            {% else %}
-                            <a id="like_button" class="btn-floating modal-trigger" href="#modal2">
+                    <div class="center-align like-counter">
+                        <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
+                        <!-- check if user has liked this recipe -->
+                        {% set ns = namespace(found=false) %}
+                        {% for likes in user_likes  %}
+                            {% if likes|string == recipe._id|string %}
+                                {% set ns.found = true %}
+                            {% endif %}
+                        {% endfor %}
+                        <!-- if user has already liked the recipe, colour icon blue -->
+                        {% if ns.found %}
+                            <a href="{{ url_for('like_recipe', recipe_id=recipe._id ) }}" class="like-button-blue btn-floating blue">
                                 <i class="far fa-thumbs-up"></i>
                             </a>
-                            <span>{{ recipe.likes }}</span>
-                            {% endif %}
-                        </form>
+                            <span class="liked">{{ recipe.likes }}</span>
+                        {% else %}
+                            <a href="{{ url_for('like_recipe', recipe_id=recipe._id ) }}" class="like-button btn-floating">
+                                <i class="far fa-thumbs-up"></i>
+                            </a>
+                            <span class="not-liked">{{ recipe.likes }}</span>
+                        {% endif %}
                     </div>
                     <!-- /like button -->
-                    <div id="added_by">
+                    <div class="added-by">
                         <span>Added by: {{ recipe.added_by }}</span>
                     </div>
                     <!-- favourite button -->
                     <div class="favourite">
-                        <form method="POST" action="{{ url_for('add_to_favourites') }}">
-                            <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ recipe._id }}">
-                            {% if session['user'] %}
-                                <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
-                                <!-- check if user has liked this recipe -->
-                                {% set ns = namespace(found=false) %}
-                                {% for favourites in user_favourites  %}
-                                    {% if favourites|string == recipe._id|string %}
-                                        {% set ns.found = true %}
-                                    {% endif %}
-                                {% endfor %}
-                                <!-- if user has already liked the recipe, colour icon blue -->
-                                {% if ns.found %}
-                                    <button type="submit" id="favourite" class="btn-floating red">
-                                        <i class="far fa-heart"></i>
-                                    </button>
-                                {% else %}
-                                    <button id="favourite_button" type="submit" class="btn-floating">
-                                        <i class="far fa-heart"></i>
-                                    </button>
-                                {% endif %}
-                            {% else %}
-                            <a id="favourite" class="btn-floating modal-trigger" href="#modal2">
+                        <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
+                        <!-- check if user has already added recipe to favourites -->
+                        {% set ns = namespace(found=false) %}
+                        {% for favourites in user_favourites  %}
+                            {% if favourites|string == recipe._id|string %}
+                                {% set ns.found = true %}
+                            {% endif %}
+                        {% endfor %}
+                        <!-- if user has already liked the recipe, colour icon blue -->
+                        {% if ns.found %}
+                            <a href="" class="favourite btn-floating red">
                                 <i class="far fa-heart"></i>
                             </a>
-                            {% endif %}
-                        </form>
+                        {% else %}
+                            <a href="{{ url_for('add_to_favourites', recipe_id=recipe._id) }}" class="favourite-button btn-floating">
+                                <i class="far fa-heart"></i>
+                            </a>
+                        {% endif %}
                     </div>
                     <!-- /favourite button -->
+                    <!-- See Recipe Button -->
                     <div class="card-action center-align">
-                        <form method="POST" action="{{ url_for('recipe_details') }}">
-                            <input type="hidden" id="see_recipe" name="see_recipe" value="{{ recipe._id }}">
-                            <!-- set manage_recipes to true for back button redirect on Recipe details -->
-                            <input type="hidden" id="manage_recipes" name="manage_recipes" value="{{ True }}">
-                            <button type="submit" class="btn waves-effect waves-light submit-buttons">
-                                See Recipe
-                            </button>
-                        </form>
+                        <!-- set manage_recipes to true for back button redirect on Recipe details -->
+                        <a href="{{ url_for('recipe_details', recipe_id=recipe._id, manage_recipes=True ) }}" class="btn waves-effect waves-light submit-buttons">
+                            See Recipe
+                        </a>
                     </div>
+                    <!-- /See Recipe Button -->
                 </div>
                 <div class="edit-buttons center-align">
                     <a href="{{ url_for('edit_recipe', recipe_id=recipe._id, manage_recipes=True) }}" class="btn-small">Edit</a>
@@ -116,7 +95,7 @@
                 </div>
             </div>
             
-        {%  endfor %}
+        {% endfor %}
     </div>
 
 {% endblock %}
