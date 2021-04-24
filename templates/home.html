@@ -18,7 +18,7 @@
                     <span class="card-title">{{ recipe.recipe_name }}</span>
 
                     <!-- like button -->
-                    <div class="center-align" id="like_counter">
+                    <div class="center-align like_counter">
                         <a href="{{ url_for('like_recipe', recipe_id=recipe._id) }}"></a>
                             {% if session['user'] %}
                                 <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->

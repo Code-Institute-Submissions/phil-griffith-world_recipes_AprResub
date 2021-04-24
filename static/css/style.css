@@ -123,7 +123,7 @@ button,
 	margin-top: 20px;
 }
 
-#home_page #like_counter {
+#home_page .like_counter {
 	margin: 30px;
 }
 

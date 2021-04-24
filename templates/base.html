@@ -134,7 +134,7 @@
                         <!-- enforce pattern match - at least 1 captial letter, 1 lower case letter and 1 number
                         https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a -->
                         <input id="old_password" name="old_password" type="password" class="validate" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{6,}$" required>
-                        <label for="password">Old Password</label>
+                        <label for="old_password">Old Password</label>
                     </div>
                 </div>
                 <!-- password -->
@@ -158,10 +158,10 @@
             </div>
         
             <div class="modal-footer">
-                <button type="button" class="col s12 btn-small red darken-2 waves-effect waves-light modal-close" required>
+                <button type="button" class="col s12 btn-small red darken-2 waves-effect waves-light modal-close">
                     Cancel <i class="fas fa-sign-in-alt"></i>
                 </button>
-                <button type="submit" class="col s12 btn-small waves-effect waves-light modal-close" required>
+                <button type="submit" class="col s12 btn-small waves-effect waves-light modal-close">
                     Change Password <i class="fas fa-sign-in-alt"></i>
                 </button>
             </div>
