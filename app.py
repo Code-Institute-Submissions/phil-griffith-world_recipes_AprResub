@@ -196,7 +196,7 @@ def recipe_details():
     # get recipe id from recipe card
     recipe = request.args.get("recipe_id")
     top_recipe = request.args.get("top_recipe")
-    fav_recipe = request.form.get("fav_recipe")
+    fav_recipe = request.args.get("fav_recipe")
     my_recipes = request.form.get("my_recipes")
     manage_recipes = request.form.get("manage_recipes")
     # get full recipe details from db

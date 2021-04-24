@@ -123,7 +123,7 @@ button,
 	margin-top: 20px;
 }
 
-#home_page .like_counter {
+#home_page .like-counter {
 	margin: 30px;
 }
 
@@ -277,7 +277,7 @@ h4.card-content {
 	right: 0px;
 }
 
-#like_counter {
+.like-counter {
 	padding-bottom: 0px;
 }
 
@@ -315,7 +315,7 @@ h4.card-content {
 	font-size: 20px;
 }
 
-#rd_like_counter {
+.rd-like-counter {
 	margin: 30px;
 }
 
@@ -384,7 +384,7 @@ h4.card-content {
 
 /* ********************************** Favourite Recipes page ************************************* */
 
-#remove_fav {
+.remove-fav {
 	position: absolute;
 	right: 5px;
 	bottom: 5px;
@@ -392,7 +392,7 @@ h4.card-content {
 	z-index: 1;
 }
 
-#remove_fav i:hover {
+.remove-fav i:hover {
 	color: pink;
 }
 
