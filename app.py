@@ -500,23 +500,22 @@ def delete_category(category_id):
 def add_to_favourites():
     # check if user is logged in
     if session.get('user') is not None:
-        if request.method == "POST":
-            # get recipe id from recipe page
-            fav_recipe = request.form.get("fav_recipe")
+        # get recipe id from recipe page
+        fav_recipe = request.args.get("recipe_id")
+        if mongo.db.users.find_one({"username": session["user"],
+                                    "favourites": {"$exists": True}}):
+            # check if user has already added recipe to favourites
             if mongo.db.users.find_one({"username": session["user"],
-                                        "favourites": {"$exists": True}}):
-                # check if user has already added recipe to favourites
-                if mongo.db.users.find_one({"username": session["user"],
-                                            "favourites":
-                                            {"$ne": fav_recipe}}):
-                    mongo.db.users.update_one({"username": session['user']},
-                                              {"$push":
-                                              {"favourites": fav_recipe}})
-            else:
-                mongo.db.users.update_one({"username": session["user"]},
-                                          {"$set":
-                                          {"favourites": [fav_recipe]}})
-        return ('', 204)
+                                        "favourites":
+                                        {"$ne": fav_recipe}}):
+                mongo.db.users.update_one({"username": session['user']},
+                                          {"$push":
+                                          {"favourites": fav_recipe}})
+        else:
+            mongo.db.users.update_one({"username": session["user"]},
+                                      {"$set":
+                                      {"favourites": [fav_recipe]}})
+    return ('', 204)
 
 
 @app.route("/like_recipe", methods=["GET", "POST"])
@@ -525,7 +524,6 @@ def like_recipe():
     if session.get('user') is not None:
         # get recipe id from recipe page
         like_recipe = request.args.get("recipe_id")
-        print(like_recipe)
         # check if user has liked any recipes
         if mongo.db.users.find_one({"username": session["user"],
                                     "liked_recipes": {"$exists": True}}):

@@ -172,7 +172,7 @@
     // ************************* Recipe page ****************************
 
     // display modal if user is not logged in when clicking add recipe to favourite
-    $('.favourite i').on("click", function() {
+    $('.favourite2 i').on("click", function() {
         $('#modal2 p').text("Please sign in or Register to save this Recipe to your favourites")
     })
     $('a.like-button2').on("click", function() {
@@ -192,11 +192,11 @@
          }
     })
 
-    $('button#favourite_button').on("click", function() {
+    $('a.favourite-button').on("click", function() {
          $(this).addClass('red');
     })
 
-    $('button#rd_favourite').on("click", function() {
+    $('a.rd-favourite').on("click", function() {
          $(this).addClass('red');
     })
  });

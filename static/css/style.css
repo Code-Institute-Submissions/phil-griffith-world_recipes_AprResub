@@ -58,13 +58,13 @@ button,
 	background-color: rgb(48, 102, 190);
 }
 
-#favourite_button i:hover,
-#rd_favourite i:hover {
+.favourite-button i:hover,
+.rd-favourite i:hover {
 	color: red;
 }
 
 .like-button-blue .blue i:hover,
-#favourite_red .red i:hover {
+.favourite-red .red i:hover {
 	color: white;
 }
 
@@ -256,7 +256,7 @@ h4.card-content {
 	font-weight: 500;
 }
 
-#added_by {
+.added-by {
 	padding: 30px;
 	margin-top: -10px;
 	/* height: 100px; */
@@ -272,7 +272,7 @@ h4.card-content {
 	right: 10px;
 }
 
-#favourite {
+.favourite {
 	top: 0px;
 	right: 0px;
 }
@@ -327,8 +327,8 @@ h4.card-content {
 	position: relative;
 }
 
-#rd_favourite,
-#favourite_red {
+.rd-favourite,
+.favourite-red {
 	position: absolute;
 	bottom: 30px;
 	right: 10px;
