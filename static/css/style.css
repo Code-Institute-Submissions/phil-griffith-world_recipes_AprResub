@@ -406,6 +406,18 @@ edit-category label {
 	font-style: italic;
 }
 
+/* ********************************** 404 page ************************************* */
+
+.error-404 {
+	font-family: 'Comfortaa', cursive;
+	font-style: italic;
+	margin-top: 20%;
+}
+
+.error-404 a {
+	font-size: 18px;
+	font-weight: 600;
+}
 
 /* ********************************** Media Queries ************************************* */
 
