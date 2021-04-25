@@ -6,7 +6,7 @@
         <a href="{{ url_for('home') }}" id="rd_back" class="waves-effect waves-light btn-small red">
             Back
         </a>
-    <!-- redirect back to favourites -->
+        <!-- redirect back to favourites -->
     {% elif fav_recipe %}
         <a href="{{ url_for('favourite_recipes') }}" id="rd_back" class="waves-effect waves-light btn-small red">
             Back
@@ -16,67 +16,72 @@
         <a href="{{ url_for('my_recipes') }}" id="rd_back" class="waves-effect waves-light btn-small red">
             Back
         </a>
-    <!-- redirect back to manage recipes -->
+        <!-- redirect back to manage recipes -->
     {% elif manage_recipes %}
         <a href="{{ url_for('manage_recipes') }}" id="rd_back" class="waves-effect waves-light btn-small red">
             Back
         </a>
-    <!-- redirect back to recipe search results or all recipes -->
+        <!-- redirect back to recipe search results or all recipes -->
     {% else %}
         <a href="{{ url_for('search') }}" id="rd_back" class="waves-effect waves-light btn-small red">
             Back
         </a>
-    {% endif %}    
+    {% endif %}
 
-    <div class="row">        
+    <div class="row">
         <div class="col card-panel s12 recipe-details z-depth-5">
             <div class="row">
-                <div id="recipe_image" class="col s12 m6">                                       
-                    <img src="{{ selected_recipe.image_url }}">
+                <div id="recipe_image" class="col s12 m6">
+                    <img src="{{ selected_recipe.image_url }}" alt="{{ selected_recipe.recipe_name }} image">
                     <div>
                         <span id="recipe_country" class="card-title text-shadow">{{ selected_recipe.country }}</span>
                     </div>
                     <div id="category">
-                        <span>Category: {{ selected_recipe.category_name }}</span>
+                        <span>Category:
+                            {{ selected_recipe.category_name }}</span>
                     </div>
+                    
                     <!-- favourite button -->
-                <div class="favourite">
-                    <form method="POST" action="{{ url_for('add_to_favourites') }}">
-                        <input type="hidden" id="fav_recipe" name="fav_recipe" value="{{ selected_recipe._id }}">
+                    <div class="favourite">
                         {% if session['user'] %}
                             <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
-                            <!-- check if user has liked this recipe -->
-                            {% set ns = namespace(found=false) %}
-                            {% for favourites in user_favourites  %}
-                                {% if favourites|string == selected_recipe._id|string %}
+                            <!-- check if user has added recipe to favourites -->
+                            {% set ns = namespace(found = false) %}
+                            {% for favourites in user_favourites %}
+                                {% if favourites | string == selected_recipe._id | string %}
                                     {% set ns.found = true %}
                                 {% endif %}
                             {% endfor %}
-                            <!-- if user has already liked the recipe, colour icon blue -->
+                            <!-- if user has already added to favourites colour icon red -->
                             {% if ns.found %}
-                                <button id="favourite_red" type="submit" class="btn-floating red">
+                                <a href="{{ url_for('add_to_favourites', recipe_id=selected_recipe._id) }}" class="favourite-red btn-floating red tooltipped" data-position="bottom" data-tooltip="Add to favourite Recipes">
                                     <i class="far fa-heart"></i>
-                                </button>
+                                </a>
                             {% else %}
-                                <button id="rd_favourite" type="submit" class="btn-floating">
+                                <a href="{{ url_for('add_to_favourites', recipe_id=selected_recipe._id) }}" class="rd-favourite btn-floating tooltipped" data-position="bottom" data-tooltip="Add to favourite Recipes">
                                     <i class="far fa-heart"></i>
-                                </button>
+                                </a>
                             {% endif %}
                         {% else %}
-                        <a id="rd_favourite" class="btn-floating modal-trigger" href="#modal2">
-                            <i class="far fa-heart"></i>
-                        </a>
+                            <a id="rd_favourite" class="btn-floating modal-trigger" href="#modal2">
+                                <i class="far fa-heart"></i>
+                            </a>
                         {% endif %}
-                    </form>
+                    </div>
+                    <!-- /favourite button -->
+
                 </div>
-                <!-- /favourite button --> 
-                </div>
+
+                <!-- recipe description -->
                 <div id="recipe_description" class="col s12 m6">
                     <h3 class="center-align">{{ selected_recipe.recipe_name }}</h3>
-                    <p class="center-align">{{ selected_recipe.recipe_description }}</p>                                      
+                    <p class="center-align">{{ selected_recipe.recipe_description }}</p>
                 </div>
+                <!-- /recipe description -->
+
             </div>
             <div class="row">
+
                 <!-- recipe ingredients -->
                 <div id="recipe_ingredients" class="col s12 m6">
                     <div class="col s8">
@@ -84,73 +89,79 @@
                         {% for ingredient in selected_recipe.ingredients %}
                             <div>
                                 <span class="ingredients">{{ ingredient[0] }}</span>
-                            </div>                    
+                            </div>
                         {% endfor %}
                     </div>
+
+                    <!-- ingredient quantity -->
                     <div class="col s4 right-align">
                         <h6>Quantity</h6>
                         {% for ingredient in selected_recipe.ingredients %}
                             <div>
                                 <span class="quantities">{{ ingredient[1] }}</span>
-                            </div>                    
+                            </div>
                         {% endfor %}
                     </div>
+                    <!-- /ingredient quantity -->
+
                 </div>
+                <!-- /recipe ingredients -->
+
                 <!-- recipe method -->
                 <div id="recipe_method" class="col s12 m6">
                     <h5 class="center-align">Method</h5>
                     {% for method in selected_recipe.method %}
-                    <div>
-                        <span class="ingredients">Step {{ loop.index }}: {{ method }}</span>
-                    </div>
+                        <div>
+                            <span class="ingredients">Step
+                                {{ loop.index }}:
+                                {{ method }}</span>
+                        </div>
                     {% endfor %}
                 </div>
-            </div>            
+                <!-- /recipe method -->
+
+            </div>
             <div class="row">
+
                 <!-- recipe story -->
                 <div id="recipe_story" class="col s12">
                     {% if selected_recipe.recipe_story %}
                         <h5 class="center-align">Recipe Story</h5>
                         <p>{{ selected_recipe.recipe_story }}</p>
                     {% endif %}
-                   
+                    <!-- /recipe story -->
 
-                                    <!-- like button -->
-                <div class="center-align" id="like_counter">
-                    <form method="POST" action="{{ url_for('like_recipe') }}">
-                        <input type="hidden" id="like_recipe" name="like_recipe" value="{{ selected_recipe._id }}">
+                    <!-- like button -->
+                    <div class="center-align" id="like_counter">
                         {% if session['user'] %}
                             <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
                             <!-- check if user has liked this recipe -->
-                            {% set ns = namespace(found=false) %}
-                            {% for likes in user_likes  %}
-                                {% if likes|string == selected_recipe._id|string %}
+                            {% set ns = namespace(found = false) %}
+                            {% for likes in user_likes %}
+                                {% if likes | string == selected_recipe._id | string %}
                                     {% set ns.found = true %}
                                 {% endif %}
                             {% endfor %}
                             <!-- if user has already liked the recipe, colour icon blue -->
                             {% if ns.found %}
-                                <button type="submit" id="like_button_blue" class="btn-floating blue">
+                                <a href="{{ url_for('like_recipe', recipe_id=selected_recipe._id) }}" class="like-button-blue btn-floating blue">
                                     <i class="far fa-thumbs-up"></i>
-                                </button>
+                                </a>
                                 <span id="liked">{{ selected_recipe.likes }}</span>
                             {% else %}
-                                <button type="submit" id="like_button" class="btn-floating tooltipped"
-                                data-position="bottom" data-tooltip="Like Recipe">
+                                <a href="{{ url_for('like_recipe', recipe_id=selected_recipe._id) }}" class="like-button btn-floating tooltipped" data-position="bottom" data-tooltip="Like Recipe">
                                     <i class="far fa-thumbs-up"></i>
-                                </button>
+                                </a>
                                 <span id="not_liked">{{ selected_recipe.likes }}</span>
                             {% endif %}
                         {% else %}
-                            <a id="like_button" class="btn-floating modal-trigger tooltipped"
-                            data-position="bottom" data-tooltip="Like Recipe" href="#modal2">
+                            <a id="like_button" class="btn-floating modal-trigger tooltipped" data-position="bottom" data-tooltip="Like Recipe" href="#modal2">
                                 <i class="far fa-thumbs-up"></i>
                             </a>
                             <span>{{ selected_recipe.likes }}</span>
                         {% endif %}
-                    </form>
-                </div>
-                <!-- /like button -->
+                    </div>
+                    <!-- /like button -->
 
                 </div>
             </div>

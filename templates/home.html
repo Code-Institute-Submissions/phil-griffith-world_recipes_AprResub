@@ -1,81 +1,96 @@
 {% extends "base.html" %}
 {% block home %}
 
-<div id="home_page">
-    <div class="parallax-container center-align">
-        <h1 class="text-shadow2">Discover & share Recipes from around the world</h1>
-        <div class="parallax">
-            <img class="home-page-images" src="static/images/home_page2.jpg" alt="People sharing food">
-        </div>
-    </div>
-    <div id="popular_recipes" class="section white">
-        <div class="row container">
-            <h2 class="center-align">Popular Recipes</h2>
-            <div class="carousel col s12">
-                {% for recipe in top_recipes %}
-                <div class="card carousel-item top-recipes center-align">
-                    <img src="{{ recipe.image_url }}" alt="{{ recipe.recipe_name }} image">
-                    <span class="card-title">{{ recipe.recipe_name }}</span>
+    <div id="home_page">
 
-                    <!-- like button -->
-                    <div class="center-align like-counter">
-                        <a href="{{ url_for('like_recipe', recipe_id=recipe._id) }}"></a>
-                            {% if session['user'] %}
-                                <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
-                                <!-- check if user has liked this recipe -->
-                                {% set ns = namespace(found=false) %}
-                                {% for likes in user_likes %}
-                                    {% if likes|string == recipe._id|string %}
-                                        {% set ns.found = true %}
+        <!-- Landing page image 1 -->
+        <div class="parallax-container center-align">
+            <h1 class="text-shadow2">Discover & share Recipes from around the world</h1>
+            <div class="parallax">
+                <img class="home-page-images" src="static/images/home_page2.jpg" alt="People sharing food">
+            </div>
+        </div>
+        <!-- /Landing page image 1 -->
+
+        <!-- Popular recipes Carousel -->
+        <div id="popular_recipes" class="section white">
+            <div class="row container">
+                <h2 class="center-align">Popular Recipes</h2>
+                <div class="carousel col s12">
+                    <!-- loop through the 4 recipes with highest amount of likes (top_recipes) -->
+                    {% for recipe in top_recipes %}
+                        <div class="card carousel-item top-recipes center-align">
+                            <img src="{{ recipe.image_url }}" alt="{{ recipe.recipe_name }} image">
+                            <span class="card-title">{{ recipe.recipe_name }}</span>
+
+                            <!-- Like button -->
+                            <div class="center-align like-counter">
+                                <a href="{{ url_for('like_recipe', recipe_id=recipe._id) }}"></a>
+                                {% if session['user'] %}
+                                    <!-- https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments -->
+                                    <!-- check if user has liked this recipe -->
+                                    {% set ns = namespace(found = false) %}
+                                    {% for likes in user_likes %}
+                                        {% if likes | string == recipe._id | string %}
+                                            {% set ns.found = true %}
+                                        {% endif %}
+                                    {% endfor %}
+                                    <!-- if user has already liked the recipe, colour icon blue -->
+                                    {% if ns.found %}
+                                        <a href="{{ url_for('like_recipe', recipe_id=recipe._id) }}" class="like-button-blue btn-floating blue">
+                                            <i class="far fa-thumbs-up"></i>
+                                        </a>
+                                        <span>{{ recipe.likes }}</span>
+                                    {% else %}
+                                        <a href="{{ url_for('like_recipe', recipe_id=recipe._id) }}" class="like-button btn-floating">
+                                            <i class="far fa-thumbs-up"></i>
+                                        </a>
+                                        <span class="not-liked">{{ recipe.likes }}</span>
                                     {% endif %}
-                                {% endfor %}
-                                <!-- if user has already liked the recipe, colour icon blue -->
-                                {% if ns.found %}
-                                    <a href="{{ url_for('like_recipe', recipe_id=recipe._id) }}" class="like-button-blue btn-floating blue">
-                                        <i class="far fa-thumbs-up"></i>                                        
-                                    </a>
-                                    <span>{{ recipe.likes }}</span>
                                 {% else %}
-                                    <a href="{{ url_for('like_recipe', recipe_id=recipe._id) }}" class="like-button btn-floating" >
-                                        <i class="far fa-thumbs-up"></i>                                        
-                                    </a>                                
-                                    <span class="not-liked">{{ recipe.likes }}</span>    
+                                    <a class="like-button2 btn-floating modal-trigger" href="#modal2">
+                                        <i class="far fa-thumbs-up"></i>
+                                    </a>
+                                    <span class="not-liked">{{ recipe.likes }}</span>
                                 {% endif %}
-                            {% else %}
-                                <a class="like-button2 btn-floating modal-trigger" href="#modal2">
-                                    <i class="far fa-thumbs-up"></i>                                    
-                                </a>
-                                <span class="not-liked">{{ recipe.likes }}</span>                                
-                            {% endif %}
-                    </div>
-                    <!-- /See Recipe button -->
-                    <a href="{{ url_for('recipe_details', recipe_id=recipe._id, top_recipe=true) }}" class="btn">
-                        See Recipe
-                    </a>
+                            </div>
+                            <!-- /Like button -->
+
+                            <!-- See Recipe button -->
+                            <a href="{{ url_for('recipe_details', recipe_id=recipe._id, top_recipe=true) }}" class="btn">
+                                See Recipe
+                            </a>
+                            <!-- /See Recipe button -->
+
+                        </div>
+                    {% endfor %}
                 </div>
-                {% endfor %}
             </div>
         </div>
-    </div>
-    <div id="home_page2" class="parallax-container">
-        <div class="center-align">
-            <h2 class="text-shadow2">Do you have a favourite Recipe to share?</h2>
-            <div>
-                {% if session['user'] %}
-                <a href="{{ url_for('add_recipe' )}}" class="btn waves-effect waves-light submit-buttons text-shadow">
-                    Share Recipe
-                </a>
-                {% else %}
-                <span class="text-shadow2">Register or sign in to add your own recipe & save your favourites</span>
+        <!-- /Popular recipes carousel -->
+
+        <!-- Landing page image 2 -->
+        <div id="home_page2" class="parallax-container">
+            <div class="center-align">
+                <h2 class="text-shadow2">Do you have a favourite Recipe to share?</h2>
                 <div>
-                    <a href="{{ url_for('sign_in' )}}" class="btn waves-effect waves-light submit-buttons text-shadow">
-                        Start Sharing
-                    </a>
+                    {% if session['user'] %}
+                        <a href="{{ url_for('add_recipe' )}}" class="btn waves-effect waves-light submit-buttons text-shadow">
+                            Share Recipe
+                        </a>
+                    {% else %}
+                        <span class="text-shadow2">Register or sign in to add your own recipe & save your favourites</span>
+                        <div>
+                            <a href="{{ url_for('sign_in' )}}" class="btn waves-effect waves-light submit-buttons text-shadow">
+                                Start Sharing
+                            </a>
+                        </div>
+                    {% endif %}
                 </div>
-                {% endif %}
             </div>
+            <div class="parallax"><img src="static/images/home_page1.jpg" alt="Various food dishes"></div>
         </div>
-        <div class="parallax"><img src="static/images/home_page1.jpg" alt="Various food dishes"></div>
+        <!-- /Landing page image 2 -->
+
     </div>
-</div>
 {% endblock %}

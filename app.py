@@ -91,6 +91,7 @@ def search():
         vegetarian = request.form.get("vegetarian")
         is_vegetarian = True if vegetarian else False
     # when clicking back out of recipe details
+    # check session cookies for search terms
     else:
         if session.get("query") is not None:
             query = session["query"]
@@ -109,13 +110,15 @@ def search():
         else:
             is_vegetarian = False
 
-    # create countries object for country select
+    # create countries list for country select
     countries = []
     with open("data/countries.json", "r") as json_data:
         countries = json.load(json_data)
 
+    # create categories list for country select
     categories = mongo.db.categories.find()
 
+    # if text query, category & country are entered
     if query:
         if category:
             if country:
@@ -124,17 +127,20 @@ def search():
                      "category_name": category,
                      "is_vegetarian": is_vegetarian,
                      "$text": {"$search": query}}))
+            # if text query & category are entered
             else:
                 recipes = list(mongo.db.recipes.find(
                     {"category_name": category,
                      "is_vegetarian": is_vegetarian,
                      "$text": {"$search": query}}))
         else:
+            # if text query & country are entered
             if country:
                 recipes = list(mongo.db.recipes.find(
                     {"country": country,
                      "is_vegetarian": is_vegetarian,
                      "$text": {"$search": query}}))
+            # if text query is entered
             else:
                 recipes = list(mongo.db.recipes.find(
                     {"is_vegetarian": is_vegetarian,
@@ -142,27 +148,32 @@ def search():
     # if no text query is entered
     elif not query:
         if category:
+            # if category & country are entered
             if country:
                 recipes = list(mongo.db.recipes.find(
                     {"country": country,
                      "category_name": category,
                      "is_vegetarian": is_vegetarian}))
+            # if category is entered
             else:
                 recipes = list(mongo.db.recipes.find(
                     {"category_name": category,
                      "is_vegetarian": is_vegetarian}))
         else:
+            # if country is entered
             if country:
                 recipes = list(mongo.db.recipes.find(
                     {"country": country,
                      "is_vegetarian": is_vegetarian}))
             else:
+                # if vegetarian selected is true
                 if is_vegetarian:
                     recipes = list(mongo.db.recipes.find(
                         {"is_vegetarian": is_vegetarian}))
-                # if no search parameters are entered
+                # if no search parameters are entered load Recipes page
                 else:
                     return redirect(url_for("get_recipes"))
+    # store entered search terms in session cookie
     if country:
         session["country"] = country
     if query:
@@ -177,6 +188,7 @@ def search():
             {"username": session['user']})['favourites']
         user_likes = mongo.db.users.find_one(
             {"username": session['user']})['liked_recipes']
+        # load search results
         return render_template("search_results.html", recipes=recipes,
                                country=country, query=query,
                                countries=countries, category=category,
@@ -184,6 +196,7 @@ def search():
                                categories=categories, user_likes=user_likes,
                                user_favourites=user_favourites)
     else:
+        # load search results
         return render_template("search_results.html", recipes=recipes,
                                country=country, query=query,
                                countries=countries, category=category,
@@ -208,6 +221,7 @@ def recipe_details():
             {"username": session['user']})['favourites']
         user_likes = mongo.db.users.find_one(
             {"username": session['user']})['liked_recipes']
+        # load recipe details page
         return render_template(
             "recipe_details.html", selected_recipe=selected_recipe,
             top_recipe=top_recipe, fav_recipe=fav_recipe,
@@ -215,6 +229,7 @@ def recipe_details():
             recipe_details=recipe_details, user_likes=user_likes,
             user_favourites=user_favourites)
     else:
+        # load recipe details page
         return render_template(
             "recipe_details.html", selected_recipe=selected_recipe,
             top_recipe=top_recipe, fav_recipe=fav_recipe,
@@ -224,6 +239,7 @@ def recipe_details():
 
 @app.route("/sign_in", methods=["GET", "POST"])
 def sign_in():
+    # prevent access if user is logged in
     if "user" in session:
         return ('', 204)
     else:
@@ -235,9 +251,11 @@ def sign_in():
             if existing_user:
                 # check for password match
                 if check_password_hash(
-                        existing_user["password"], request.form.get("password")):
+                        existing_user["password"],
+                        request.form.get("password")):
                     session["user"] = request.form.get("username").lower()
                     flash("Welcome, {}".format(request.form.get("username")))
+                    # load home page if password is accepted
                     return redirect(
                         url_for("home", username=session["user"]))
                 else:
@@ -254,6 +272,7 @@ def sign_in():
 
 @app.route("/register", methods=["GET", "POST"])
 def register():
+    # prevent access if user is logged in
     if "user" in session:
         return ('', 204)
     else:
@@ -280,6 +299,7 @@ def register():
                     "favourites": [],
                     "liked_recipes": []
                 }
+                # add user details to database
                 mongo.db.users.insert_one(register)
 
                 # put new user into session cookie
@@ -291,6 +311,7 @@ def register():
 
 @app.route("/sign_out")
 def sign_out():
+    # check if user is logged in
     if "user" in session:
         # remove user session cookie
         flash("Goodbye")
@@ -301,10 +322,12 @@ def sign_out():
 
 @app.route("/add_recipe", methods=["GET", "POST"])
 def add_recipe():
+    # check if user is logged in
     if "user" in session:
         if request.method == "POST":
             is_vegetarian = True if request.form.get(
                 "is_vegetarian") else False
+            # set ingredient number to 1
             x = 1
             ingredients = []
             # loop over each added ingedient
@@ -315,13 +338,16 @@ def add_recipe():
                 row.append(request.form.get("ingredient"+str(x)))
                 row.append(request.form.get("quantity"+str(x)))
                 ingredients.append(row)
+                # increment ingredient number by 1
                 x += 1
             method = []
+            # set method number to 1
             y = 1
             # loop over each added method step
             while request.form.get("step"+str(y)):
                 print(request.form.get("step"+str(y)))
                 method.append(request.form.get("step"+str(y)))
+                # increment method number by 1
                 y += 1
             recipe = {
                 "recipe_name": request.form.get("recipe_name"),
@@ -339,10 +365,11 @@ def add_recipe():
             flash("Recipe Successfully Added")
             return redirect(url_for("get_recipes"))
 
-        # create countries object for country select
+        # create countries list for country select
         countries = []
         with open("data/countries.json", "r") as json_data:
             countries = json.load(json_data)
+        # create categories list for category select
         categories = mongo.db.categories.find().sort("category_name", 1)
         return render_template(
             "add_recipe.html", countries=countries, categories=categories)
@@ -352,10 +379,13 @@ def add_recipe():
 
 @app.route("/my_recipes")
 def my_recipes():
+    #  check if user is logged in
     if "user" in session:
+        # check database for recipeds added by user
         if mongo.db.recipes.find_one({"added_by": session['user']}):
             my_added_recipes = mongo.db.recipes.find(
                 {"added_by": session['user']})
+            # find liked recipes
             user_likes = mongo.db.users.find_one(
                 {"username": session['user']})['liked_recipes']
             return render_template("my_recipes.html",
@@ -370,15 +400,19 @@ def my_recipes():
 
 @app.route("/favourite_recipes")
 def favourite_recipes():
+    # check if user is logged in
     if "user" in session:
         if mongo.db.users.find_one({"username": session["user"],
                                     "favourites": {"$exists": True}}):
+            #  create list of users favourite recipe IDs
             favourite_recipes_ids = mongo.db.users.find_one(
                 {"username": session['user']})['favourites']
             favourite_recipes = []
+            # create list of favourite recipe objects
             for recipe_id in favourite_recipes_ids:
-                favourite_recipes.append(mongo.db.recipes.find(
+                favourite_recipes.append(mongo.db.recipes.find_one(
                     {"_id": ObjectId(recipe_id)}))
+            # find liked recipes
             user_likes = mongo.db.users.find_one(
                 {"username": session['user']})['liked_recipes']
             return render_template("favourite_recipes.html",
@@ -453,8 +487,11 @@ def edit_recipe(recipe_id):
 
 @app.route("/delete_recipe/<recipe_id>/<manage_recipes>")
 def delete_recipe(recipe_id, manage_recipes):
+    # remove recipe from database
     mongo.db.recipes.remove({"_id": ObjectId(recipe_id)})
+    # find all users
     users = mongo.db.users.find()
+    # check each users favourites and remove recipe if found
     for user in users:
         for favourite in user.get('favourites'):
             username = user.get('username')
@@ -463,6 +500,7 @@ def delete_recipe(recipe_id, manage_recipes):
                                           {"$pull":
                                           {"favourites": recipe_id}})
     flash("Recipe Successfully Deleted")
+    # check which page recipe was deleted from and redirect
     if manage_recipes != "False":
         manage_recipes = True
         return redirect(url_for("manage_recipes"))
@@ -491,10 +529,11 @@ def get_categories():
             return render_template(
                 "manage_categories.html", categories=categories)
         else:
-            # if user is not admin do nothing
+            # if user is not admin do nothing (prevent unauthorized access)
             return ('', 204)
     else:
         # if user is not signed, redirect to sign in page
+        # (prevent unauthorized access)
         return redirect(url_for("sign_in"))
 
 
@@ -535,9 +574,10 @@ def add_to_favourites():
     if session.get('user') is not None:
         # get recipe id from recipe page
         fav_recipe = request.args.get("recipe_id")
+        # check if user has any favourites
         if mongo.db.users.find_one({"username": session["user"],
                                     "favourites": {"$exists": True}}):
-            # check if user has already added recipe to favourites
+            # add recipe to favourites if it doesn't already exist
             if mongo.db.users.find_one({"username": session["user"],
                                         "favourites":
                                         {"$ne": fav_recipe}}):
@@ -545,6 +585,7 @@ def add_to_favourites():
                                           {"$push":
                                           {"favourites": fav_recipe}})
         else:
+            # add recipe to users favourites
             mongo.db.users.update_one({"username": session["user"]},
                                       {"$set":
                                       {"favourites": [fav_recipe]}})
@@ -566,7 +607,7 @@ def like_recipe():
                 like_allowed = False
             else:
                 like_allowed = True
-        # create a liked_recipe array in the user's account
+        # create a new liked_recipe array in the user's account
         else:
             mongo.db.users.update_one({"username": session["user"]},
                                       {"$set":
@@ -590,8 +631,10 @@ def like_recipe():
                                            {"liked_recipes": like_recipe}})
 
             else:
+                # set recipe likes value to 1
                 mongo.db.recipes.update_one({"_id": ObjectId(like_recipe)},
                                             {"$set": {"likes": 1}})
+                # add recipe id to users liked recipes list
                 mongo.db.users.update_one({"username": session["user"]},
                                           {"$push":
                                           {"liked_recipes": like_recipe}})
@@ -636,20 +679,24 @@ def manage_recipes():
                 countries = json.load(json_data)
             recipes = mongo.db.recipes.find()
             categories = mongo.db.categories.find()
+            # identify all recipes marked as favourites
             user_favourites = mongo.db.users.find_one(
                 {"username": session['user']})['favourites']
+            # identify all recipes previously liked
             user_likes = mongo.db.users.find_one(
                 {"username": session['user']})['liked_recipes']
             return render_template("manage_recipes.html",
-                                recipes=recipes, countries=countries,
-                                categories=categories, user_likes=user_likes,
-                                user_favourites=user_favourites)
+                                   recipes=recipes, countries=countries,
+                                   categories=categories,
+                                   user_likes=user_likes,
+                                   user_favourites=user_favourites)
         else:
             return ('', 204)
     else:
         return redirect(url_for('sign_in'))
 
 
+# Catch 404 error and render page providing link to home page
 @app.errorhandler(404)
 def page_not_found(e):
     # note that we set the 404 status explicitly

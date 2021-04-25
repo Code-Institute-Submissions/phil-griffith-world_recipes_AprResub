@@ -10,13 +10,18 @@
                     <div class="card-content">
                         <span class="card-title">{{ category.category_name }}</span>
                     </div>
+
+                    <!-- Edit/delete category buttons -->
                     <div class="card-action">
                         <a href="{{ url_for('edit_category', category_id=category._id) }}" class="btn-small submit-buttons">Edit</a>
                         <a href="#delete_category{{ loop.index }}" class="btn-small red modal-trigger">Delete</a>
                     </div>
+                    <!-- /Edit/delete category buttons -->
+
                 </div>
             </div>
-             <!-- delete recipe modal structure -->
+
+            <!-- Delete category modal -->
             <div id="delete_category{{ loop.index }}" class="modal modal-small">
                 <div class="modal-content">
                     <p>Are you sure you want to delete this category?</p>
@@ -24,11 +29,15 @@
                 <div class="modal-footer">
                     <div class="center-align">
                         <a href="{{ url_for('delete_category', category_id=category._id) }}" class="modal-close waves-effect waves-green btn-small submit-buttons">Yes</a>
-                        <a href="#!" class="modal-close waves-effect waves-green btn-small red">No</a>                    
+                        <a href="#!" class="modal-close waves-effect waves-green btn-small red">No</a>
                     </div>
                 </div>
             </div>
+            <!-- /Delete category modal -->
+
         {% endfor %}
+
+        <!-- Add category button -->
         <div class="col s12 m3">
             <div class="card">
                 <div class="card-content">
@@ -36,6 +45,8 @@
                 </div>
             </div>
         </div>
+        <!-- /Add category button -->
+
     </div>
 
 {% endblock %}

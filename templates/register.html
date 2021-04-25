@@ -2,53 +2,62 @@
 {% block content %}
 
     <h3 class="center-align">Register</h3>
-    
+
     <div class="row">
-        
-            <div class="col s12 m8 card-panel register z-depth-5 offset-m2">
-                <form method="POST" action="{{ url_for('register') }}">
-                <!-- username -->
+        <div class="col s12 m8 card-panel register z-depth-5 offset-m2">
+
+            <!-- Registration form -->
+            <form method="POST" action="{{ url_for('register') }}">
+
+                <!-- Username field -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">account_circle</i>
-                        <input id="username" name="username" type="text" class="validate" pattern="^[a-zA-Z0-9]{5,15}$" required>
+                        <input id="username" name="username" type="text" class="validate" pattern="^[a-zA-Z0-9]{5,15}$" required="required">
                         <span class="form-rules">(Must be between 5 & 15 characters & only contain letters or numbers)</span>
                         <label for="username">Username</label>
                     </div>
                 </div>
-                <!-- password -->
+                <!-- /Username field -->
+
+                <!-- Password field -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
-                        <!-- enforce pattern match - at least 1 captial letter, 1 lower case letter and 1 number
-                        https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a -->
-                        <input id="password" name="password" type="password" class="validate" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" required>
+                        <!-- enforce pattern match - at least 1 captial letter, 1 lower case letter and 1 number https://stackoverflow.com/questions/19605150/regex-for-password-must-contain-at-least-eight-characters-at-least-one-number-a -->
+                        <input id="password" name="password" type="password" class="validate" pattern="^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$" required="required">
                         <span class="form-rules">(Must contain at least 8 characters, 1 uppercase letter, 1 lowercase letter & 1 number)</span>
                         <label for="password">Password</label>
                     </div>
                 </div>
-                <!-- confirm password -->
+                <!-- /Password field -->
+
+                <!-- Confirm password field -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">lock</i>
-                        <input id="confirm_password" name="confirm_password" type="password" class="validate" required>
+                        <input id="confirm_password" name="confirm_password" type="password" class="validate" required="required">
                         <label for="confirm_password">Confirm Password</label>
                     </div>
                 </div>
-                <!-- email -->
+                <!-- /Confirm password field -->
+
+                <!-- Email field -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">email</i>
-                        <input id="email" name="email" type="email" class="validate" required>
+                        <input id="email" name="email" type="email" class="validate" required="required">
                         <label for="email">Email</label>
                     </div>
                 </div>
-                <!-- country -->
+                <!-- /Email field -->
+
+                <!-- Home country field -->
                 <div class="row">
                     <div class="input-field col s12">
                         <i class="material-icons prefix">flag</i>
                         <select id="country" name="country">
-                            <option value="" disabled selected>Select Country</option>
+                            <option value="" disabled="disabled" selected="selected">Select Country</option>
                             {% for country in countries %}
                                 <option value="{{ country.name }}">{{ country.name }}</option>
                             {% endfor %}
@@ -56,21 +65,32 @@
                         <label>Country of Residence</label>
                     </div>
                 </div>
-                <!-- register -->
+                <!-- /Home country field -->
+
+                <!-- Register button -->
                 <div class="row">
                     <div class="col s12 center-align">
-                        <button type="submit" class="col s12 btn-large text-shadow" required>
-                            Register <i class="fas fa-sign-in-alt"></i>
+                        <button type="submit" class="col s12 btn-large text-shadow" required="required">
+                            Register
+                            <i class="fas fa-sign-in-alt"></i>
                         </button>
                     </div>
                 </div>
+                <!-- /Register button -->
+
+                <!-- Link for Sign in page -->
                 <div class="row">
                     <div class="center-align">
-                        <span id="signin">Already have an account? <a href="{{ url_for('sign_in') }}">Sign In</a></span>
+                        <span id="signin">Already have an account?
+                            <a href="{{ url_for('sign_in') }}">Sign In</a>
+                        </span>
                     </div>
                 </div>
-                </form>
-            </div>       
-    </div>
+                <!-- /Link for Sign in page -->
 
+            </form>
+            <!-- /Registration form -->
+
+        </div>
+    </div>
 {% endblock %}
