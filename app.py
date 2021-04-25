@@ -435,13 +435,20 @@ def edit_recipe(recipe_id):
             return redirect(url_for("my_recipes"))
 
     recipe = mongo.db.recipes.find_one({"_id": ObjectId(recipe_id)})
-    countries = []
-    with open("data/countries.json", "r") as json_data:
-        countries = json.load(json_data)
-    categories = mongo.db.categories.find().sort("category_name", 1)
-    return render_template(
-        "edit_recipe.html", countries=countries,
-        recipe=recipe, categories=categories, manage_recipes=manage_recipes)
+    # Check if logged in user created recipe before loading edit recipe page
+    user = recipe['added_by']
+    if session['user'] == user:
+        countries = []
+        with open("data/countries.json", "r") as json_data:
+            countries = json.load(json_data)
+        categories = mongo.db.categories.find().sort("category_name", 1)
+        return render_template(
+            "edit_recipe.html", countries=countries,
+            recipe=recipe, categories=categories,
+            manage_recipes=manage_recipes)
+    else:
+        # If user did not create the recipe, do nothing / reload page
+        return ('', 204)
 
 
 @app.route("/delete_recipe/<recipe_id>/<manage_recipes>")
@@ -499,7 +506,6 @@ def add_category():
         }
         mongo.db.categories.insert_one(category)
         return redirect(url_for("get_categories"))
-
     return render_template("add_category.html")
 
 

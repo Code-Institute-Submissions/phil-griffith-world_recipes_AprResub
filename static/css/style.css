@@ -411,7 +411,8 @@ edit-category label {
 .error-404 {
 	font-family: 'Comfortaa', cursive;
 	font-style: italic;
-	margin-top: 20%;
+	margin: 15%;
+	
 }
 
 .error-404 a {
@@ -458,4 +459,23 @@ edit-category label {
 	#recipe_method {
 		margin-top: 20px;
 	}
+	.error-404 {
+		font-family: 'Comfortaa', cursive;
+		font-style: italic;
+		margin: 5%;
+	}
+}
+
+@media only screen and (max-width: 300px) {
+	.error-404 {
+		font-family: 'Comfortaa', cursive;
+		font-style: italic;
+		margin: 0;
+	}
+
+	a.brand-logo {
+		font-size: 18px;
+	}
+
+
 }
