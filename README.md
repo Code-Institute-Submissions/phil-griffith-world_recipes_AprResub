@@ -271,6 +271,15 @@ For the majority of colours the below colour panel was used to represent differe
 
 ![](documents/images/reg_pass.png)
 
+&nbsp;
+
+**Error 404**
+
+If a user tries to append an invalid html page to the site URL, or a 404 error is returned for some other reason, the below page will load providing a link to the Home page.
+
+![](documents/images/error404.png)
+
+&nbsp;
 
 <a name="technologies"></a>
 ## Technologies, libraries and tools used ##
@@ -328,35 +337,6 @@ In addition to the tests that were completed in the testing document, all code h
 * [W3C HTML Validator](https://validator.w3.org/) (all pages passed validator)
 * [W3C CSS Validator](https://jigsaw.w3.org/css-validator/) (css file passed validator)
 
-#### User Story verification ####
-
-Does this site provide the following user features?
-
-* To be able to view recipes without having to create an account
-    * Yes
-* To be able to see popular recipes that other users have liked
-    * Yes
-* To have the option of saving favourite recipes
-    * Yes
-* To have the option to remove favourite recipes
-    * Yes
-* To have the option to share recipes
-    * Yes
-* To have the option to edit shared recipes
-    * Yes
-* To be able to change my password
-    * Yes
-
-As admin user:
-
-* To be able to Edit search categories
-    * Yes
-* To be able to Edit all recipes
-    * Yes
-
-
-
-
 
 ## Deployment ##
 ---
@@ -390,11 +370,24 @@ As admin user:
 - Create a requirements.txt file using the command **pip3 freeze --local > requirements.txt** in your CLI.
 - Create a Procfile (always with an uppercase P) through the command **echo web: python app.py > Procfile**. Commit and Push.
 - Create an account on [**Heroku**](https://www.heroku.com/home).
-- Create a new app with **unique name**.
-- Select your **nearest region**.
-- Create a **new python project** within the project.
-- Link that project through your **Github repository** in the **deployment** section.
+- Create a new app (select nearest region).
+
+    ![](documents/images/Heroku_new_app.png)
+
+    ![](documents/images/Heroku_new_app2.png)
+
+- Link app to your **Github repository** in the **deployment** section.
+
+     ![](documents/images/Heroku_new_app3.png)
+
 - Navigate to Haroku Settings and set up the following in **Config Vars**
+    
+    * IP
+    * MONGO_DBNAME
+    * MONGO_URI
+    * PORT
+    * SECRET_KEY
+    * KEY
 
 
 
@@ -402,10 +395,18 @@ As admin user:
 
 * Go back to the Deploy section, select the master branch and deploy the project. 
 
+    ![](documents/images/Heroku_new_app4.png)
+
 
 <a name="credits"></a>
 ## Credits ##
 ---
+
+* CODE
+    * The code and design for the Sign in, Registration and Recipe forms is largely based on the Code Institute Mini Project (Boutique Ado)
+    * Some of the logic for User Recipe likes and favourites was taken from [jinja.palletsprojects.com](https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments)
+    * CSS for the responsive text ellipsis effects for recipe cards was taken from [stackoverflow.com](https://stackoverflow.com/questions/33058004/applying-an-ellipsis-to-multiline-text)
+
 
 * Recipes
     * https://www.bbcgoodfood.com/recipes/sausages-winter-veg-mash

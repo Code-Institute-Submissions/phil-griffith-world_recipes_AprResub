@@ -640,8 +640,27 @@ The following tests have been completed during the development of this site.
 
             ![](images/man_r2.png)
 
+&nbsp;
+
 ### Security Features Testing ###
 ---
+
+* Try to access Add Recipe page without registering or signing in, by adding add_recipe to the site url
+    * Expect: To be redirected to the Sign in Page
+* Try to access Manage Recipes page without registering or signing in, by adding manage_recipes to the site url
+    * Expect: To be redirected to the Sign in Page
+* Try to access Manage Search Categories page without registering or signing in, by adding get_categories to the site url
+    * Expect: To be redirected to the Sign in Page
+* After signing in as a standard user, try to access the sign in page by adding sign_in to the URL
+    * Expect: The current page to reload and the url to revert back to what was previously displayed.
+* After signing in as a standard user, try to access the Registration page by adding register to the URL
+    * Expect: The current page to reload and the url to revert back to what was previously displayed.
+* After signing in as a standard user, try to access the Manage Recipes page by adding manage_recipes to the URL
+    * Expect: The current page to reload and the url to revert back to what was previously displayed.
+* After signing in as a standard user, try to access the Manage Search Categories page by adding get_categories to the URL
+    * Expect: The current page to reload and the url to revert back to what was previously displayed.
+* After signing in as a standard user, try to edit another user's recipe by adding edit_recipe/ + the recipe ID to the URL
+    * Expect: The current page to reload and the url to revert back to what was previously displayed.
 
 
 
