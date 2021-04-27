@@ -129,6 +129,7 @@ button,
 
 #home_page .card-title {
 	font-family: 'Courgette', cursive;
+	margin: 10px;
 }
 
 #home_page .container {

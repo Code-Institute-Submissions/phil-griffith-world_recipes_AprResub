@@ -367,7 +367,7 @@ As admin user:
 * Copy/Paste the address of [World Recipes](https://github.com/phil-griffith/world_recipes) in your search box.
 * When on the page, click on the "Code" button.
 * Copy the the [HTTPS Link](https://github.com/phil-griffith/world_recipes).
-* Open your IDE and in your terminal, create a virtual environement supporting python and flask and activate it.
+* Open your IDE and in your terminal, create a virtual environment supporting python and flask and activate it.
 * Type "git clone" and paste the [HTTPS Link](https://github.com/phil-griffith/world_recipes).
 * Create an environement file called "env.py" and add :
     - MONGO_URI=mongodb+srv://...

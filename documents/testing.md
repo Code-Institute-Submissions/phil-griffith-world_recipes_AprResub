@@ -449,15 +449,15 @@ The following tests have been completed during the development of this site.
 * Click Cancel
     * Expect Previous page to load (Manage Recipes or My Recipes)
 * Click Submit
-    * Expect Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+    * Expect Previous page to load (Manage Recipes or My Recipes) and flash message saying "Recipe Successfully Updated"
 * EDIT Recipe Name and Click Submit
-    * Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+    * Previous page to load (Manage Recipes or My Recipes) and flash message saying "Recipe Successfully Updated"
 * EDIT Recipe image URL and Click Submit
-    * Expect: Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+    * Expect: Previous page to load (Manage Recipes or My Recipes) and flash message saying "Recipe Successfully Updated"
 * EDIT Category and Click Submit
-    * Expect: Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+    * Expect: Previous page to load (Manage Recipes or My Recipes) and flash message saying "Recipe Successfully Updated"
 * EDIT description and Click Submit
-    * Expect: Previous page to load (Manage Recipes or My Recipes) and flah message saying "Recipe Successfully Updated"
+    * Expect: Previous page to load (Manage Recipes or My Recipes) and flash message saying "Recipe Successfully Updated"
 * Click vegetarian toggle
     * Expect toggle to change from green to grey or grey to green and slide to the right or left
 * EDIT Country and Click Submit
@@ -536,4 +536,116 @@ The following tests have been completed during the development of this site.
             * Expect: modal to close
         * Click Yes
             * Expect: Category to disappear
-        
+
+
+### User Story Testing ###
+---
+* <strong>To be able to view recipes without having to create an account</strong>
+  * Click Recipes button on navbar whilst signed out
+![](images/us-recipes.png)
+![](images/us-recipes1.png)
+
+    * Expect Recipes page to load
+
+    ![](images/us-recipes2.png)
+    &nbsp;
+* <strong>To be able to see popular recipes that other users have liked</strong>
+  * Identify 4 recipes with the highest amount of likes from the recipes page, and then click on the home page.
+    * Expect the 4 recipes with the highest number of likes to appear on the Home screen Popular recipes section
+    ![](images/pop_recipes.png)
+    &nbsp;
+* <strong>To have the option of saving favourite recipes</strong>
+  * After creating an account and signing in, choose a recipe and click the heart icon
+    * Expect heart icon to turn red, recipe to appear in My Account > Favourite recipes and for favourite recipes to be saved after signing out.
+
+    ![](images/fav1.png)
+    ![](images/fav2.png)
+    ![](images/fav3.png)
+    ![](images/fav4.png)
+&nbsp;
+* <strong>To have the option to remove favourite recipes</strong>
+  * From Favourite recipes click on the red minus icon in the bottom right corner of the recipe to be removed.
+
+    ![](images/fav_rem1.png)
+
+  
+    * Expect modal asking for confirmation
+
+    ![](images/fav_rem3.png)
+
+    * click Yes
+        * Expect recipe to disappear, icon to go back to green on recipes page and flash message to display Recipe successfully Removed.
+
+        ![](images/fav_rem2.png)        
+        ![](images/fav_rem4.png)
+
+    * click No
+        * Expect modal to disappear
+
+* <strong>To have the option to share recipes</strong>
+  * After creating an account and signing in, click on the Add Recipe link on the Nav bar.
+
+    ![](images/add1.png)
+    * Expect Add recipe page to load
+
+        ![](images/add3.png)
+
+  * After creating an account and signing in, click on the Share Recipe button on the home page.
+
+    ![](images/add2.png)
+    * Expect Add recipe page to load
+
+        ![](images/add3.png)
+
+  * Complete Add recipe form and click submit
+    * Expect recipe to appear on Recipe page
+
+* <strong>To have the option to edit shared recipes</strong>
+    * Sign in, Navigate to My Account > My Recipes and click Edit on Recipe to be edited.
+
+        ![](images/edit1.png)
+        * Expect Edit Recipe form to load, with pre-populated recipe information.
+
+            ![](images/edit2.png)
+            * click Confirm changes
+
+                ![](images/edit3.png)
+                * Expect recipe details to be updated
+
+            * click Cancel
+                * Expect any changes to be reverted back to original
+
+* <strong>To be able to change my password</strong>
+    * After creating an account and signing in Navigate to My Account > Change Password.
+
+        ![](images/pass1.png)
+        * Expect Change password screen to appear
+
+            ![](images/pass2.png)
+
+* <strong>As Admin - To be able to Edit search categories.</strong>
+    * Sign in as admin user and click Manage Search Categories on the Nav bar.
+
+        ![](images/cat1.png)
+
+        * Expect Manage Search Categories page to load
+
+        ![](images/cat2.png)
+
+* <strong>As Admin - To be able to Edit all recipes</strong>
+    * Sign in as admin user and click Manage Recipes on the Nav bar.
+
+        ![](images/man_r1.png)        
+        * Expect Edit and Delete buttons to be visible for all recipes
+
+            ![](images/man_r2.png)
+
+### Security Features Testing ###
+---
+
+
+
+
+
+
+
