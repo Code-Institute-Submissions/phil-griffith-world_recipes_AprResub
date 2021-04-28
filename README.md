@@ -403,7 +403,7 @@ In addition to the tests that were completed in the testing document, all code h
 ---
 
 * CODE
-    * The code and design for the Sign in, Registration and Recipe forms is largely based on the Code Institute Mini Project (Boutique Ado)
+    * The code and design for the Sign in, Registration and Recipe forms is largely based on the Code Institute Mini Project (Task Manager)
     * Some of the logic for User Recipe likes and favourites was taken from [jinja.palletsprojects.com](https://jinja.palletsprojects.com/en/2.10.x/templates/#assignments)
     * CSS for the responsive text ellipsis effects for recipe cards was taken from [stackoverflow.com](https://stackoverflow.com/questions/33058004/applying-an-ellipsis-to-multiline-text)
 
